@@ -1,28 +1,35 @@
-import re
+# coding=utf-8
+
+# Test case to run requests and and calculate the userscript context dependent
+# on the activation record.
+#
+# When a homepage of a space is accessed via GET the activation record will
+# activate a number of userscripts. These scripts simply write to the client
+# console.
+#
+# The test case is based on
+# https://github.com/atlassian/dc-app-performance-toolkit/blob/master/docs/dc-apps-performance-toolkit-user-guide-confluence.md
+
 from locustio.common_utils import init_logger, confluence_measure
 
 logger = init_logger(app_type='confluence')
 
+USER_SPACE_KEY = "USR1"
+USER_SPACE_HOMEPAGE = "Userspace 1"
+
 
 @confluence_measure
 def app_specific_action(locust):
-    r = locust.get('/app/get_endpoint', catch_response=True)  # call app-specific GET endpoint
-    content = r.content.decode('utf-8')   # decode response content
+    """
+    Simply calls the homepage of a user space to activate a number of
+    userscripts.
+    """
+    response = locust.get(
+        '/confluence/display/{}/{}'.format(USER_SPACE_KEY, USER_SPACE_HOMEPAGE),
+        catch_response=True)
+    content = response.content.decode('utf-8')
 
-    token_pattern_example = '"token":"(.+?)"'
-    id_pattern_example = '"id":"(.+?)"'
-    token = re.findall(token_pattern_example, content)  # get TOKEN from response using regexp
-    id = re.findall(id_pattern_example, content)    # get ID from response using regexp
-
-    logger.locust_info(f'token: {token}, id: {id}')  # log information for debug when verbose is true in jira.yml file
-    if 'assertion string' not in content:
-        logger.error(f"'assertion string' was not found in {content}")
-    assert 'assertion string' in content  # assert specific string in response content
-
-    body = {"id": id, "token": token}  # include parsed variables to POST request body
-    headers = {'content-type': 'application/json'}
-    r = locust.post('/app/post_endpoint', body, headers, catch_response=True)  # call app-specific POST endpoint
-    content = r.content.decode('utf-8')
-    if 'assertion string after successful POST request' not in content:
-        logger.error(f"'assertion string after successful POST request' was not found in {content}")
-    assert 'assertion string after successful POST request' in content  # assertion after POST request
+    assertion_string = 'Userspace 1'
+    if assertion_string not in content:
+        logger.error(f"'{assertion_string}' was not found in {content}")
+    assert assertion_string in content
