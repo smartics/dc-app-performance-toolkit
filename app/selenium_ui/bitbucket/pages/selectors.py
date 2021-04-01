@@ -84,6 +84,7 @@ class PopupLocators:
     default_popup = '.feature-discovery-close'
     popup_1 = '.css-1it7f5o'
     popup_2 = 'button.aui-button-link.feature-discovery-close'
+    popup_3 = '.css-15p34h1'
 
 
 class LoginPageLocators:
@@ -104,9 +105,7 @@ class LogoutPageLocators:
 class GetStartedLocators:
     get_started_params = UrlManager().get_started_params
     get_started_url = UrlManager().get_started_url()
-
-    bitbucket_is_ready_widget = {'6': (By.CLASS_NAME, "marketing-page-footer"),
-                                 '7': (By.CLASS_NAME, "marketing-page-footer")}
+    user_profile_icon = {'6': (By.ID, 'current-user'), '7': (By.ID, 'current-user')}
 
 
 class DashboardLocators:
