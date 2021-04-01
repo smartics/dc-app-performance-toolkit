@@ -12,11 +12,12 @@ logger = init_logger(app_type='jira')
 jira_dataset = jira_datasets()
 
 
-@jira_measure
+@jira_measure('locust_login_and_view_dashboard')
 def login_and_view_dashboard(locust):
     session_id = str(uuid.uuid4())
     locust.cross_action_storage[session_id] = dict()
     locust.session_data_storage = locust.cross_action_storage[session_id]
+    locust.session_data_storage['app'] = 'jira'
 
     params = Login()
 
@@ -56,12 +57,13 @@ def login_and_view_dashboard(locust):
         logger.error(f'User {user[0]} authentication failed: {content}')
     assert f'title="loggedInUser" value="{user[0]}">' in content, 'User authentication failed'
 
-    locust.session_data_storage["username"] = user[0]
+    locust.session_data_storage['username'] = user[0]
+    locust.session_data_storage['password'] = user[1]
     locust.session_data_storage["token"] = token
     logger.locust_info(f"{params.action_name}: User {user[0]} logged in with atl_token: {token}")
 
 
-@jira_measure
+@jira_measure('locust_view_issue')
 def view_issue(locust):
     raise_if_login_failed(locust)
     params = BrowseIssue()
@@ -93,7 +95,7 @@ def create_issue(locust):
     project = random.choice(jira_dataset['projects'])
     project_id = project[1]
 
-    @jira_measure
+    @jira_measure('locust_create_issue:open_quick_create')
     def create_issue_open_quick_create():
         raise_if_login_failed(locust)
         r = locust.post('/secure/QuickCreateIssue!default.jspa?decorator=none',
@@ -123,7 +125,7 @@ def create_issue(locust):
         locust.session_data_storage['issue_body_params_dict'] = issue_body_params_dict
     create_issue_open_quick_create()
 
-    @jira_measure
+    @jira_measure('locust_create_issue:fill_and_submit_issue_form')
     def create_issue_submit_form():
         raise_if_login_failed(locust)
         issue_body = params.prepare_issue_body(locust.session_data_storage['issue_body_params_dict'],
@@ -140,7 +142,7 @@ def create_issue(locust):
     create_issue_submit_form()
 
 
-@jira_measure
+@jira_measure('locust_search_jql')
 def search_jql(locust):
     raise_if_login_failed(locust)
     params = SearchJql()
@@ -194,7 +196,7 @@ def search_jql(locust):
                        f'decorator=none&issueId={issue_id}&_={timestamp_int()}', catch_response=True)
 
 
-@jira_measure
+@jira_measure('locust_view_project_summary')
 def view_project_summary(locust):
     raise_if_login_failed(locust)
     params = ViewProjectSummary()
@@ -245,7 +247,7 @@ def edit_issue(locust):
     issue_key = issue[0]
     project_key = issue[2]
 
-    @jira_measure
+    @jira_measure('locust_edit_issue:open_editor')
     def edit_issue_open_editor():
         raise_if_login_failed(locust)
         r = locust.get(f'/secure/EditIssue!default.jspa?id={issue_id}', catch_response=True)
@@ -281,7 +283,7 @@ def edit_issue(locust):
         locust.session_data_storage['atl_token'] = atl_token
     edit_issue_open_editor()
 
-    @jira_measure
+    @jira_measure('locust_edit_issue:save_edit')
     def edit_issue_save_edit():
         raise_if_login_failed(locust)
         r = locust.post(f'/secure/EditIssue.jspa?atl_token={locust.session_data_storage["atl_token"]}',
@@ -308,7 +310,7 @@ def edit_issue(locust):
     edit_issue_save_edit()
 
 
-@jira_measure
+@jira_measure('locust_view_dashboard')
 def view_dashboard(locust):
     raise_if_login_failed(locust)
     params = ViewDashboard()
@@ -346,7 +348,7 @@ def add_comment(locust):
     issue_key = issue[0]
     project_key = issue[2]
 
-    @jira_measure
+    @jira_measure('locust_add_comment:open_comment')
     def add_comment_open_comment():
         raise_if_login_failed(locust)
         r = locust.get(f'/secure/AddComment!default.jspa?id={issue_id}', catch_response=True)
@@ -369,7 +371,7 @@ def add_comment(locust):
         locust.session_data_storage['form_token'] = form_token
     add_comment_open_comment()
 
-    @jira_measure
+    @jira_measure('locust_add_comment:save_comment')
     def add_comment_save_comment():
         raise_if_login_failed(locust)
         r = locust.post(f'/secure/AddComment.jspa?atl_token={locust.session_data_storage["token"]}',
@@ -384,7 +386,7 @@ def add_comment(locust):
     add_comment_save_comment()
 
 
-@jira_measure
+@jira_measure('locust_browse_projects')
 def browse_projects(locust):
     raise_if_login_failed(locust)
     params = BrowseProjects()
@@ -404,28 +406,28 @@ def browse_projects(locust):
                 headers=RESOURCE_HEADERS, catch_response=True)
 
 
-@jira_measure
+@jira_measure('locust_view_kanban_board')
 def view_kanban_board(locust):
     raise_if_login_failed(locust)
     kanban_board_id = random.choice(jira_dataset["kanban_boards"])[0]
     view_board(locust, kanban_board_id)
 
 
-@jira_measure
+@jira_measure('locust_view_scrum_board')
 def view_scrum_board(locust):
     raise_if_login_failed(locust)
     scrum_board_id = random.choice(jira_dataset["scrum_boards"])[0]
     view_board(locust, scrum_board_id)
 
 
-@jira_measure
+@jira_measure('locust_view_backlog')
 def view_backlog(locust):
     raise_if_login_failed(locust)
     scrum_board_id = random.choice(jira_dataset["scrum_boards"])[0]
     view_board(locust, scrum_board_id, view_backlog=True)
 
 
-@jira_measure
+@jira_measure('locust_browse_boards')
 def browse_boards(locust):
     raise_if_login_failed(locust)
     params = BrowseBoards()
