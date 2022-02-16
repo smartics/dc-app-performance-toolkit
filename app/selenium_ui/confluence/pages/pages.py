@@ -1,4 +1,3 @@
-
 from selenium_ui.base_page import BasePage
 
 from selenium_ui.confluence.pages.selectors import UrlManager, LoginPageLocators, AllUpdatesLocators, PopupLocators,\
@@ -33,6 +32,17 @@ class Login(BasePage):
         if self.get_element(LoginPageLocators.current_step_sel).text == 'Find content':
             self.wait_until_any_element_visible(LoginPageLocators.skip_find_content)[0].click()
             self.wait_until_clickable(LoginPageLocators.finish_setup).click()
+
+    def get_app_version(self):
+        text = self.get_element(LoginPageLocators.footer_build_info).text
+        return text
+
+    def get_node_id(self):
+        if self.get_elements(LoginPageLocators.footer_node_info):
+            text = self.get_element(LoginPageLocators.footer_node_info).text
+            return text.split(':')[-1].replace(')', '').replace(' ', '')
+        else:
+            return "SERVER"
 
 
 class Logout(BasePage):
@@ -115,8 +125,9 @@ class Editor(BasePage):
         self.get_element(EditorLocators.publish_button).click()
 
     def wait_for_editor_open(self):
-        self.wait_until_any_ec_text_presented_in_el(selector_names=[(EditorLocators.status_indicator, 'Ready to go'),
-                                                                    (EditorLocators.status_indicator, 'Changes saved')])
+        self.wait_until_any_ec_text_presented_in_el(
+            selector_text_list=[(EditorLocators.status_indicator, 'Ready to go'),
+                                (EditorLocators.status_indicator, 'Changes saved')])
 
     def save_edited_page(self):
         self.get_element(EditorLocators.publish_button).click()
@@ -124,5 +135,5 @@ class Editor(BasePage):
             if self.get_element(EditorLocators.confirm_publishing_button).is_displayed():
                 self.get_element(EditorLocators.confirm_publishing_button).click()
         self.wait_until_invisible(EditorLocators.save_spinner)
-        self.wait_until_any_ec_presented(selector_names=[PageLocators.page_title,
-                                                         EditorLocators.confirm_publishing_button])
+        self.wait_until_any_ec_presented(selectors=[PageLocators.page_title,
+                                                    EditorLocators.confirm_publishing_button])
