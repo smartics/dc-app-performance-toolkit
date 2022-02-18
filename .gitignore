@@ -10,3 +10,7 @@ outputs/
 *.pyc
 local_*.yml
 **jmeter.properties
+chrome/
+chromedriver-90/
+chromedriver-97/
+chromedriver-99/
