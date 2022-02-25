@@ -7,6 +7,7 @@ from util.conf import CONFLUENCE_SETTINGS
 TC_TITLE_DISPLAY_TABLE = "Test Case Display Table"
 TC_TITLE_TRANSCLUDE_DOCUMENTS = "Test Case Transclude from Documents"
 
+
 def app_specific_action(webdriver, datasets):
     page = BasePage(webdriver)
     if datasets['custom_pages']:
@@ -46,11 +47,13 @@ def app_specific_action(webdriver, datasets):
                 (By.ID, "title-text"))  # Wait for title field visible
 
             title = page.get_element((By.ID, "title-text")).text
-            if (TC_TITLE_DISPLAY_TABLE.equals(title)):
+            if (TC_TITLE_DISPLAY_TABLE == title):
                 # page.wait_until_visible((By.ID, "projectdoc-success"))
                 i = 1
-            elif(TC_TITLE_TRANSCLUDE_DOCUMENTS.equals(title)):
+            elif (TC_TITLE_TRANSCLUDE_DOCUMENTS == title):
                 # page.wait_until_visible((By.ID, "projectdoc-success"))
                 i = 2
+
         sub_measure()
+
     measure()
