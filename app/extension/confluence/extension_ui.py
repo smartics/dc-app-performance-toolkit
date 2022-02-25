@@ -22,7 +22,7 @@ def app_specific_action(webdriver, datasets):
             page.wait_until_visible(
                 (By.ID, "title-text"))  # Wait for title field visible
 
-            title = page.get_element((By.ID, "title-text")).text()
+            title = page.get_element((By.ID, "title-text")).text
             if (TC_TITLE_DISPLAY_TABLE.equals(title)):
                 # page.wait_until_visible((By.ID, "projectdoc-success"))
                 i = 1
