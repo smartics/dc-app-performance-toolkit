@@ -13,6 +13,12 @@ def app_specific_action(webdriver, datasets):
     if datasets['custom_pages']:
         app_specific_page_id = datasets['custom_page_id']
 
+    mykeys=','.join(str(e) for e in datasets['custom_pages'])
+    print(f"Custom page  {datasets['custom_page_id']} form spacekey {mykeys}")
+
+    print("XXXXXXX")
+
+
     # To run action as specific user uncomment code bellow.
     # NOTE: If app_specific_action is running as specific user, make sure that app_specific_action is running
     # just before test_2_selenium_z_log_out
@@ -38,7 +44,7 @@ def app_specific_action(webdriver, datasets):
         @print_timing("selenium_app_custom_action:view_page")
         def sub_measure():
             page.go_to_url(f"{CONFLUENCE_SETTINGS.server_url}/pages/viewpage.action?pageId={app_specific_page_id}")
-            page.wait_until_visible((By.ID, "title-text"))  # Wait for title field visible
-            page.wait_until_visible((By.ID, "ID_OF_YOUR_APP_SPECIFIC_UI_ELEMENT"))  # Wait for you app-specific UI element by ID selector
+            #page.wait_until_visible((By.ID, "title-text"))  # Wait for title field visible
+            #page.wait_until_visible((By.ID, "ID_OF_YOUR_APP_SPECIFIC_UI_ELEMENT"))  # Wait for you app-specific UI element by ID selector
         sub_measure()
     measure()
