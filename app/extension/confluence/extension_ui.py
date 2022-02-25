@@ -1,12 +1,11 @@
-import random
-
 from selenium.webdriver.common.by import By
 
 from selenium_ui.base_page import BasePage
 from selenium_ui.conftest import print_timing
-from selenium_ui.confluence.pages.pages import Login, AllUpdates
 from util.conf import CONFLUENCE_SETTINGS
 
+TC_TITLE_DISPLAY_TABLE = "Test Case Display Table"
+TC_TITLE_TRANSCLUDE_DOCUMENTS = "Test Case Transclude from Documents"
 
 def app_specific_action(webdriver, datasets):
     page = BasePage(webdriver)
@@ -15,7 +14,6 @@ def app_specific_action(webdriver, datasets):
 
     mykeys=','.join(str(e) for e in datasets['custom_pages'])
     print(f"Custom page  {datasets['custom_page_id']} form spacekey {mykeys}")
-
     print("XXXXXXX")
 
 
@@ -44,7 +42,15 @@ def app_specific_action(webdriver, datasets):
         @print_timing("selenium_app_custom_action:view_page")
         def sub_measure():
             page.go_to_url(f"{CONFLUENCE_SETTINGS.server_url}/pages/viewpage.action?pageId={app_specific_page_id}")
-            #page.wait_until_visible((By.ID, "title-text"))  # Wait for title field visible
-            #page.wait_until_visible((By.ID, "ID_OF_YOUR_APP_SPECIFIC_UI_ELEMENT"))  # Wait for you app-specific UI element by ID selector
+            page.wait_until_visible(
+                (By.ID, "title-text"))  # Wait for title field visible
+
+            title = page.get_element((By.ID, "title-text")).text
+            if (TC_TITLE_DISPLAY_TABLE.equals(title)):
+                # page.wait_until_visible((By.ID, "projectdoc-success"))
+                i = 1
+            elif(TC_TITLE_TRANSCLUDE_DOCUMENTS.equals(title)):
+                # page.wait_until_visible((By.ID, "projectdoc-success"))
+                i = 2
         sub_measure()
     measure()
