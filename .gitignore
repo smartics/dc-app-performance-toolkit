@@ -13,4 +13,5 @@ local_*.yml
 chrome/
 chromedriver-90/
 chromedriver-97/
+chromedriver-98/
 chromedriver-99/
