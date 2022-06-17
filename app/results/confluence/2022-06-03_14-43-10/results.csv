@@ -1,0 +1,22 @@
+Label,# Samples,Average,Median,90% Line,95% Line,99% Line,Min,Max,Error %,App specific
+jmeter_login_and_view_dashboard,200,715,702,775,816,885,640,948,0.0,False
+jmeter_view_page:open_page,7064,307,293,365,405,493,236,801,0.0,False
+jmeter_view_dashboard,1220,667,656,729,774,856,583,959,0.0,False
+jmeter_comment_page,913,113,109,124,130,243,95,345,0.0,False
+jmeter_view_attachment,614,232,223,272,290,370,187,457,0.0,False
+jmeter_view_blog,1524,368,354,484,518,570,262,745,0.0,False
+jmeter_create_and_edit_page:create_page_editor,1061,209,204,223,236,361,181,429,0.0,False
+jmeter_search_cql:recently_viewed,1365,30,29,36,38,46,14,188,0.0,False
+jmeter_create_and_edit_page:create_page,1056,409,399,438,473,599,358,862,0.0,False
+jmeter_create_and_edit_page:open_editor,1056,91,88,102,108,143,77,329,0.0,False
+jmeter_search_cql:search_results,1365,327,318,369,401,502,204,617,0.0,False
+jmeter_create_blog:blog_editor,451,222,216,233,241,383,196,511,0.0,False
+jmeter_create_blog:feel_and_publish,451,439,431,462,484,632,401,768,0.0,False
+jmeter_create_and_edit_page:edit_page,1039,448,437,486,532,621,393,695,0.0,False
+jmeter_upload_attachment,741,414,380,524,577,708,322,932,0.0,False
+jmeter_like_page,296,38,30,52,53,91,26,209,0.0,False
+selenium_login:open_login_page,1215,135,122,173,179,221,111,968,0.0,False
+selenium_login:login_and_view_dashboard,1215,373,367,450,466,493,260,683,0.0,False
+selenium_login,1215,587,583,668,690,743,445,1592,0.0,False
+selenium_view_page,1215,382,352,486,529,602,254,890,0.0,False
+selenium_log_out,1215,147,137,190,202,234,112,344,0.0,False
