@@ -1,0 +1,690 @@
+06-20-2022, 13:53:45, 1655733225548, Action: test_1_selenium_custom_action, Error: confluence_webdriver = <selenium.webdriver.chrome.webdriver.WebDriver (session="07e0ef937f25429abae3d1b17091473f")>
+confluence_datasets = {'blog_id': '34994098', 'blogs': [['25982229', 'WCS'], ['25720224', 'NFVB'], ['25847101', 'PRCJA'], ['25954597', 'DPPN'], ['25963247', 'AMN'], ['25829541', 'ODBAR'], ...], 'custom_pages': [], 'page_id': '9766720', ...}
+confluence_screen_shots = None
+
+    def test_1_selenium_custom_action(confluence_webdriver, confluence_datasets, confluence_screen_shots):
+>        extension_ui.app_specific_action(confluence_webdriver, confluence_datasets)
+
+selenium_ui/confluence_ui.py:38: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+webdriver = <selenium.webdriver.chrome.webdriver.WebDriver (session="07e0ef937f25429abae3d1b17091473f")>
+datasets = {'blog_id': '34994098', 'blogs': [['25982229', 'WCS'], ['25720224', 'NFVB'], ['25847101', 'PRCJA'], ['25954597', 'DPPN'], ['25963247', 'AMN'], ['25829541', 'ODBAR'], ...], 'custom_pages': [], 'page_id': '9766720', ...}
+
+    def app_specific_action(webdriver, datasets):
+        page = BasePage(webdriver)
+        if datasets['custom_pages']:
+            app_specific_page_id = datasets['custom_page_id']
+    
+        mykeys=','.join(str(e) for e in datasets['custom_pages'])
+>       print(f"Custom page  {datasets['custom_page_id']} form spacekey {mykeys}")
+E       KeyError: 'custom_page_id'
+
+extension/confluence/extension_ui.py:17: KeyError
+06-20-2022, 13:53:47, 1655733227859, Action: test_1_selenium_custom_action, Error: confluence_webdriver = <selenium.webdriver.chrome.webdriver.WebDriver (session="07e0ef937f25429abae3d1b17091473f")>
+confluence_datasets = {'blog_id': '25852510', 'blogs': [['25982229', 'WCS'], ['25720224', 'NFVB'], ['25847101', 'PRCJA'], ['25954597', 'DPPN'], ['25963247', 'AMN'], ['25829541', 'ODBAR'], ...], 'custom_pages': [], 'page_id': '9389425', ...}
+confluence_screen_shots = None
+
+    def test_1_selenium_custom_action(confluence_webdriver, confluence_datasets, confluence_screen_shots):
+>        extension_ui.app_specific_action(confluence_webdriver, confluence_datasets)
+
+selenium_ui/confluence_ui.py:38: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+webdriver = <selenium.webdriver.chrome.webdriver.WebDriver (session="07e0ef937f25429abae3d1b17091473f")>
+datasets = {'blog_id': '25852510', 'blogs': [['25982229', 'WCS'], ['25720224', 'NFVB'], ['25847101', 'PRCJA'], ['25954597', 'DPPN'], ['25963247', 'AMN'], ['25829541', 'ODBAR'], ...], 'custom_pages': [], 'page_id': '9389425', ...}
+
+    def app_specific_action(webdriver, datasets):
+        page = BasePage(webdriver)
+        if datasets['custom_pages']:
+            app_specific_page_id = datasets['custom_page_id']
+    
+        mykeys=','.join(str(e) for e in datasets['custom_pages'])
+>       print(f"Custom page  {datasets['custom_page_id']} form spacekey {mykeys}")
+E       KeyError: 'custom_page_id'
+
+extension/confluence/extension_ui.py:17: KeyError
+06-20-2022, 13:53:49, 1655733229624, Action: test_1_selenium_custom_action, Error: confluence_webdriver = <selenium.webdriver.chrome.webdriver.WebDriver (session="07e0ef937f25429abae3d1b17091473f")>
+confluence_datasets = {'blog_id': '25829140', 'blogs': [['25982229', 'WCS'], ['25720224', 'NFVB'], ['25847101', 'PRCJA'], ['25954597', 'DPPN'], ['25963247', 'AMN'], ['25829541', 'ODBAR'], ...], 'custom_pages': [], 'page_id': '9278494', ...}
+confluence_screen_shots = None
+
+    def test_1_selenium_custom_action(confluence_webdriver, confluence_datasets, confluence_screen_shots):
+>        extension_ui.app_specific_action(confluence_webdriver, confluence_datasets)
+
+selenium_ui/confluence_ui.py:38: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+webdriver = <selenium.webdriver.chrome.webdriver.WebDriver (session="07e0ef937f25429abae3d1b17091473f")>
+datasets = {'blog_id': '25829140', 'blogs': [['25982229', 'WCS'], ['25720224', 'NFVB'], ['25847101', 'PRCJA'], ['25954597', 'DPPN'], ['25963247', 'AMN'], ['25829541', 'ODBAR'], ...], 'custom_pages': [], 'page_id': '9278494', ...}
+
+    def app_specific_action(webdriver, datasets):
+        page = BasePage(webdriver)
+        if datasets['custom_pages']:
+            app_specific_page_id = datasets['custom_page_id']
+    
+        mykeys=','.join(str(e) for e in datasets['custom_pages'])
+>       print(f"Custom page  {datasets['custom_page_id']} form spacekey {mykeys}")
+E       KeyError: 'custom_page_id'
+
+extension/confluence/extension_ui.py:17: KeyError
+06-20-2022, 13:53:51, 1655733231426, Action: test_1_selenium_custom_action, Error: confluence_webdriver = <selenium.webdriver.chrome.webdriver.WebDriver (session="07e0ef937f25429abae3d1b17091473f")>
+confluence_datasets = {'blog_id': '34974700', 'blogs': [['25982229', 'WCS'], ['25720224', 'NFVB'], ['25847101', 'PRCJA'], ['25954597', 'DPPN'], ['25963247', 'AMN'], ['25829541', 'ODBAR'], ...], 'custom_pages': [], 'page_id': '9785621', ...}
+confluence_screen_shots = None
+
+    def test_1_selenium_custom_action(confluence_webdriver, confluence_datasets, confluence_screen_shots):
+>        extension_ui.app_specific_action(confluence_webdriver, confluence_datasets)
+
+selenium_ui/confluence_ui.py:38: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+webdriver = <selenium.webdriver.chrome.webdriver.WebDriver (session="07e0ef937f25429abae3d1b17091473f")>
+datasets = {'blog_id': '34974700', 'blogs': [['25982229', 'WCS'], ['25720224', 'NFVB'], ['25847101', 'PRCJA'], ['25954597', 'DPPN'], ['25963247', 'AMN'], ['25829541', 'ODBAR'], ...], 'custom_pages': [], 'page_id': '9785621', ...}
+
+    def app_specific_action(webdriver, datasets):
+        page = BasePage(webdriver)
+        if datasets['custom_pages']:
+            app_specific_page_id = datasets['custom_page_id']
+    
+        mykeys=','.join(str(e) for e in datasets['custom_pages'])
+>       print(f"Custom page  {datasets['custom_page_id']} form spacekey {mykeys}")
+E       KeyError: 'custom_page_id'
+
+extension/confluence/extension_ui.py:17: KeyError
+06-20-2022, 13:53:53, 1655733233844, Action: test_1_selenium_custom_action, Error: confluence_webdriver = <selenium.webdriver.chrome.webdriver.WebDriver (session="07e0ef937f25429abae3d1b17091473f")>
+confluence_datasets = {'blog_id': '26116085', 'blogs': [['25982229', 'WCS'], ['25720224', 'NFVB'], ['25847101', 'PRCJA'], ['25954597', 'DPPN'], ['25963247', 'AMN'], ['25829541', 'ODBAR'], ...], 'custom_pages': [], 'page_id': '9777784', ...}
+confluence_screen_shots = None
+
+    def test_1_selenium_custom_action(confluence_webdriver, confluence_datasets, confluence_screen_shots):
+>        extension_ui.app_specific_action(confluence_webdriver, confluence_datasets)
+
+selenium_ui/confluence_ui.py:38: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+webdriver = <selenium.webdriver.chrome.webdriver.WebDriver (session="07e0ef937f25429abae3d1b17091473f")>
+datasets = {'blog_id': '26116085', 'blogs': [['25982229', 'WCS'], ['25720224', 'NFVB'], ['25847101', 'PRCJA'], ['25954597', 'DPPN'], ['25963247', 'AMN'], ['25829541', 'ODBAR'], ...], 'custom_pages': [], 'page_id': '9777784', ...}
+
+    def app_specific_action(webdriver, datasets):
+        page = BasePage(webdriver)
+        if datasets['custom_pages']:
+            app_specific_page_id = datasets['custom_page_id']
+    
+        mykeys=','.join(str(e) for e in datasets['custom_pages'])
+>       print(f"Custom page  {datasets['custom_page_id']} form spacekey {mykeys}")
+E       KeyError: 'custom_page_id'
+
+extension/confluence/extension_ui.py:17: KeyError
+06-20-2022, 13:53:56, 1655733236175, Action: test_1_selenium_custom_action, Error: confluence_webdriver = <selenium.webdriver.chrome.webdriver.WebDriver (session="07e0ef937f25429abae3d1b17091473f")>
+confluence_datasets = {'blog_id': '34971257', 'blogs': [['25982229', 'WCS'], ['25720224', 'NFVB'], ['25847101', 'PRCJA'], ['25954597', 'DPPN'], ['25963247', 'AMN'], ['25829541', 'ODBAR'], ...], 'custom_pages': [], 'page_id': '9782237', ...}
+confluence_screen_shots = None
+
+    def test_1_selenium_custom_action(confluence_webdriver, confluence_datasets, confluence_screen_shots):
+>        extension_ui.app_specific_action(confluence_webdriver, confluence_datasets)
+
+selenium_ui/confluence_ui.py:38: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+webdriver = <selenium.webdriver.chrome.webdriver.WebDriver (session="07e0ef937f25429abae3d1b17091473f")>
+datasets = {'blog_id': '34971257', 'blogs': [['25982229', 'WCS'], ['25720224', 'NFVB'], ['25847101', 'PRCJA'], ['25954597', 'DPPN'], ['25963247', 'AMN'], ['25829541', 'ODBAR'], ...], 'custom_pages': [], 'page_id': '9782237', ...}
+
+    def app_specific_action(webdriver, datasets):
+        page = BasePage(webdriver)
+        if datasets['custom_pages']:
+            app_specific_page_id = datasets['custom_page_id']
+    
+        mykeys=','.join(str(e) for e in datasets['custom_pages'])
+>       print(f"Custom page  {datasets['custom_page_id']} form spacekey {mykeys}")
+E       KeyError: 'custom_page_id'
+
+extension/confluence/extension_ui.py:17: KeyError
+06-20-2022, 13:53:58, 1655733238348, Action: test_1_selenium_custom_action, Error: confluence_webdriver = <selenium.webdriver.chrome.webdriver.WebDriver (session="07e0ef937f25429abae3d1b17091473f")>
+confluence_datasets = {'blog_id': '34975440', 'blogs': [['25982229', 'WCS'], ['25720224', 'NFVB'], ['25847101', 'PRCJA'], ['25954597', 'DPPN'], ['25963247', 'AMN'], ['25829541', 'ODBAR'], ...], 'custom_pages': [], 'page_id': '9788512', ...}
+confluence_screen_shots = None
+
+    def test_1_selenium_custom_action(confluence_webdriver, confluence_datasets, confluence_screen_shots):
+>        extension_ui.app_specific_action(confluence_webdriver, confluence_datasets)
+
+selenium_ui/confluence_ui.py:38: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+webdriver = <selenium.webdriver.chrome.webdriver.WebDriver (session="07e0ef937f25429abae3d1b17091473f")>
+datasets = {'blog_id': '34975440', 'blogs': [['25982229', 'WCS'], ['25720224', 'NFVB'], ['25847101', 'PRCJA'], ['25954597', 'DPPN'], ['25963247', 'AMN'], ['25829541', 'ODBAR'], ...], 'custom_pages': [], 'page_id': '9788512', ...}
+
+    def app_specific_action(webdriver, datasets):
+        page = BasePage(webdriver)
+        if datasets['custom_pages']:
+            app_specific_page_id = datasets['custom_page_id']
+    
+        mykeys=','.join(str(e) for e in datasets['custom_pages'])
+>       print(f"Custom page  {datasets['custom_page_id']} form spacekey {mykeys}")
+E       KeyError: 'custom_page_id'
+
+extension/confluence/extension_ui.py:17: KeyError
+06-20-2022, 13:54:00, 1655733240389, Action: test_1_selenium_custom_action, Error: confluence_webdriver = <selenium.webdriver.chrome.webdriver.WebDriver (session="07e0ef937f25429abae3d1b17091473f")>
+confluence_datasets = {'blog_id': '35147270', 'blogs': [['25982229', 'WCS'], ['25720224', 'NFVB'], ['25847101', 'PRCJA'], ['25954597', 'DPPN'], ['25963247', 'AMN'], ['25829541', 'ODBAR'], ...], 'custom_pages': [], 'page_id': '9164709', ...}
+confluence_screen_shots = None
+
+    def test_1_selenium_custom_action(confluence_webdriver, confluence_datasets, confluence_screen_shots):
+>        extension_ui.app_specific_action(confluence_webdriver, confluence_datasets)
+
+selenium_ui/confluence_ui.py:38: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+webdriver = <selenium.webdriver.chrome.webdriver.WebDriver (session="07e0ef937f25429abae3d1b17091473f")>
+datasets = {'blog_id': '35147270', 'blogs': [['25982229', 'WCS'], ['25720224', 'NFVB'], ['25847101', 'PRCJA'], ['25954597', 'DPPN'], ['25963247', 'AMN'], ['25829541', 'ODBAR'], ...], 'custom_pages': [], 'page_id': '9164709', ...}
+
+    def app_specific_action(webdriver, datasets):
+        page = BasePage(webdriver)
+        if datasets['custom_pages']:
+            app_specific_page_id = datasets['custom_page_id']
+    
+        mykeys=','.join(str(e) for e in datasets['custom_pages'])
+>       print(f"Custom page  {datasets['custom_page_id']} form spacekey {mykeys}")
+E       KeyError: 'custom_page_id'
+
+extension/confluence/extension_ui.py:17: KeyError
+06-20-2022, 13:54:02, 1655733242983, Action: test_1_selenium_custom_action, Error: confluence_webdriver = <selenium.webdriver.chrome.webdriver.WebDriver (session="07e0ef937f25429abae3d1b17091473f")>
+confluence_datasets = {'blog_id': '34993597', 'blogs': [['25982229', 'WCS'], ['25720224', 'NFVB'], ['25847101', 'PRCJA'], ['25954597', 'DPPN'], ['25963247', 'AMN'], ['25829541', 'ODBAR'], ...], 'custom_pages': [], 'page_id': '9172047', ...}
+confluence_screen_shots = None
+
+    def test_1_selenium_custom_action(confluence_webdriver, confluence_datasets, confluence_screen_shots):
+>        extension_ui.app_specific_action(confluence_webdriver, confluence_datasets)
+
+selenium_ui/confluence_ui.py:38: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+webdriver = <selenium.webdriver.chrome.webdriver.WebDriver (session="07e0ef937f25429abae3d1b17091473f")>
+datasets = {'blog_id': '34993597', 'blogs': [['25982229', 'WCS'], ['25720224', 'NFVB'], ['25847101', 'PRCJA'], ['25954597', 'DPPN'], ['25963247', 'AMN'], ['25829541', 'ODBAR'], ...], 'custom_pages': [], 'page_id': '9172047', ...}
+
+    def app_specific_action(webdriver, datasets):
+        page = BasePage(webdriver)
+        if datasets['custom_pages']:
+            app_specific_page_id = datasets['custom_page_id']
+    
+        mykeys=','.join(str(e) for e in datasets['custom_pages'])
+>       print(f"Custom page  {datasets['custom_page_id']} form spacekey {mykeys}")
+E       KeyError: 'custom_page_id'
+
+extension/confluence/extension_ui.py:17: KeyError
+06-20-2022, 13:54:04, 1655733244736, Action: test_1_selenium_custom_action, Error: confluence_webdriver = <selenium.webdriver.chrome.webdriver.WebDriver (session="07e0ef937f25429abae3d1b17091473f")>
+confluence_datasets = {'blog_id': '34990837', 'blogs': [['25982229', 'WCS'], ['25720224', 'NFVB'], ['25847101', 'PRCJA'], ['25954597', 'DPPN'], ['25963247', 'AMN'], ['25829541', 'ODBAR'], ...], 'custom_pages': [], 'page_id': '9173599', ...}
+confluence_screen_shots = None
+
+    def test_1_selenium_custom_action(confluence_webdriver, confluence_datasets, confluence_screen_shots):
+>        extension_ui.app_specific_action(confluence_webdriver, confluence_datasets)
+
+selenium_ui/confluence_ui.py:38: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+webdriver = <selenium.webdriver.chrome.webdriver.WebDriver (session="07e0ef937f25429abae3d1b17091473f")>
+datasets = {'blog_id': '34990837', 'blogs': [['25982229', 'WCS'], ['25720224', 'NFVB'], ['25847101', 'PRCJA'], ['25954597', 'DPPN'], ['25963247', 'AMN'], ['25829541', 'ODBAR'], ...], 'custom_pages': [], 'page_id': '9173599', ...}
+
+    def app_specific_action(webdriver, datasets):
+        page = BasePage(webdriver)
+        if datasets['custom_pages']:
+            app_specific_page_id = datasets['custom_page_id']
+    
+        mykeys=','.join(str(e) for e in datasets['custom_pages'])
+>       print(f"Custom page  {datasets['custom_page_id']} form spacekey {mykeys}")
+E       KeyError: 'custom_page_id'
+
+extension/confluence/extension_ui.py:17: KeyError
+06-20-2022, 13:54:06, 1655733246770, Action: test_1_selenium_custom_action, Error: confluence_webdriver = <selenium.webdriver.chrome.webdriver.WebDriver (session="07e0ef937f25429abae3d1b17091473f")>
+confluence_datasets = {'blog_id': '35151345', 'blogs': [['25982229', 'WCS'], ['25720224', 'NFVB'], ['25847101', 'PRCJA'], ['25954597', 'DPPN'], ['25963247', 'AMN'], ['25829541', 'ODBAR'], ...], 'custom_pages': [], 'page_id': '9301807', ...}
+confluence_screen_shots = None
+
+    def test_1_selenium_custom_action(confluence_webdriver, confluence_datasets, confluence_screen_shots):
+>        extension_ui.app_specific_action(confluence_webdriver, confluence_datasets)
+
+selenium_ui/confluence_ui.py:38: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+webdriver = <selenium.webdriver.chrome.webdriver.WebDriver (session="07e0ef937f25429abae3d1b17091473f")>
+datasets = {'blog_id': '35151345', 'blogs': [['25982229', 'WCS'], ['25720224', 'NFVB'], ['25847101', 'PRCJA'], ['25954597', 'DPPN'], ['25963247', 'AMN'], ['25829541', 'ODBAR'], ...], 'custom_pages': [], 'page_id': '9301807', ...}
+
+    def app_specific_action(webdriver, datasets):
+        page = BasePage(webdriver)
+        if datasets['custom_pages']:
+            app_specific_page_id = datasets['custom_page_id']
+    
+        mykeys=','.join(str(e) for e in datasets['custom_pages'])
+>       print(f"Custom page  {datasets['custom_page_id']} form spacekey {mykeys}")
+E       KeyError: 'custom_page_id'
+
+extension/confluence/extension_ui.py:17: KeyError
+06-20-2022, 13:54:09, 1655733249057, Action: test_1_selenium_custom_action, Error: confluence_webdriver = <selenium.webdriver.chrome.webdriver.WebDriver (session="07e0ef937f25429abae3d1b17091473f")>
+confluence_datasets = {'blog_id': '35141395', 'blogs': [['25982229', 'WCS'], ['25720224', 'NFVB'], ['25847101', 'PRCJA'], ['25954597', 'DPPN'], ['25963247', 'AMN'], ['25829541', 'ODBAR'], ...], 'custom_pages': [], 'page_id': '9284372', ...}
+confluence_screen_shots = None
+
+    def test_1_selenium_custom_action(confluence_webdriver, confluence_datasets, confluence_screen_shots):
+>        extension_ui.app_specific_action(confluence_webdriver, confluence_datasets)
+
+selenium_ui/confluence_ui.py:38: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+webdriver = <selenium.webdriver.chrome.webdriver.WebDriver (session="07e0ef937f25429abae3d1b17091473f")>
+datasets = {'blog_id': '35141395', 'blogs': [['25982229', 'WCS'], ['25720224', 'NFVB'], ['25847101', 'PRCJA'], ['25954597', 'DPPN'], ['25963247', 'AMN'], ['25829541', 'ODBAR'], ...], 'custom_pages': [], 'page_id': '9284372', ...}
+
+    def app_specific_action(webdriver, datasets):
+        page = BasePage(webdriver)
+        if datasets['custom_pages']:
+            app_specific_page_id = datasets['custom_page_id']
+    
+        mykeys=','.join(str(e) for e in datasets['custom_pages'])
+>       print(f"Custom page  {datasets['custom_page_id']} form spacekey {mykeys}")
+E       KeyError: 'custom_page_id'
+
+extension/confluence/extension_ui.py:17: KeyError
+06-20-2022, 13:54:10, 1655733250910, Action: test_1_selenium_custom_action, Error: confluence_webdriver = <selenium.webdriver.chrome.webdriver.WebDriver (session="07e0ef937f25429abae3d1b17091473f")>
+confluence_datasets = {'blog_id': '34993812', 'blogs': [['25982229', 'WCS'], ['25720224', 'NFVB'], ['25847101', 'PRCJA'], ['25954597', 'DPPN'], ['25963247', 'AMN'], ['25829541', 'ODBAR'], ...], 'custom_pages': [], 'page_id': '9291408', ...}
+confluence_screen_shots = None
+
+    def test_1_selenium_custom_action(confluence_webdriver, confluence_datasets, confluence_screen_shots):
+>        extension_ui.app_specific_action(confluence_webdriver, confluence_datasets)
+
+selenium_ui/confluence_ui.py:38: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+webdriver = <selenium.webdriver.chrome.webdriver.WebDriver (session="07e0ef937f25429abae3d1b17091473f")>
+datasets = {'blog_id': '34993812', 'blogs': [['25982229', 'WCS'], ['25720224', 'NFVB'], ['25847101', 'PRCJA'], ['25954597', 'DPPN'], ['25963247', 'AMN'], ['25829541', 'ODBAR'], ...], 'custom_pages': [], 'page_id': '9291408', ...}
+
+    def app_specific_action(webdriver, datasets):
+        page = BasePage(webdriver)
+        if datasets['custom_pages']:
+            app_specific_page_id = datasets['custom_page_id']
+    
+        mykeys=','.join(str(e) for e in datasets['custom_pages'])
+>       print(f"Custom page  {datasets['custom_page_id']} form spacekey {mykeys}")
+E       KeyError: 'custom_page_id'
+
+extension/confluence/extension_ui.py:17: KeyError
+06-20-2022, 13:54:12, 1655733252766, Action: test_1_selenium_custom_action, Error: confluence_webdriver = <selenium.webdriver.chrome.webdriver.WebDriver (session="07e0ef937f25429abae3d1b17091473f")>
+confluence_datasets = {'blog_id': '34975201', 'blogs': [['25982229', 'WCS'], ['25720224', 'NFVB'], ['25847101', 'PRCJA'], ['25954597', 'DPPN'], ['25963247', 'AMN'], ['25829541', 'ODBAR'], ...], 'custom_pages': [], 'page_id': '9285095', ...}
+confluence_screen_shots = None
+
+    def test_1_selenium_custom_action(confluence_webdriver, confluence_datasets, confluence_screen_shots):
+>        extension_ui.app_specific_action(confluence_webdriver, confluence_datasets)
+
+selenium_ui/confluence_ui.py:38: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+webdriver = <selenium.webdriver.chrome.webdriver.WebDriver (session="07e0ef937f25429abae3d1b17091473f")>
+datasets = {'blog_id': '34975201', 'blogs': [['25982229', 'WCS'], ['25720224', 'NFVB'], ['25847101', 'PRCJA'], ['25954597', 'DPPN'], ['25963247', 'AMN'], ['25829541', 'ODBAR'], ...], 'custom_pages': [], 'page_id': '9285095', ...}
+
+    def app_specific_action(webdriver, datasets):
+        page = BasePage(webdriver)
+        if datasets['custom_pages']:
+            app_specific_page_id = datasets['custom_page_id']
+    
+        mykeys=','.join(str(e) for e in datasets['custom_pages'])
+>       print(f"Custom page  {datasets['custom_page_id']} form spacekey {mykeys}")
+E       KeyError: 'custom_page_id'
+
+extension/confluence/extension_ui.py:17: KeyError
+06-20-2022, 13:54:14, 1655733254673, Action: test_1_selenium_custom_action, Error: confluence_webdriver = <selenium.webdriver.chrome.webdriver.WebDriver (session="07e0ef937f25429abae3d1b17091473f")>
+confluence_datasets = {'blog_id': '25984655', 'blogs': [['25982229', 'WCS'], ['25720224', 'NFVB'], ['25847101', 'PRCJA'], ['25954597', 'DPPN'], ['25963247', 'AMN'], ['25829541', 'ODBAR'], ...], 'custom_pages': [], 'page_id': '9297995', ...}
+confluence_screen_shots = None
+
+    def test_1_selenium_custom_action(confluence_webdriver, confluence_datasets, confluence_screen_shots):
+>        extension_ui.app_specific_action(confluence_webdriver, confluence_datasets)
+
+selenium_ui/confluence_ui.py:38: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+webdriver = <selenium.webdriver.chrome.webdriver.WebDriver (session="07e0ef937f25429abae3d1b17091473f")>
+datasets = {'blog_id': '25984655', 'blogs': [['25982229', 'WCS'], ['25720224', 'NFVB'], ['25847101', 'PRCJA'], ['25954597', 'DPPN'], ['25963247', 'AMN'], ['25829541', 'ODBAR'], ...], 'custom_pages': [], 'page_id': '9297995', ...}
+
+    def app_specific_action(webdriver, datasets):
+        page = BasePage(webdriver)
+        if datasets['custom_pages']:
+            app_specific_page_id = datasets['custom_page_id']
+    
+        mykeys=','.join(str(e) for e in datasets['custom_pages'])
+>       print(f"Custom page  {datasets['custom_page_id']} form spacekey {mykeys}")
+E       KeyError: 'custom_page_id'
+
+extension/confluence/extension_ui.py:17: KeyError
+06-20-2022, 13:54:16, 1655733256481, Action: test_1_selenium_custom_action, Error: confluence_webdriver = <selenium.webdriver.chrome.webdriver.WebDriver (session="07e0ef937f25429abae3d1b17091473f")>
+confluence_datasets = {'blog_id': '35155287', 'blogs': [['25982229', 'WCS'], ['25720224', 'NFVB'], ['25847101', 'PRCJA'], ['25954597', 'DPPN'], ['25963247', 'AMN'], ['25829541', 'ODBAR'], ...], 'custom_pages': [], 'page_id': '9291477', ...}
+confluence_screen_shots = None
+
+    def test_1_selenium_custom_action(confluence_webdriver, confluence_datasets, confluence_screen_shots):
+>        extension_ui.app_specific_action(confluence_webdriver, confluence_datasets)
+
+selenium_ui/confluence_ui.py:38: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+webdriver = <selenium.webdriver.chrome.webdriver.WebDriver (session="07e0ef937f25429abae3d1b17091473f")>
+datasets = {'blog_id': '35155287', 'blogs': [['25982229', 'WCS'], ['25720224', 'NFVB'], ['25847101', 'PRCJA'], ['25954597', 'DPPN'], ['25963247', 'AMN'], ['25829541', 'ODBAR'], ...], 'custom_pages': [], 'page_id': '9291477', ...}
+
+    def app_specific_action(webdriver, datasets):
+        page = BasePage(webdriver)
+        if datasets['custom_pages']:
+            app_specific_page_id = datasets['custom_page_id']
+    
+        mykeys=','.join(str(e) for e in datasets['custom_pages'])
+>       print(f"Custom page  {datasets['custom_page_id']} form spacekey {mykeys}")
+E       KeyError: 'custom_page_id'
+
+extension/confluence/extension_ui.py:17: KeyError
+06-20-2022, 13:54:18, 1655733258321, Action: test_1_selenium_custom_action, Error: confluence_webdriver = <selenium.webdriver.chrome.webdriver.WebDriver (session="07e0ef937f25429abae3d1b17091473f")>
+confluence_datasets = {'blog_id': '25830904', 'blogs': [['25982229', 'WCS'], ['25720224', 'NFVB'], ['25847101', 'PRCJA'], ['25954597', 'DPPN'], ['25963247', 'AMN'], ['25829541', 'ODBAR'], ...], 'custom_pages': [], 'page_id': '9382408', ...}
+confluence_screen_shots = None
+
+    def test_1_selenium_custom_action(confluence_webdriver, confluence_datasets, confluence_screen_shots):
+>        extension_ui.app_specific_action(confluence_webdriver, confluence_datasets)
+
+selenium_ui/confluence_ui.py:38: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+webdriver = <selenium.webdriver.chrome.webdriver.WebDriver (session="07e0ef937f25429abae3d1b17091473f")>
+datasets = {'blog_id': '25830904', 'blogs': [['25982229', 'WCS'], ['25720224', 'NFVB'], ['25847101', 'PRCJA'], ['25954597', 'DPPN'], ['25963247', 'AMN'], ['25829541', 'ODBAR'], ...], 'custom_pages': [], 'page_id': '9382408', ...}
+
+    def app_specific_action(webdriver, datasets):
+        page = BasePage(webdriver)
+        if datasets['custom_pages']:
+            app_specific_page_id = datasets['custom_page_id']
+    
+        mykeys=','.join(str(e) for e in datasets['custom_pages'])
+>       print(f"Custom page  {datasets['custom_page_id']} form spacekey {mykeys}")
+E       KeyError: 'custom_page_id'
+
+extension/confluence/extension_ui.py:17: KeyError
+06-20-2022, 13:54:20, 1655733260130, Action: test_1_selenium_custom_action, Error: confluence_webdriver = <selenium.webdriver.chrome.webdriver.WebDriver (session="07e0ef937f25429abae3d1b17091473f")>
+confluence_datasets = {'blog_id': '25956650', 'blogs': [['25982229', 'WCS'], ['25720224', 'NFVB'], ['25847101', 'PRCJA'], ['25954597', 'DPPN'], ['25963247', 'AMN'], ['25829541', 'ODBAR'], ...], 'custom_pages': [], 'page_id': '9781603', ...}
+confluence_screen_shots = None
+
+    def test_1_selenium_custom_action(confluence_webdriver, confluence_datasets, confluence_screen_shots):
+>        extension_ui.app_specific_action(confluence_webdriver, confluence_datasets)
+
+selenium_ui/confluence_ui.py:38: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+webdriver = <selenium.webdriver.chrome.webdriver.WebDriver (session="07e0ef937f25429abae3d1b17091473f")>
+datasets = {'blog_id': '25956650', 'blogs': [['25982229', 'WCS'], ['25720224', 'NFVB'], ['25847101', 'PRCJA'], ['25954597', 'DPPN'], ['25963247', 'AMN'], ['25829541', 'ODBAR'], ...], 'custom_pages': [], 'page_id': '9781603', ...}
+
+    def app_specific_action(webdriver, datasets):
+        page = BasePage(webdriver)
+        if datasets['custom_pages']:
+            app_specific_page_id = datasets['custom_page_id']
+    
+        mykeys=','.join(str(e) for e in datasets['custom_pages'])
+>       print(f"Custom page  {datasets['custom_page_id']} form spacekey {mykeys}")
+E       KeyError: 'custom_page_id'
+
+extension/confluence/extension_ui.py:17: KeyError
+06-20-2022, 13:54:21, 1655733261880, Action: test_1_selenium_custom_action, Error: confluence_webdriver = <selenium.webdriver.chrome.webdriver.WebDriver (session="07e0ef937f25429abae3d1b17091473f")>
+confluence_datasets = {'blog_id': '25967082', 'blogs': [['25982229', 'WCS'], ['25720224', 'NFVB'], ['25847101', 'PRCJA'], ['25954597', 'DPPN'], ['25963247', 'AMN'], ['25829541', 'ODBAR'], ...], 'custom_pages': [], 'page_id': '9281908', ...}
+confluence_screen_shots = None
+
+    def test_1_selenium_custom_action(confluence_webdriver, confluence_datasets, confluence_screen_shots):
+>        extension_ui.app_specific_action(confluence_webdriver, confluence_datasets)
+
+selenium_ui/confluence_ui.py:38: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+webdriver = <selenium.webdriver.chrome.webdriver.WebDriver (session="07e0ef937f25429abae3d1b17091473f")>
+datasets = {'blog_id': '25967082', 'blogs': [['25982229', 'WCS'], ['25720224', 'NFVB'], ['25847101', 'PRCJA'], ['25954597', 'DPPN'], ['25963247', 'AMN'], ['25829541', 'ODBAR'], ...], 'custom_pages': [], 'page_id': '9281908', ...}
+
+    def app_specific_action(webdriver, datasets):
+        page = BasePage(webdriver)
+        if datasets['custom_pages']:
+            app_specific_page_id = datasets['custom_page_id']
+    
+        mykeys=','.join(str(e) for e in datasets['custom_pages'])
+>       print(f"Custom page  {datasets['custom_page_id']} form spacekey {mykeys}")
+E       KeyError: 'custom_page_id'
+
+extension/confluence/extension_ui.py:17: KeyError
+06-20-2022, 13:54:23, 1655733263715, Action: test_1_selenium_custom_action, Error: confluence_webdriver = <selenium.webdriver.chrome.webdriver.WebDriver (session="07e0ef937f25429abae3d1b17091473f")>
+confluence_datasets = {'blog_id': '34983266', 'blogs': [['25982229', 'WCS'], ['25720224', 'NFVB'], ['25847101', 'PRCJA'], ['25954597', 'DPPN'], ['25963247', 'AMN'], ['25829541', 'ODBAR'], ...], 'custom_pages': [], 'page_id': '9274316', ...}
+confluence_screen_shots = None
+
+    def test_1_selenium_custom_action(confluence_webdriver, confluence_datasets, confluence_screen_shots):
+>        extension_ui.app_specific_action(confluence_webdriver, confluence_datasets)
+
+selenium_ui/confluence_ui.py:38: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+webdriver = <selenium.webdriver.chrome.webdriver.WebDriver (session="07e0ef937f25429abae3d1b17091473f")>
+datasets = {'blog_id': '34983266', 'blogs': [['25982229', 'WCS'], ['25720224', 'NFVB'], ['25847101', 'PRCJA'], ['25954597', 'DPPN'], ['25963247', 'AMN'], ['25829541', 'ODBAR'], ...], 'custom_pages': [], 'page_id': '9274316', ...}
+
+    def app_specific_action(webdriver, datasets):
+        page = BasePage(webdriver)
+        if datasets['custom_pages']:
+            app_specific_page_id = datasets['custom_page_id']
+    
+        mykeys=','.join(str(e) for e in datasets['custom_pages'])
+>       print(f"Custom page  {datasets['custom_page_id']} form spacekey {mykeys}")
+E       KeyError: 'custom_page_id'
+
+extension/confluence/extension_ui.py:17: KeyError
+06-20-2022, 13:54:25, 1655733265527, Action: test_1_selenium_custom_action, Error: confluence_webdriver = <selenium.webdriver.chrome.webdriver.WebDriver (session="07e0ef937f25429abae3d1b17091473f")>
+confluence_datasets = {'blog_id': '25823493', 'blogs': [['25982229', 'WCS'], ['25720224', 'NFVB'], ['25847101', 'PRCJA'], ['25954597', 'DPPN'], ['25963247', 'AMN'], ['25829541', 'ODBAR'], ...], 'custom_pages': [], 'page_id': '9391814', ...}
+confluence_screen_shots = None
+
+    def test_1_selenium_custom_action(confluence_webdriver, confluence_datasets, confluence_screen_shots):
+>        extension_ui.app_specific_action(confluence_webdriver, confluence_datasets)
+
+selenium_ui/confluence_ui.py:38: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+webdriver = <selenium.webdriver.chrome.webdriver.WebDriver (session="07e0ef937f25429abae3d1b17091473f")>
+datasets = {'blog_id': '25823493', 'blogs': [['25982229', 'WCS'], ['25720224', 'NFVB'], ['25847101', 'PRCJA'], ['25954597', 'DPPN'], ['25963247', 'AMN'], ['25829541', 'ODBAR'], ...], 'custom_pages': [], 'page_id': '9391814', ...}
+
+    def app_specific_action(webdriver, datasets):
+        page = BasePage(webdriver)
+        if datasets['custom_pages']:
+            app_specific_page_id = datasets['custom_page_id']
+    
+        mykeys=','.join(str(e) for e in datasets['custom_pages'])
+>       print(f"Custom page  {datasets['custom_page_id']} form spacekey {mykeys}")
+E       KeyError: 'custom_page_id'
+
+extension/confluence/extension_ui.py:17: KeyError
+06-20-2022, 13:54:27, 1655733267260, Action: test_1_selenium_custom_action, Error: confluence_webdriver = <selenium.webdriver.chrome.webdriver.WebDriver (session="07e0ef937f25429abae3d1b17091473f")>
+confluence_datasets = {'blog_id': '34976340', 'blogs': [['25982229', 'WCS'], ['25720224', 'NFVB'], ['25847101', 'PRCJA'], ['25954597', 'DPPN'], ['25963247', 'AMN'], ['25829541', 'ODBAR'], ...], 'custom_pages': [], 'page_id': '9376590', ...}
+confluence_screen_shots = None
+
+    def test_1_selenium_custom_action(confluence_webdriver, confluence_datasets, confluence_screen_shots):
+>        extension_ui.app_specific_action(confluence_webdriver, confluence_datasets)
+
+selenium_ui/confluence_ui.py:38: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+webdriver = <selenium.webdriver.chrome.webdriver.WebDriver (session="07e0ef937f25429abae3d1b17091473f")>
+datasets = {'blog_id': '34976340', 'blogs': [['25982229', 'WCS'], ['25720224', 'NFVB'], ['25847101', 'PRCJA'], ['25954597', 'DPPN'], ['25963247', 'AMN'], ['25829541', 'ODBAR'], ...], 'custom_pages': [], 'page_id': '9376590', ...}
+
+    def app_specific_action(webdriver, datasets):
+        page = BasePage(webdriver)
+        if datasets['custom_pages']:
+            app_specific_page_id = datasets['custom_page_id']
+    
+        mykeys=','.join(str(e) for e in datasets['custom_pages'])
+>       print(f"Custom page  {datasets['custom_page_id']} form spacekey {mykeys}")
+E       KeyError: 'custom_page_id'
+
+extension/confluence/extension_ui.py:17: KeyError
+06-20-2022, 13:54:29, 1655733269019, Action: test_1_selenium_custom_action, Error: confluence_webdriver = <selenium.webdriver.chrome.webdriver.WebDriver (session="07e0ef937f25429abae3d1b17091473f")>
+confluence_datasets = {'blog_id': '25823148', 'blogs': [['25982229', 'WCS'], ['25720224', 'NFVB'], ['25847101', 'PRCJA'], ['25954597', 'DPPN'], ['25963247', 'AMN'], ['25829541', 'ODBAR'], ...], 'custom_pages': [], 'page_id': '9284313', ...}
+confluence_screen_shots = None
+
+    def test_1_selenium_custom_action(confluence_webdriver, confluence_datasets, confluence_screen_shots):
+>        extension_ui.app_specific_action(confluence_webdriver, confluence_datasets)
+
+selenium_ui/confluence_ui.py:38: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+webdriver = <selenium.webdriver.chrome.webdriver.WebDriver (session="07e0ef937f25429abae3d1b17091473f")>
+datasets = {'blog_id': '25823148', 'blogs': [['25982229', 'WCS'], ['25720224', 'NFVB'], ['25847101', 'PRCJA'], ['25954597', 'DPPN'], ['25963247', 'AMN'], ['25829541', 'ODBAR'], ...], 'custom_pages': [], 'page_id': '9284313', ...}
+
+    def app_specific_action(webdriver, datasets):
+        page = BasePage(webdriver)
+        if datasets['custom_pages']:
+            app_specific_page_id = datasets['custom_page_id']
+    
+        mykeys=','.join(str(e) for e in datasets['custom_pages'])
+>       print(f"Custom page  {datasets['custom_page_id']} form spacekey {mykeys}")
+E       KeyError: 'custom_page_id'
+
+extension/confluence/extension_ui.py:17: KeyError
+06-20-2022, 13:54:30, 1655733270819, Action: test_1_selenium_custom_action, Error: confluence_webdriver = <selenium.webdriver.chrome.webdriver.WebDriver (session="07e0ef937f25429abae3d1b17091473f")>
+confluence_datasets = {'blog_id': '25955249', 'blogs': [['25982229', 'WCS'], ['25720224', 'NFVB'], ['25847101', 'PRCJA'], ['25954597', 'DPPN'], ['25963247', 'AMN'], ['25829541', 'ODBAR'], ...], 'custom_pages': [], 'page_id': '9169257', ...}
+confluence_screen_shots = None
+
+    def test_1_selenium_custom_action(confluence_webdriver, confluence_datasets, confluence_screen_shots):
+>        extension_ui.app_specific_action(confluence_webdriver, confluence_datasets)
+
+selenium_ui/confluence_ui.py:38: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+webdriver = <selenium.webdriver.chrome.webdriver.WebDriver (session="07e0ef937f25429abae3d1b17091473f")>
+datasets = {'blog_id': '25955249', 'blogs': [['25982229', 'WCS'], ['25720224', 'NFVB'], ['25847101', 'PRCJA'], ['25954597', 'DPPN'], ['25963247', 'AMN'], ['25829541', 'ODBAR'], ...], 'custom_pages': [], 'page_id': '9169257', ...}
+
+    def app_specific_action(webdriver, datasets):
+        page = BasePage(webdriver)
+        if datasets['custom_pages']:
+            app_specific_page_id = datasets['custom_page_id']
+    
+        mykeys=','.join(str(e) for e in datasets['custom_pages'])
+>       print(f"Custom page  {datasets['custom_page_id']} form spacekey {mykeys}")
+E       KeyError: 'custom_page_id'
+
+extension/confluence/extension_ui.py:17: KeyError
+06-20-2022, 13:54:32, 1655733272590, Action: test_1_selenium_custom_action, Error: confluence_webdriver = <selenium.webdriver.chrome.webdriver.WebDriver (session="07e0ef937f25429abae3d1b17091473f")>
+confluence_datasets = {'blog_id': '25834968', 'blogs': [['25982229', 'WCS'], ['25720224', 'NFVB'], ['25847101', 'PRCJA'], ['25954597', 'DPPN'], ['25963247', 'AMN'], ['25829541', 'ODBAR'], ...], 'custom_pages': [], 'page_id': '11512981', ...}
+confluence_screen_shots = None
+
+    def test_1_selenium_custom_action(confluence_webdriver, confluence_datasets, confluence_screen_shots):
+>        extension_ui.app_specific_action(confluence_webdriver, confluence_datasets)
+
+selenium_ui/confluence_ui.py:38: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+webdriver = <selenium.webdriver.chrome.webdriver.WebDriver (session="07e0ef937f25429abae3d1b17091473f")>
+datasets = {'blog_id': '25834968', 'blogs': [['25982229', 'WCS'], ['25720224', 'NFVB'], ['25847101', 'PRCJA'], ['25954597', 'DPPN'], ['25963247', 'AMN'], ['25829541', 'ODBAR'], ...], 'custom_pages': [], 'page_id': '11512981', ...}
+
+    def app_specific_action(webdriver, datasets):
+        page = BasePage(webdriver)
+        if datasets['custom_pages']:
+            app_specific_page_id = datasets['custom_page_id']
+    
+        mykeys=','.join(str(e) for e in datasets['custom_pages'])
+>       print(f"Custom page  {datasets['custom_page_id']} form spacekey {mykeys}")
+E       KeyError: 'custom_page_id'
+
+extension/confluence/extension_ui.py:17: KeyError
+06-20-2022, 13:54:34, 1655733274484, Action: test_1_selenium_custom_action, Error: confluence_webdriver = <selenium.webdriver.chrome.webdriver.WebDriver (session="07e0ef937f25429abae3d1b17091473f")>
+confluence_datasets = {'blog_id': '25954751', 'blogs': [['25982229', 'WCS'], ['25720224', 'NFVB'], ['25847101', 'PRCJA'], ['25954597', 'DPPN'], ['25963247', 'AMN'], ['25829541', 'ODBAR'], ...], 'custom_pages': [], 'page_id': '9778531', ...}
+confluence_screen_shots = None
+
+    def test_1_selenium_custom_action(confluence_webdriver, confluence_datasets, confluence_screen_shots):
+>        extension_ui.app_specific_action(confluence_webdriver, confluence_datasets)
+
+selenium_ui/confluence_ui.py:38: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+webdriver = <selenium.webdriver.chrome.webdriver.WebDriver (session="07e0ef937f25429abae3d1b17091473f")>
+datasets = {'blog_id': '25954751', 'blogs': [['25982229', 'WCS'], ['25720224', 'NFVB'], ['25847101', 'PRCJA'], ['25954597', 'DPPN'], ['25963247', 'AMN'], ['25829541', 'ODBAR'], ...], 'custom_pages': [], 'page_id': '9778531', ...}
+
+    def app_specific_action(webdriver, datasets):
+        page = BasePage(webdriver)
+        if datasets['custom_pages']:
+            app_specific_page_id = datasets['custom_page_id']
+    
+        mykeys=','.join(str(e) for e in datasets['custom_pages'])
+>       print(f"Custom page  {datasets['custom_page_id']} form spacekey {mykeys}")
+E       KeyError: 'custom_page_id'
+
+extension/confluence/extension_ui.py:17: KeyError
+06-20-2022, 13:54:36, 1655733276265, Action: test_1_selenium_custom_action, Error: confluence_webdriver = <selenium.webdriver.chrome.webdriver.WebDriver (session="07e0ef937f25429abae3d1b17091473f")>
+confluence_datasets = {'blog_id': '25965258', 'blogs': [['25982229', 'WCS'], ['25720224', 'NFVB'], ['25847101', 'PRCJA'], ['25954597', 'DPPN'], ['25963247', 'AMN'], ['25829541', 'ODBAR'], ...], 'custom_pages': [], 'page_id': '9795145', ...}
+confluence_screen_shots = None
+
+    def test_1_selenium_custom_action(confluence_webdriver, confluence_datasets, confluence_screen_shots):
+>        extension_ui.app_specific_action(confluence_webdriver, confluence_datasets)
+
+selenium_ui/confluence_ui.py:38: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+webdriver = <selenium.webdriver.chrome.webdriver.WebDriver (session="07e0ef937f25429abae3d1b17091473f")>
+datasets = {'blog_id': '25965258', 'blogs': [['25982229', 'WCS'], ['25720224', 'NFVB'], ['25847101', 'PRCJA'], ['25954597', 'DPPN'], ['25963247', 'AMN'], ['25829541', 'ODBAR'], ...], 'custom_pages': [], 'page_id': '9795145', ...}
+
+    def app_specific_action(webdriver, datasets):
+        page = BasePage(webdriver)
+        if datasets['custom_pages']:
+            app_specific_page_id = datasets['custom_page_id']
+    
+        mykeys=','.join(str(e) for e in datasets['custom_pages'])
+>       print(f"Custom page  {datasets['custom_page_id']} form spacekey {mykeys}")
+E       KeyError: 'custom_page_id'
+
+extension/confluence/extension_ui.py:17: KeyError
+06-20-2022, 13:54:38, 1655733278100, Action: test_1_selenium_custom_action, Error: confluence_webdriver = <selenium.webdriver.chrome.webdriver.WebDriver (session="07e0ef937f25429abae3d1b17091473f")>
+confluence_datasets = {'blog_id': '25841680', 'blogs': [['25982229', 'WCS'], ['25720224', 'NFVB'], ['25847101', 'PRCJA'], ['25954597', 'DPPN'], ['25963247', 'AMN'], ['25829541', 'ODBAR'], ...], 'custom_pages': [], 'page_id': '9381422', ...}
+confluence_screen_shots = None
+
+    def test_1_selenium_custom_action(confluence_webdriver, confluence_datasets, confluence_screen_shots):
+>        extension_ui.app_specific_action(confluence_webdriver, confluence_datasets)
+
+selenium_ui/confluence_ui.py:38: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+webdriver = <selenium.webdriver.chrome.webdriver.WebDriver (session="07e0ef937f25429abae3d1b17091473f")>
+datasets = {'blog_id': '25841680', 'blogs': [['25982229', 'WCS'], ['25720224', 'NFVB'], ['25847101', 'PRCJA'], ['25954597', 'DPPN'], ['25963247', 'AMN'], ['25829541', 'ODBAR'], ...], 'custom_pages': [], 'page_id': '9381422', ...}
+
+    def app_specific_action(webdriver, datasets):
+        page = BasePage(webdriver)
+        if datasets['custom_pages']:
+            app_specific_page_id = datasets['custom_page_id']
+    
+        mykeys=','.join(str(e) for e in datasets['custom_pages'])
+>       print(f"Custom page  {datasets['custom_page_id']} form spacekey {mykeys}")
+E       KeyError: 'custom_page_id'
+
+extension/confluence/extension_ui.py:17: KeyError
+06-20-2022, 13:54:39, 1655733279898, Action: test_1_selenium_custom_action, Error: confluence_webdriver = <selenium.webdriver.chrome.webdriver.WebDriver (session="07e0ef937f25429abae3d1b17091473f")>
+confluence_datasets = {'blog_id': '34984130', 'blogs': [['25982229', 'WCS'], ['25720224', 'NFVB'], ['25847101', 'PRCJA'], ['25954597', 'DPPN'], ['25963247', 'AMN'], ['25829541', 'ODBAR'], ...], 'custom_pages': [], 'page_id': '9385216', ...}
+confluence_screen_shots = None
+
+    def test_1_selenium_custom_action(confluence_webdriver, confluence_datasets, confluence_screen_shots):
+>        extension_ui.app_specific_action(confluence_webdriver, confluence_datasets)
+
+selenium_ui/confluence_ui.py:38: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+webdriver = <selenium.webdriver.chrome.webdriver.WebDriver (session="07e0ef937f25429abae3d1b17091473f")>
+datasets = {'blog_id': '34984130', 'blogs': [['25982229', 'WCS'], ['25720224', 'NFVB'], ['25847101', 'PRCJA'], ['25954597', 'DPPN'], ['25963247', 'AMN'], ['25829541', 'ODBAR'], ...], 'custom_pages': [], 'page_id': '9385216', ...}
+
+    def app_specific_action(webdriver, datasets):
+        page = BasePage(webdriver)
+        if datasets['custom_pages']:
+            app_specific_page_id = datasets['custom_page_id']
+    
+        mykeys=','.join(str(e) for e in datasets['custom_pages'])
+>       print(f"Custom page  {datasets['custom_page_id']} form spacekey {mykeys}")
+E       KeyError: 'custom_page_id'
+
+extension/confluence/extension_ui.py:17: KeyError
+06-20-2022, 13:54:41, 1655733281822, Action: test_1_selenium_custom_action, Error: confluence_webdriver = <selenium.webdriver.chrome.webdriver.WebDriver (session="07e0ef937f25429abae3d1b17091473f")>
+confluence_datasets = {'blog_id': '35228155', 'blogs': [['25982229', 'WCS'], ['25720224', 'NFVB'], ['25847101', 'PRCJA'], ['25954597', 'DPPN'], ['25963247', 'AMN'], ['25829541', 'ODBAR'], ...], 'custom_pages': [], 'page_id': '9794840', ...}
+confluence_screen_shots = None
+
+    def test_1_selenium_custom_action(confluence_webdriver, confluence_datasets, confluence_screen_shots):
+>        extension_ui.app_specific_action(confluence_webdriver, confluence_datasets)
+
+selenium_ui/confluence_ui.py:38: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+webdriver = <selenium.webdriver.chrome.webdriver.WebDriver (session="07e0ef937f25429abae3d1b17091473f")>
+datasets = {'blog_id': '35228155', 'blogs': [['25982229', 'WCS'], ['25720224', 'NFVB'], ['25847101', 'PRCJA'], ['25954597', 'DPPN'], ['25963247', 'AMN'], ['25829541', 'ODBAR'], ...], 'custom_pages': [], 'page_id': '9794840', ...}
+
+    def app_specific_action(webdriver, datasets):
+        page = BasePage(webdriver)
+        if datasets['custom_pages']:
+            app_specific_page_id = datasets['custom_page_id']
+    
+        mykeys=','.join(str(e) for e in datasets['custom_pages'])
+>       print(f"Custom page  {datasets['custom_page_id']} form spacekey {mykeys}")
+E       KeyError: 'custom_page_id'
+
+extension/confluence/extension_ui.py:17: KeyError
