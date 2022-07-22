@@ -13,4 +13,7 @@ local_*.yml
 chrome/
 chromedriver-90/
 chromedriver-97/
+chromedriver-98/
 chromedriver-99/
+confluence.yml.patch
+confluence.yml-smartics
