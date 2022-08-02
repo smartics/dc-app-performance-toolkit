@@ -49,9 +49,11 @@ def app_specific_action(webdriver, datasets):
 
             title = page.get_element((By.ID, "title-text")).text
             if (TC_TITLE_DISPLAY_TABLE == title):
+                print(f"XXXXX found Display Table")
                 # page.wait_until_visible((By.ID, "projectdoc-success"))
                 i = 1
             elif (TC_TITLE_TRANSCLUDE_DOCUMENTS == title):
+                print(f"XXXXX found Transclusion")
                 # page.wait_until_visible((By.ID, "projectdoc-success"))
                 i = 2
 
