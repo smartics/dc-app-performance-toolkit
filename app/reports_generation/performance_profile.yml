@@ -8,7 +8,7 @@ runs:
 #    fullPath: "/home/ubuntu/dc-app-performance-toolkit/app/results/confluence/2022-06-22_08-21-23"
   - runName: "with app"
     runType: "experiment"
-    fullPath: "/home/ubuntu/dc-app-performance-toolkit/app/results/confluence/RUN2"
+    fullPath: "/home/ubuntu/dc-app-performance-toolkit/app/results/confluence/RUN2b"
 
 # Chart generation config
 index_col: "Action"
