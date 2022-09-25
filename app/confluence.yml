@@ -40,11 +40,12 @@ settings:
     view_attachment: 4
     upload_attachment: 5
     like_page: 2
-    standalone_extension: 0 # By default disabled
+    standalone_extension: 10 # By default disabled
     # Custom dataset section.
-    custom_dataset_query:  # Write CQL query to add CQL output to the app/datasets/confluence/custom_pages.csv, e.g. "title ~ 'AppPage*'"
-      #    custom_dataset_query:  "space='DELAAATEST' AND (title = 'Test Case Display Table' OR title =  'Test Case Transclude from Documents')"          # Write CQL query to add CQL output to the app/datasets/confluence/custom_pages.csv, e.g. "title ~ 'AppPage*'"
-      #    custom_dataset_query: title ~ 'smarticsUserScriptPage'          # Write CQL query to add CQL output to the app/datasets/confluence/custom_pages.csv, e.g. "title ~ 'AppPage*'"
+    #    custom_dataset_query:  # Write CQL query to add CQL output to the app/datasets/confluence/custom_pages.csv, e.g. "title ~ 'AppPage*'"
+    custom_dataset_query:  "space='PROJECTDOCTEST' AND (title = 'Test Case Display Table' OR title =  'Test Case Transclude from Documents')"          # Write CQL query to add CQL output to the app/datasets/confluence/custom_pages.csv, e.g. "title ~ 'AppPage*'"
+    #    custom_dataset_query:   # Write CQL query to add CQL output to the app/datasets/confluence/custom_pages.csv, e.g. "title ~ 'AppPage*'"
+    # custom_dataset_query: title ~ 'smarticsUserScriptPage'          # Write CQL query to add CQL output to the app/datasets/confluence/custom_pages.csv, e.g. "title ~ 'AppPage*'"
 services:
   - module: shellexec
     prepare:
@@ -126,7 +127,8 @@ modules:
     chromedriver:
 #      version: "101.0.4951.41" # Supports Chrome version 101. You can refer to http://chromedriver.chromium.org/downloads
 #      version: "90.0.4430.24" # Supports Chrome version 97. You can refer to http://chromedriver.chromium.org/downloads
-      version: "102.0.5005.61" # Supports Chrome version 102. You can refer to http://chromedriver.chromium.org/downloads
+#      version: "102.0.5005.61" # Supports Chrome version 102. You can refer to http://chromedriver.chromium.org/downloads
+      version: "103.0.5060.134" # Supports Chrome version 103. You can refer to http://chromedriver.chromium.org/downloads
 reporting:
 - data-source: sample-labels
   module: junit-xml
