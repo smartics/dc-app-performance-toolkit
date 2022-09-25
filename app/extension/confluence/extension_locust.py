@@ -16,13 +16,13 @@ from locustio.common_utils import init_logger, confluence_measure
 
 logger = init_logger(app_type='confluence')
 
-TESTCASE_SPACE_KEY = "DELAAATEST"
-TC_DISPLAY_TABLE = "Test+Case+Display+Table"
+TESTCASE_SPACE_KEY = "PROJECTDOCTEST"
+TC_DISPLAY_TABLE = "Test Case Display Table"
 TC_DISPLAY_TABLE_ASSERTION_TEXT = "List of Documents"
-TC_TRANSCLUDE_DOCUMENTS = "Test+Case+Transclude+from+Documents"
+TC_TRANSCLUDE_DOCUMENTS = "Test Case Transclude from Documents"
 TC_TRANSCLUDE_DOCUMENTS_ASSERTION_TEXT="Transclusion from Documents"
 
-logger.error(f"XXXXXYYYY  LOCUST AAAAAAAAAAAAAAA")
+logger.info(f"XXXXXYYYY  LOCUST AAAAAAAAAAAAAAA")
 
 @confluence_measure("locust_app_specific_action")
 def app_specific_action(locust):
@@ -30,9 +30,9 @@ def app_specific_action(locust):
     Calls the use case where multiple documents are listed in a Display Table
     Macro and Transclude Documents Macro.
     """
-    logger.error(f"XXXXXYYYY  LOCUST DISPLAYTABLE")
+    logger.info(f"XXXXXYYYY  LOCUST DISPLAYTABLE")
     response = locust.get(
-        '/confluence/display/{}/{}'.format(TESTCASE_SPACE_KEY,
+        '/display/{}/{}'.format(TESTCASE_SPACE_KEY,
                                            TC_DISPLAY_TABLE),
         catch_response=True)
     content = response.content.decode('utf-8')
@@ -41,20 +41,3 @@ def app_specific_action(locust):
     if assertion_string not in content:
         logger.error(f"'{assertion_string}' was not found in {content}")
     assert assertion_string in content
-
-
-"""
-@confluence_measure("locust_app_specific_action")
-def app_specific_action2(locust):
-    logger.error(f"XXXXX  LOCUST TRANSCLUSION")
-    response = locust.get(
-        '/confluence/display/{}/{}'.format(TESTCASE_SPACE_KEY,
-                                           TC_TRANSCLUDE_DOCUMENTS),
-        catch_response=True)
-    content = response.content.decode('utf-8')
-
-    assertion_string = TC_TRANSCLUDE_DOCUMENTS_ASSERTION_TEXT
-    if assertion_string not in content:
-        logger.error(f"'{assertion_string}' was not found in {content}")
-    assert assertion_string in content
-"""
