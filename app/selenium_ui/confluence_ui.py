@@ -6,28 +6,30 @@ from extension.confluence import extension_ui  # noqa F401
 def test_0_selenium_a_login(confluence_webdriver, confluence_datasets, confluence_screen_shots):
     modules.login(confluence_webdriver, confluence_datasets)
 
+
 def test_1_selenium_view_page(confluence_webdriver, confluence_datasets, confluence_screen_shots):
     modules.view_page(confluence_webdriver, confluence_datasets)
 
 
-#def test_1_selenium_create_page(confluence_webdriver, confluence_datasets, confluence_screen_shots):
-#    modules.create_confluence_page(confluence_webdriver, confluence_datasets)
+def test_1_selenium_create_page(confluence_webdriver, confluence_datasets, confluence_screen_shots):
+    modules.create_confluence_page(confluence_webdriver, confluence_datasets)
 
 
-#def test_1_selenium_edit_page(confluence_webdriver, confluence_datasets, confluence_screen_shots):
-#    modules.edit_confluence_page(confluence_webdriver, confluence_datasets)
+def test_1_selenium_edit_page(confluence_webdriver, confluence_datasets, confluence_screen_shots):
+    modules.edit_confluence_page(confluence_webdriver, confluence_datasets)
 
 
-#def test_1_selenium_create_comment(confluence_webdriver, confluence_datasets, confluence_screen_shots):
-#    modules.create_comment(confluence_webdriver, confluence_datasets)
+def test_1_selenium_create_comment(confluence_webdriver, confluence_datasets, confluence_screen_shots):
+    modules.create_comment(confluence_webdriver, confluence_datasets)
 
 
-#def test_1_selenium_view_blog(confluence_webdriver, confluence_datasets, confluence_screen_shots):
-#    modules.view_blog(confluence_webdriver, confluence_datasets)
+def test_1_selenium_view_blog(confluence_webdriver, confluence_datasets, confluence_screen_shots):
+    modules.view_blog(confluence_webdriver, confluence_datasets)
 
 
-#def test_1_selenium_view_dashboard(confluence_webdriver, confluence_datasets, confluence_screen_shots):
-#    modules.view_dashboard(confluence_webdriver, confluence_datasets)
+def test_1_selenium_view_dashboard(confluence_webdriver, confluence_datasets, confluence_screen_shots):
+    modules.view_dashboard(confluence_webdriver, confluence_datasets)
+
 
 #"""
 #Add custom actions anywhere between login and log out action. Move this to a different line as needed.

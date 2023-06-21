@@ -11,7 +11,7 @@ settings:
     secure: False                     # Set False to allow insecure connections, e.g. when using self-signed SSL certificate
     application_postfix:            # e.g. /confluence in case of url like http://localhost:1990/confluence
     admin_login: admin
-    admin_password: welsmacome 
+    admin_password: admin
     load_executor: locust           # jmeter and locust are supported. jmeter by default.
 
     concurrency: 200                # number of concurrent virtual users for jmeter or locust scenario
