@@ -1,6 +1,9 @@
 from locust import HttpUser, task, between
 
 from extension.confluence.extension_locust import app_specific_action
+from extension.confluence.extension_locust import app_specific_action2
+from extension.confluence.extension_locust import app_specific_action_wa
+from extension.confluence.extension_locust import app_specific_action_is
 from locustio.common_utils import LocustConfig, MyBaseTaskSet
 from locustio.confluence.http_actions import login_and_view_dashboard, view_dashboard, view_blog, \
     search_cql_and_view_results, open_editor_and_create_blog, create_and_edit_page, comment_page, view_attachments, \
@@ -60,6 +63,17 @@ class ConfluenceBehavior(MyBaseTaskSet):
     def custom_action(self):
         app_specific_action(self)
 
+    @task(config.percentage('standalone_extension'))
+    def custom_action2(self):
+        app_specific_action2(self)
+
+    @task(config.percentage('standalone_extension'))
+    def custom_action_wa(self):
+        app_specific_action_wa(self)
+
+    @task(config.percentage('standalone_extension'))
+    def custom_action_is(self):
+        app_specific_action_is(self)
 
 class ConfluenceUser(HttpUser):
     host = CONFLUENCE_SETTINGS.server_url
