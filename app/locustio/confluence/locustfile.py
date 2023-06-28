@@ -1,7 +1,7 @@
 from locust import HttpUser, task, between
 
-from extension.confluence.extension_locust import app_specific_action
-from extension.confluence.extension_locust import app_specific_action2
+from extension.confluence.extension_locust import app_specific_action_td
+from extension.confluence.extension_locust import app_specific_action_dt
 from extension.confluence.extension_locust import app_specific_action_wa
 from extension.confluence.extension_locust import app_specific_action_is
 from locustio.common_utils import LocustConfig, MyBaseTaskSet
@@ -61,11 +61,11 @@ class ConfluenceBehavior(MyBaseTaskSet):
 
     @task(config.percentage('standalone_extension'))
     def custom_action(self):
-        app_specific_action(self)
+        app_specific_action_dt(self)
 
     @task(config.percentage('standalone_extension'))
     def custom_action2(self):
-        app_specific_action2(self)
+        app_specific_action_td(self)
 
     @task(config.percentage('standalone_extension'))
     def custom_action_wa(self):
