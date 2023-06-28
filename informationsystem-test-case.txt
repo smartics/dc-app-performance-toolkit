@@ -1,0 +1,3 @@
+<div id="informationsystem-test-case-id">
+This text is from the informationsystem-test-case view.
+</div>
