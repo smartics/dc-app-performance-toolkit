@@ -1,0 +1,36 @@
+version: '3.9'
+
+services:
+  master:
+    image: locustio/locust
+    ports:
+     - "8089:8089"
+    volumes:
+      - ./:/mnt/locust
+        #    command: -f /mnt/locust/locustfile.py --master -H https://seven0.smartics.mobi --loglevel DEBUG 
+    command: -f /mnt/locust/locustio/confluence/locustfile.py --master -H https://seven0.smartics.mobi --loglevel DEBUG 
+    extra_hosts:
+     - "seven0.smartics.mobi:192.168.10.10"
+    networks:
+      locust-network:
+      nginx-proxy:
+        ipv4_address: 192.168.10.106
+  
+  worker:
+    image: locustio/locust
+    volumes:
+      - ./:/mnt/locust
+        #    command: -f /mnt/locust/locustfile.py --worker --master-host master --loglevel DEBUG
+    command: -f /mnt/locust/locustio/confluence/locustfile.py --worker --master-host master --loglevel DEBUG
+    extra_hosts:
+     - "seven0.smartics.mobi:192.168.10.10"
+    networks:
+      locust-network:
+      nginx-proxy:
+        ipv4_address: 192.168.10.107
+
+networks:
+  locust-network:
+    driver: bridge
+  nginx-proxy:
+    external: true
