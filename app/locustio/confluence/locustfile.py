@@ -67,13 +67,13 @@ class ConfluenceBehavior(MyBaseTaskSet):
     def custom_action2(self):
         app_specific_action_td(self)
 
-    @task(config.percentage('standalone_extension'))
-    def custom_action_wa(self):
-        app_specific_action_wa(self)
+#    @task(config.percentage('standalone_extension'))
+#    def custom_action_wa(self):
+#        app_specific_action_wa(self)
 
-    @task(config.percentage('standalone_extension'))
-    def custom_action_is(self):
-        app_specific_action_is(self)
+#    @task(config.percentage('standalone_extension'))
+#    def custom_action_is(self):
+#        app_specific_action_is(self)
 
 class ConfluenceUser(HttpUser):
     host = CONFLUENCE_SETTINGS.server_url
