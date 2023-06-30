@@ -60,20 +60,20 @@ class ConfluenceBehavior(MyBaseTaskSet):
         like_page(self)
 
     @task(config.percentage('standalone_extension'))
-    def custom_action(self):
+    def custom_action_dt(self):
         app_specific_action_dt(self)
 
     @task(config.percentage('standalone_extension'))
-    def custom_action2(self):
+    def custom_action_td(self):
         app_specific_action_td(self)
 
-#    @task(config.percentage('standalone_extension'))
-#    def custom_action_wa(self):
-#        app_specific_action_wa(self)
+    @task(config.percentage('standalone_extension'))
+    def custom_action_wa(self):
+        app_specific_action_wa(self)
 
-#    @task(config.percentage('standalone_extension'))
-#    def custom_action_is(self):
-#        app_specific_action_is(self)
+    @task(config.percentage('standalone_extension'))
+    def custom_action_is(self):
+        app_specific_action_is(self)
 
 class ConfluenceUser(HttpUser):
     host = CONFLUENCE_SETTINGS.server_url
