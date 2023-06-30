@@ -104,7 +104,8 @@ def __get_pages(confluence_api, count):
                                                ' and title !~ Selenium'  # filter out pages created by Selenium
                                                ' and title !~ locust'  # filter out pages created by locust
                                                ' and title !~ Home'  # filter out space Home pages
-                                               f' and text ~ {mark}')
+                                               f' and text ~ {mark}'
+                                               ' and space.key in (DCPTCONTENT1, DCPTCONTENT2, DCPTCONTENT3, DCPTCONTENT4, DCPTCONTENT5, DCPTTEST)' )
                 for page in pages:
                     page['template_id'] = template_id
                 total_pages.extend(pages)
@@ -115,7 +116,8 @@ def __get_pages(confluence_api, count):
                           ' and title !~ JMeter'  # filter out pages created by JMeter
                           ' and title !~ Selenium'  # filter out pages created by Selenium
                           ' and title !~ locust'  # filter out pages created by locust
-                          ' and title !~ Home')  # filter out space Home pages
+                          ' and title !~ Home'  # filter out space Home pages
+                          ' and space.key in (DCPTCONTENT1, DCPTCONTENT2, DCPTCONTENT3, DCPTCONTENT4, DCPTCONTENT5, DCPTTEST)' )
         for page in total_pages:
             page['template_id'] = DEFAULT_TEMPLATE_ID
     if not total_pages:
