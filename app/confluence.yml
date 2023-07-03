@@ -14,9 +14,9 @@ settings:
     admin_password: weltkome
     load_executor: locust           # jmeter and locust are supported. jmeter by default.
 
-    concurrency: 4                 # number of concurrent virtual users for jmeter or locust scenario
-    test_duration: 3m
-    ramp-up: 10s                     # time to spin all concurrent users
+    concurrency: 10                 # number of concurrent virtual users for jmeter or locust scenario
+    test_duration: 5m
+    ramp-up: 30s                      # time to spin all concurrent users
     total_actions_per_hour: 2000
 
     # DATACENTER in k8 AWS
@@ -69,7 +69,7 @@ settings:
     #    upload_attachment: 0
     #    like_page: 0
     #    upload_emoticon: 0      # For Confluence 8.4.x+
-    standalone_extension: 10 # By default disabled
+    standalone_extension: 50 # By default disabled
 
     # Custom dataset section.
     #    custom_dataset_query:  # Write CQL query to add CQL output to the app/datasets/confluence/custom_pages.csv, e.g. "title ~ 'AppPage*'"
