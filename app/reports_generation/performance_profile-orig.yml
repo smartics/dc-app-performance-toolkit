@@ -2,17 +2,17 @@
 column_name: "90% Line"
 runs:
   # fullPath should contain a full path to the directory with run results. E.g. /home/$USER/dc-app-performance-toolkit/app/results/jira/2019-08-06_17-41-08
-  - runName: "without app"
+  - runName: "baseline"
     runType: "baseline"
     fullPath: "${baseline}"
 #    fullPath: "/home/ubuntu/dc-app-performance-toolkit/app/results/confluence/2022-06-22_08-21-23"
-  - runName: "with app"
+  - runName: "new version c:${confluence_version} pd:${projectdoc_version}"
     runType: "experiment"
     fullPath: "${newversion}"
 
 # Chart generation config
 index_col: "Action"
-title: "DCAPT Performance Testing"
+title: "Projectdoc Regression Performance Testing"
 image_height_px: 1000
 image_width_px: 1600
 judge: false
