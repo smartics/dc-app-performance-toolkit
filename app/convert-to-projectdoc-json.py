@@ -23,7 +23,7 @@ import smarticssecrets
 class SmarticsException(Exception):
     pass
 
-logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
+logging.basicConfig(level=logging.ERROR, format='%(asctime)s - %(levelname)s - %(message)s')
 logging.debug('This is a debug message')
 #logging.info('This is an info message')
 #logging.warning('This is a warning message')
@@ -130,9 +130,9 @@ def post_to_url(session, url, querystring={}, payload={}, headers={}):
 
     # Check the response status code
     if response.status_code == 200:
-        print("POST request sent successfully!")
+        logging.debug("POST request sent successfully!")
     else:
-        print("Error sending POST request:", response.status_code)
+        logging.debug("Error sending POST request:", response.status_code)
         raise SmarticsException("Error sending POST request:", response.status_code, response.text)
 
     json_data = json.loads(response.text)
@@ -154,9 +154,9 @@ def create_and_attach_to_page(session, report_path, url, attachment_rest_url, fi
 
     # Check the response status code
     if response.status_code == 200:
-        print("POST request sent successfully!")
+        logging.debug("POST request sent successfully!")
     else:
-        print("Error sending POST request:", response.status_code)
+        logging.debug("Error sending POST request:", response.status_code)
         raise SmarticsException("Error sending POST request:", response.status_code)
 
     json_data = json.loads(response.text)
@@ -165,9 +165,9 @@ def create_and_attach_to_page(session, report_path, url, attachment_rest_url, fi
 
 
 def attach_file_to_page(session, attachment_rest_url, page_id, file_path):
-    print("Attaching file to page..."+file_path)
+    logging.debug("Attaching file to page..."+file_path)
     attachment_rest_url = attachment_rest_url.format(page_id)
-    print(attachment_rest_url)
+    logging.debug(attachment_rest_url)
     headers = {
         "X-Atlassian-Token": "no-check"
     }
@@ -176,9 +176,9 @@ def attach_file_to_page(session, attachment_rest_url, page_id, file_path):
     }
     response = session.post(attachment_rest_url, headers=headers, files=files)
     if response.status_code == 200:
-        print("File attached successfully!")
+        logging.debug("File attached successfully!")
     else:
-        print("Error attaching file. Status code: {}".format(response.status_code))
+        logging.debug("Error attaching file. Status code: {}".format(response.status_code))
 
 
 def fetch_projectdoc_versions_data(session, url, keyword):
@@ -230,11 +230,11 @@ def fetch_bzt_settings(url):
 def check_login(session, url, system_name):
     response = session.get(url)
     if response.status_code == 200 and "username" in response.text:
-        print(f"Login to {system_name} successful!")  # 200 = OK
+        logging.debug(f"Login to {system_name} successful!")  # 200 = OK
         logging.debug(f"Login to {system_name} successful!")
         logging.debug(response.text)
     else:
-        print(f"Login to {system_name} failed. Status code: {response.status_code}")
+        logging.debug(f"Login to {system_name} failed. Status code: {response.status_code}")
         raise SmarticsException(f"Login to documentation system failed. Status code: {response.status_code}")
 
 
@@ -265,9 +265,9 @@ def generate_report(template, target, base_line, path_to_last_run, confluence_ve
     venv_dir = os.path.join(os.path.dirname(cwd), "venv2")
     python_exe = os.path.join(venv_dir, "Scripts", "python.exe")
     script_path = os.path.join(script_dir, "csv_chart_generator.py")
-    print("Running script: " + script_path)
-    print("Using python executable: " + python_exe)
-    print("Using config file: " + target)
+    logging.debug("Running script: " + script_path)
+    logging.debug("Using python executable: " + python_exe)
+    logging.debug("Using config file: " + target)
     subprocess.call([python_exe, script_path, target.replace("\\", "/")],
                     cwd=script_dir)
 
@@ -368,5 +368,3 @@ attachment_rest_url = documentation_system_url + "/rest/api/content/{}/child/att
 file_to_attach = path_to_last_report + "/performance_profile.png"
 
 create_and_attach_to_page(documentation_system_session, path_to_last_report,documentation_system_create_projectdoc_document_url, attachment_rest_url, file_to_attach,"report",confluence_performance_document_name,"my short desc",location, payload_json)
-
-
