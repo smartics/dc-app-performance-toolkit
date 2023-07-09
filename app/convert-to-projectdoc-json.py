@@ -48,8 +48,11 @@ class SmarticsConfluencePerformance:
         return session
 
 
-    def dictionary_to_projectdoc_json(self, csvDictionary):
-        data = {"property": []}
+    def dictionary_to_projectdoc_json(self, csvDictionary, latest_folder_name):
+        data = {"property": [{  "name": "Sort Key",
+                                "value": latest_folder_name,
+                                "controls": "",
+                                "position": "merge"}] }
         for key, value in csvDictionary.items():
             name = key
             value = value
@@ -349,7 +352,7 @@ class SmarticsConfluencePerformance:
         sorted_keys.reverse()
         # create a new dictionary using sorted keys
         sorted_properties_dictionary = {key: properties_dictionary[key] for key in sorted_keys}
-        payload=self.dictionary_to_projectdoc_json(sorted_properties_dictionary)
+        payload=self.dictionary_to_projectdoc_json(sorted_properties_dictionary, latest_folder_name)
         payload_json=json.loads(json.dumps(payload))
 
         section_content='''<ac:structured-macro ac:name="projectdoc-section" ac:schema-version="1"><ac:parameter ac:name="show-title">false</ac:parameter><ac:parameter ac:name="title">Description</ac:parameter><ac:rich-text-body><p><ac:image><ri:attachment ri:filename="performance_profile.png"/></ac:image></p></ac:rich-text-body></ac:structured-macro>'''
