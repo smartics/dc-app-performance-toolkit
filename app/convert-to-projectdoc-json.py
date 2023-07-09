@@ -249,8 +249,12 @@ class SmarticsConfluencePerformance:
         # Get the current directory
         cwd = os.getcwd()
         script_dir = os.path.join(cwd, "reports_generation")
-        venv_dir = os.path.join(os.path.dirname(cwd), "venv2")
-        python_exe = os.path.join(venv_dir, "Scripts", "python.exe")
+        venv_dir = os.path.join(os.path.dirname(cwd), "venv")
+        if os.name == 'nt':  # NT is the name string for Windows
+            python_exe_name = "python.exe"
+        else:
+            python_exe_name = "python"
+        python_exe = os.path.join(venv_dir, "bin" if os.name != 'nt' else "Scripts", python_exe_name)
         script_path = os.path.join(script_dir, "csv_chart_generator.py")
         logging.debug("Running script: " + script_path)
         logging.debug("Using python executable: " + python_exe)
