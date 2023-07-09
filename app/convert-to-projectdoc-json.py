@@ -6,6 +6,7 @@ import yaml
 import os
 import glob
 import subprocess
+from datetime import datetime
 from atlassian import Confluence
 from typing import Dict
 
@@ -257,9 +258,13 @@ class SmarticsConfluencePerformance:
         subprocess.call([python_exe, script_path, target.replace("\\", "/")],
                         cwd=script_dir)
 
+    def get_folder_date(self, folder):
+        # Get the last part of the folder
+        base_name=os.path.basename(os.path.normpath(folder))
+        # Convert it to datetime object
+        return datetime.strptime(base_name, '%Y-%m-%d_%H-%M-%S')
 
-
-    def main(self):
+    def main(self, location, result_name=None):
         logging.basicConfig(level=logging.ERROR, format='%(asctime)s - %(levelname)s - %(message)s')
         logging.debug('This is a debug message')
         #logging.info('This is an info message')
@@ -267,22 +272,26 @@ class SmarticsConfluencePerformance:
         #logging.error('This is an error message')
         #logging.critical('This is a critical message')
         #read commandline
-        location=sys.argv[1]
-        confluence_performance_document_name=sys.argv[2]
 
         results_dir = "results/confluence/"
         reports_dir = "results/reports/"
         base_line = os.path.join(os.getcwd(), results_dir, 'baseline')
-        latest_dirs = sorted(glob.glob(os.path.join(os.getcwd(), results_dir, '*/')), key=os.path.getmtime, reverse=True)
-        latest_dir = latest_dirs[0] if latest_dirs else None
-        path_to_last_run = os.path.normpath(latest_dir)
+        path_to_last_run = None
+        if result_name:
+            path_to_last_run = os.path.join(os.getcwd(), results_dir, result_name)
+        else:
+            folder_list = [
+                folder for folder in glob.glob(os.path.join(os.getcwd(), 'results/confluence', '*/'))
+                if os.path.basename(os.path.normpath(folder)) != 'baseline'
+            ]
+            latest_folder = max(folder_list, key=self.get_folder_date)
+            path_to_last_run = os.path.normpath(latest_folder)
+
+        latest_folder_name = os.path.basename(path_to_last_run)
+        confluence_performance_document_name = latest_folder_name + " - Confluence Performance Measurement"
 
         template = os.path.join(os.getcwd(), "reports_generation/performance_profile-orig.yml")
         target = os.path.join(os.getcwd(), "reports_generation/performance_profile.yml")
-
-        latest_report_dirs = sorted(glob.glob(os.path.join(os.getcwd(), reports_dir, '*/')), key=os.path.getmtime, reverse=True)
-        latest_report_dir = latest_report_dirs[0] if latest_report_dirs else None
-        path_to_last_report = os.path.normpath(latest_report_dir)
 
         # #prepare data
         effective_config_yml=path_to_last_run + "/effective.yml"
@@ -340,7 +349,7 @@ class SmarticsConfluencePerformance:
         payload_json=json.loads(json.dumps(payload))
 
         section_content='''<ac:structured-macro ac:name="projectdoc-section" ac:schema-version="1"><ac:parameter ac:name="show-title">false</ac:parameter><ac:parameter ac:name="title">Description</ac:parameter><ac:rich-text-body><p><ac:image><ri:attachment ri:filename="performance_profile.png"/></ac:image></p></ac:rich-text-body></ac:structured-macro>'''
-        escaped_section_content = json.dumps(section_content)
+        escaped_section_content = section_content   #json.dumps(section_content)
         image_section = {
             "section": [
                 {
@@ -356,6 +365,9 @@ class SmarticsConfluencePerformance:
 
         self.generate_report(template, target, base_line, path_to_last_run,server_info["server-information-fullVersion"], projectdoc_versions["projectdoc-version-information-de.smartics.atlassian.confluence.smartics-projectdoc-confluence#"])
 
+        latest_report_dir = max(glob.glob(os.path.join(os.getcwd(), reports_dir, '*/')), key=os.path.basename)
+        path_to_last_report = os.path.normpath(latest_report_dir)
+
         attachment_rest_url = documentation_system_url + "/rest/api/content/{}/child/attachment"
         file_to_attach = path_to_last_report + "/performance_profile.png"
 
@@ -363,5 +375,11 @@ class SmarticsConfluencePerformance:
 
 # Instanz der Klasse erstellen
 obj = SmarticsConfluencePerformance()
-obj.main()
+
+location=sys.argv[1]
+if len(sys.argv) >= 2:
+    obj.main(location, sys.argv[2])
+else:
+    obj.main(location)
+
 
