@@ -370,15 +370,19 @@ class SmarticsConfluencePerformance:
 
         payload_json.update(image_section)
 
-        self.generate_report(template, target, base_line, path_to_last_run,server_info["server-information-fullVersion"], projectdoc_versions["projectdoc-version-information-de.smartics.atlassian.confluence.smartics-projectdoc-confluence#"])
+        self.generate_report(template, target, base_line, path_to_last_run,server_info["server-information-fullVersion"], projectdoc_versions["projectdoc-version-information-de.smartics.atlassian.confluence.smartics-projectdoc-confluence"])
 
-        latest_report_dir = max(glob.glob(os.path.join(os.getcwd(), reports_dir, '*/')), key=os.path.basename)
-        path_to_last_report = os.path.normpath(latest_report_dir)
+        result_folder_list = [
+            folder for folder in glob.glob(os.path.join(os.getcwd(), reports_dir, '*/'))
+            if os.path.basename(os.path.normpath(folder)) != 'baseline'
+        ]
+        latest_result_folder = max(result_folder_list, key=self.get_folder_date)
+        path_to_last_report = os.path.normpath(latest_result_folder)
 
         attachment_rest_url = documentation_system_url + "/rest/api/content/{}/child/attachment"
         file_to_attach = path_to_last_report + "/performance_profile.png"
 
-        self.create_and_attach_to_page(documentation_system_session, path_to_last_report,documentation_system_create_projectdoc_document_url, attachment_rest_url, file_to_attach,"report",confluence_performance_document_name,"my short desc",location, payload_json)
+        self.create_and_attach_to_page(documentation_system_session, path_to_last_report,documentation_system_create_projectdoc_document_url, attachment_rest_url, file_to_attach,"report",confluence_performance_document_name,"Performance Measurement result",location, payload_json)
 
 # Instanz der Klasse erstellen
 obj = SmarticsConfluencePerformance()
