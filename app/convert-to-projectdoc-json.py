@@ -383,10 +383,11 @@ class SmarticsConfluencePerformance:
 # Instanz der Klasse erstellen
 obj = SmarticsConfluencePerformance()
 
-location=sys.argv[1]
-if len(sys.argv) >= 2:
-    obj.main(location, sys.argv[2])
+if len(sys.argv) > 1:
+    location = sys.argv[1]
+    if len(sys.argv) > 2:
+        obj.main(location, sys.argv[2])
+    else:
+        obj.main(location)
 else:
-    obj.main(location)
-
-
+    print("Please provide at least one argument.")
