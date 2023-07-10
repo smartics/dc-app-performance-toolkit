@@ -144,7 +144,7 @@ class SmarticsConfluencePerformance:
         for plugin in data['plugins']:
             if keyword in plugin['key']:
                 version, date = (plugin['version'].split("-", 1) + ["RELEASE"])[:2]
-                versions["projectdoc-version-information-"+plugin['key']+"#"] = plugin['version']
+                versions["projectdoc-version-information-"+plugin['key']] = plugin['version']
                 versions["projectdoc-version-information-"+plugin['key']+"$"] = version
                 versions["projectdoc-version-information-"+plugin['key']+"%"] = date
         return versions
