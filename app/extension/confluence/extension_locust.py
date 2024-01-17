@@ -4,13 +4,33 @@ from locustio.common_utils import init_logger, confluence_measure, \
 
 logger = init_logger(app_type='confluence')
 
-TESTCASE_SPACE_KEY = "PROJECTDOCTEST"
+TESTCASE_SPACE_KEY = "DOCM"
+#TESTCASE_SPACE_KEY = "PROJECTDOCTEST"
+TC_DOCM = "DOCM1"
+TC_DOCM_ASSERTION_TEXT = "Section1"
 TC_DISPLAY_TABLE = "Test Case Display Table"
 TC_DISPLAY_TABLE_ASSERTION_TEXT = "List of Documents"
 TC_TRANSCLUDE_DOCUMENTS = "Test Case Transclude from Documents"
 TC_TRANSCLUDE_DOCUMENTS_ASSERTION_TEXT = "Transclusion from Documents"
 TC_INFORMATIONSYSTEM_TEST = "Informationsystemtest"
 TC_INFORMATIONSYSTEM_ASSERTION_TEXT = "informationsystem-test-case-id"
+
+@confluence_measure("locust_app_specific_action_docm")
+# @run_as_specific_user(username='admin', password='admin')  # run as specific user
+def app_specific_action_docm(locust):
+    logger.info(f"DocumentationMacro")
+    response = locust.get(
+        '/display/{}/{}'.format(TESTCASE_SPACE_KEY, TC_DOCM),
+        catch_response=True)
+    content = response.content.decode('utf-8')
+    assertion_string = TC_DOCM_ASSERTION_TEXT
+
+    if assertion_string not in content:
+        logger.error(f"'{assertion_string}' was not found in {content}")
+        assert assertion_string in content
+    else:
+        logger.info(
+            f"'{assertion_string}' was found in content")
 
 
 @confluence_measure("locust_app_specific_action_dt")
