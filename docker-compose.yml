@@ -1,0 +1,19 @@
+version: "3.9"
+services:
+  app:
+    image: af23b578a68e
+    volumes:
+      - .:/dc-app-performance-toolkit
+    command: confluence.yml
+    shm_size: 4g
+    extra_hosts:
+      - "c7perf.smartics.mobi:192.168.10.10"
+    networks:
+      confluence-network:
+      nginx-proxy:
+        ipv4_address: 192.168.10.87
+networks:
+  confluence-network:
+    driver: bridge
+  nginx-proxy:
+    external: true

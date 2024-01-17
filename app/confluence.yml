@@ -11,7 +11,7 @@ settings:
     secure: True                     # Set False to allow insecure connections, e.g. when using self-signed SSL certificate
     application_postfix:            # e.g. /confluence in case of url like http://localhost:1990/confluence
     admin_login: anton.kronseder 
-    admin_password: weltkome
+    admin_password: XXXXX 
     load_executor: locust           # jmeter and locust are supported. jmeter by default.
 
     concurrency: 10                 # number of concurrent virtual users for jmeter or locust scenario
@@ -40,7 +40,7 @@ settings:
     #total_actions_per_hour: 2000
 
     WEBDRIVER_VISIBLE: False
-    JMETER_VERSION: 5.4.3
+    JMETER_VERSION: 5.5
     LANGUAGE: en_US.utf8
     allow_analytics: Yes              # Allow sending basic run analytics to Atlassian. These analytics help us to understand how the tool is being used and help us to continue to invest in this tooling. For more details please see our README.
     # Action percentage for JMeter and Locust load executors
@@ -92,7 +92,7 @@ services:
       - python util/post_run/cleanup_results_dir.py
   - module: pip-install
     packages:
-      - selenium==4.9.0
+      - selenium==4.13.0
 execution:
   - scenario: ${load_executor}
     executor: ${load_executor}
@@ -158,11 +158,13 @@ modules:
       httpsampler.ignore_failed_embedded_resources: "true"
   selenium:
     chromedriver:
+<<<<<<< HEAD
 #      version: "101.0.4951.41" # Supports Chrome version 101. You can refer to http://chromedriver.chromium.org/downloads
 #      version: "90.0.4430.24" # Supports Chrome version 97. You can refer to http://chromedriver.chromium.org/downloads
 #      version: "102.0.5005.61" # Supports Chrome version 102. You can refer to http://chromedriver.chromium.org/downloads
 #      version: "103.0.5060.134" # Supports Chrome version 103. You can refer to http://chromedriver.chromium.org/downloads
       version: "114.0.5735.90" # Supports Chrome version 103. You can refer to http://chromedriver.chromium.org/downloads
+#      version: "118.0.5993.70" # Supports Chrome version 118. You can refer to https://googlechromelabs.github.io/chrome-for-testing
   blazemeter:
     # token: e41bf0cde4ff5c5d75ba5e5ee9aa200e85bfe870a51262efdf4a4e6dcb084f3a677dcb25 
     # address: https://a.blazemeter.com  # reporting service address

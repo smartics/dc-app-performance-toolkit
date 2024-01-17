@@ -332,7 +332,7 @@ class SmarticsConfluencePerformance:
         #confluence = Confluence(
         #    url=system_under_test_url,
         #    username='anton.kronseder',
-        #    password='weltkome')
+        #    password='XXXXX')
         #existing = confluence.page_exists("PROJECTDOCTEST", "Informationsystemtest")
 
         #fetch metadata
