@@ -21,6 +21,7 @@ DEFAULT_USER_PASSWORD = 'password'
 ERROR_LIMIT = 10
 CQL_WORDS_COUNT = 3
 
+#smartics CQL to find documents ??? but for what ?? Selenium or locust ?? or both ??
 PAGE_CQL = ('type=page'
             ' and title !~ JMeter'  # filter out pages created by JMeter
             ' and title !~ Selenium'  # filter out pages created by Selenium

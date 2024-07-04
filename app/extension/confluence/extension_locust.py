@@ -3,34 +3,79 @@ from locustio.common_utils import init_logger, confluence_measure, \
     run_as_specific_user  # noqa F401
 
 logger = init_logger(app_type='confluence')
-
+#smartics
 TESTCASE_SPACE_KEY = "DOCM"
 #TESTCASE_SPACE_KEY = "PROJECTDOCTEST"
+
+#DocumentationMacros (And Toolbox ?)
 TC_DOCM = "DOCM1"
-TC_DOCM_ASSERTION_TEXT = "Section1"
+TC_DOCM_SECTION_ASSERTION_TEXT = "Section1"
+TC_DOCM_HIDE_ASSERTION_TEXT = "HideFromAll"
+TC_DOCM_HIDEFROMANONYMOUS_ASSERTION_TEXT = "HideFromAnonymous"
+TC_DOCM_HIDEFROMREADER_ASSERTION_TEXT = "HideFromReader"
+TC_DOCM_DEFINITIONLIST_ASSERTION_TEXT = "Value2"
+
+#ProjectdocToolbox
 TC_DISPLAY_TABLE = "Test Case Display Table"
 TC_DISPLAY_TABLE_ASSERTION_TEXT = "List of Documents"
 TC_TRANSCLUDE_DOCUMENTS = "Test Case Transclude from Documents"
 TC_TRANSCLUDE_DOCUMENTS_ASSERTION_TEXT = "Transclusion from Documents"
+
+#Extension Informationssystem
 TC_INFORMATIONSYSTEM_TEST = "Informationsystemtest"
 TC_INFORMATIONSYSTEM_ASSERTION_TEXT = "informationsystem-test-case-id"
+#smartics comment in only the wanted tests
 
-@confluence_measure("locust_app_specific_action_docm")
+@confluence_measure("locust_app_specific_action_docm_section")
+def app_specific_action_docm_section(locust):
+    logger.info(f"SectionMacro DocumentationMacro")
+    response = locust.get('/display/{}/{}'.format(TESTCASE_SPACE_KEY, TC_DOCM), catch_response=True)
+    content = response.content.decode('utf-8')
+    assert_text(content, TC_DOCM_SECTION_ASSERTION_TEXT)
+
+@confluence_measure("locust_app_specific_action_docm_hide")
 # @run_as_specific_user(username='admin', password='admin')  # run as specific user
-def app_specific_action_docm(locust):
-    logger.info(f"DocumentationMacro")
+def app_specific_action_docm_hide(locust):
+    logger.info(f"HideMacro DocumentationMacro")
     response = locust.get(
         '/display/{}/{}'.format(TESTCASE_SPACE_KEY, TC_DOCM),
         catch_response=True)
     content = response.content.decode('utf-8')
-    assertion_string = TC_DOCM_ASSERTION_TEXT
+    assert_text(content, TC_DOCM_HIDE_ASSERTION_TEXT)
 
-    if assertion_string not in content:
-        logger.error(f"'{assertion_string}' was not found in {content}")
-        assert assertion_string in content
-    else:
-        logger.info(
-            f"'{assertion_string}' was found in content")
+
+@confluence_measure("locust_app_specific_action_docm_hidefromreader")
+# @run_as_specific_user(username='admin', password='admin')  # run as specific user
+def app_specific_action_docm_hidefromreader(locust):
+    logger.info(f"HideFromReaderMacro DocumentationMacro")
+    response = locust.get(
+        '/display/{}/{}'.format(TESTCASE_SPACE_KEY, TC_DOCM),
+        catch_response=True)
+    content = response.content.decode('utf-8')
+    assert_text(content, TC_DOCM_HIDEFROMREADER_ASSERTION_TEXT)
+
+
+@confluence_measure("locust_app_specific_action_docm_hidefromanonymous")
+# @run_as_specific_user(username='admin', password='admin')  # run as specific user
+def app_specific_action_docm_hidefromanonymous(locust):
+    logger.info(f"HideFromAnonymousMacro DocumentationMacro")
+    response = locust.get(
+        '/display/{}/{}'.format(TESTCASE_SPACE_KEY, TC_DOCM),
+        catch_response=True)
+    content = response.content.decode('utf-8')
+    assert_text(content, TC_DOCM_HIDEFROMANONYMOUS_ASSERTION_TEXT)
+
+
+@confluence_measure("locust_app_specific_action_docm_definitionlist")
+# @run_as_specific_user(username='admin', password='admin')  # run as specific user
+def app_specific_action_docm_definitionlist(locust):
+    logger.info(f"Definitionlist DocumentationMacro")
+    response = locust.get(
+        '/display/{}/{}'.format(TESTCASE_SPACE_KEY, TC_DOCM),
+        catch_response=True)
+    content = response.content.decode('utf-8')
+    assert_text(content, TC_DOCM_DEFINITIONLIST_ASSERTION_TEXT)
+
 
 
 @confluence_measure("locust_app_specific_action_dt")
@@ -41,14 +86,8 @@ def app_specific_action_dt(locust):
         '/display/{}/{}'.format(TESTCASE_SPACE_KEY, TC_DISPLAY_TABLE),
         catch_response=True)
     content = response.content.decode('utf-8')
-    assertion_string = TC_DISPLAY_TABLE_ASSERTION_TEXT
+    assert_text(content, TC_DISPLAY_TABLE_ASSERTION_TEXT)
 
-    if assertion_string not in content:
-        logger.error(f"'{assertion_string}' was not found in {content}")
-        assert assertion_string in content
-    else:
-        logger.info(
-            f"'{assertion_string}' was found in content")
 
 
 @confluence_measure("locust_app_specific_action_td")
@@ -59,14 +98,8 @@ def app_specific_action_td(locust):
         '/display/{}/{}'.format(TESTCASE_SPACE_KEY, TC_TRANSCLUDE_DOCUMENTS),
         catch_response=True)
     content = response.content.decode('utf-8')
-    assertion_string = TC_TRANSCLUDE_DOCUMENTS_ASSERTION_TEXT
+    assert_text(content, TC_TRANSCLUDE_DOCUMENTS_ASSERTION_TEXT)
 
-    if assertion_string not in content:
-        logger.error(f"'{assertion_string}' was not found in {content}")
-        assert assertion_string in content
-    else:
-        logger.info(
-            f"'{assertion_string}' was found in content")
 
 @confluence_measure("locust_app_specific_action_is")
 # @run_as_specific_user(username='admin', password='admin')  # run as specific user
@@ -76,16 +109,10 @@ def app_specific_action_is(locust):
         '/display/{}/{}'.format(TESTCASE_SPACE_KEY, TC_INFORMATIONSYSTEM_TEST),
         catch_response=True)
     content = response.content.decode('utf-8')
-    assertion_string = TC_INFORMATIONSYSTEM_ASSERTION_TEXT
-
-    if assertion_string not in content:
-        logger.error(f"'{assertion_string}' was not found in {content}")
-        assert assertion_string in content
-    else:
-        logger.info(
-            f"'{assertion_string}' was found in content")
+    assert_text(content, TC_INFORMATIONSYSTEM_ASSERTION_TEXT)
 
 
+#REST API (Web API = wa)
 @confluence_measure("locust_app_specific_action_wa")
 # @run_as_specific_user(username='admin', password='admin')  # run as specific user
 def app_specific_action_wa(locust):
@@ -101,6 +128,39 @@ def app_specific_action_wa(locust):
         logger.error(f"'assertion string' was not found in {content}")
     assert token != ""  # assert that TOKEN is not empty
 
+
+@confluence_measure("locust_app_specific_action")
+# @run_as_specific_user(username='admin', password='admin')  # run as specific user
+#def app_specific_action(locust):
+#    r = locust.get('/app/get_endpoint', catch_response=True)  # call app-specific GET endpoint
+#    content = r.content.decode('utf-8')   # decode response content
+
+#    token_pattern_example = '"token":"(.+?)"'
+#    id_pattern_examplem= '"id":"(.+?)"'
+#    token = re.findall(token_pattern_example, content)  # get TOKEN from response using regexp
+#    id = remfindall(id_pattern_example, content)    # get id from response using regexp
+
+#    logger.locust_info(f'token: {token}, id: {id}')  # log info for debug when verbose is true in confluence.yml file
+#    if 'assertion string' not in content:
+#        logger.error(f"'assertion string' was not found in {content}")
+#    assert 'assertion string' in content  # assert specific string in response content
+
+#    body = {"id": id, "token": token}  # include parsed variables to POST request body
+#    headers = {'content-type': 'application/json'}
+#    r = locust.post('/app/post_endpoint', body, headers, catch_response=True)  # call app-specific POST endpoint
+#    content = r.content.decode('utf-8')
+#    if 'assertion string after successful POST request' not in content:
+#        logger.error(f"'assertion string after successful POST request' was not found in {content}")
+#    assert 'assertion string after successful POST request' in content  # assertion after POST request
+
+
+def assert_text(content, assertion_string):
+    if assertion_string not in content:
+        logger.error(f"'{assertion_string}' was not found in {content}")
+        assert assertion_string in content
+    else:
+        logger.info(
+        f"'{assertion_string}' was found in content")
 
 # {
 #     "size": 1,

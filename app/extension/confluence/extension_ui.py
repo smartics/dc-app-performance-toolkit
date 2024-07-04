@@ -57,23 +57,21 @@ def app_specific_action(webdriver, datasets):
     # To run action as specific user uncomment code bellow.
     # NOTE: If app_specific_action is running as specific user, make sure that app_specific_action is running
     # just before test_2_selenium_z_log_out
-    @print_timing("selenium_app_specific_user_login")
-    def measure():
-        def app_specific_user_login(username='admin', password='admin'):
-            login_page = Login(webdriver)
-            login_page.delete_all_cookies()
-            login_page.go_to()
-            login_page.wait_for_page_loaded()
-            login_page.set_credentials(username=username, password=password)
-            login_page.click_login_button()
-            if login_page.is_first_login():
-                login_page.first_user_setup()
-            all_updates_page = AllUpdates(webdriver)
-            all_updates_page.wait_for_page_loaded()
-
-        app_specific_user_login(username='admin', password='admin')
-
-    measure()
+    # @print_timing("selenium_app_specific_user_login")
+    # def measure():
+    #     def app_specific_user_login(username='admin', password='admin'):
+    #         login_page = Login(webdriver)
+    #         login_page.delete_all_cookies()
+    #         login_page.go_to()
+    #         login_page.wait_for_page_loaded()
+    #         login_page.set_credentials(username=username, password=password)
+    #         login_page.click_login_button()
+    #         if login_page.is_first_login():
+    #             login_page.first_user_setup()
+    #         all_updates_page = AllUpdates(webdriver)
+    #         all_updates_page.wait_for_page_loaded()
+    #     app_specific_user_login(username='admin', password='admin')
+    # measure()
 
     @print_timing("selenium_app_custom_action")
     def measure():

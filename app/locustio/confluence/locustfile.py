@@ -1,10 +1,19 @@
 from locust import HttpUser, task, between
 
-from extension.confluence.extension_locust import app_specific_action_docm
-#from extension.confluence.extension_locust import app_specific_action_td
-#from extension.confluence.extension_locust import app_specific_action_dt
-#from extension.confluence.extension_locust import app_specific_action_wa
-#from extension.confluence.extension_locust import app_specific_action_is
+#from extension.confluence.extension_locust import app_specific_action
+#from extension.confluence.extension_locust import app_specific_action_docm
+
+from extension.confluence.extension_locust import app_specific_action_docm_section
+from extension.confluence.extension_locust import app_specific_action_docm_hide
+from extension.confluence.extension_locust import app_specific_action_docm_hidefromreader
+from extension.confluence.extension_locust import app_specific_action_docm_hidefromanonymous
+from extension.confluence.extension_locust import app_specific_action_docm_definitionlist
+
+from extension.confluence.extension_locust import app_specific_action_td
+from extension.confluence.extension_locust import app_specific_action_dt
+from extension.confluence.extension_locust import app_specific_action_wa
+from extension.confluence.extension_locust import app_specific_action_is
+
 from locustio.common_utils import LocustConfig, MyBaseTaskSet
 from locustio.confluence.http_actions import login_and_view_dashboard, view_dashboard, view_blog, \
     search_cql_and_view_results, open_editor_and_create_blog, create_and_edit_page, comment_page, view_attachments, \
@@ -60,6 +69,28 @@ class ConfluenceBehavior(MyBaseTaskSet):
     def like_page_action(self):
         like_page(self)
 
+#smartics the name in quotes can be configured in confluence.yml line 40ff
+
+#    @task(config.percentage('standalone_extension'))
+#    def custom_action_docm(self):
+#        app_specific_action_docm(self)
+
+    @task(config.percentage('standalone_extension_section'))
+    def custom_action_section(self):
+        app_specific_action_docm_section(self)
+
+    @task(config.percentage('standalone_extension_hide'))
+    def custom_action_hide(self):
+        app_specific_action_docm_hide(self)
+
+    @task(config.percentage('standalone_extension_hidefromreader'))
+    def custom_action_hidefromreader(self):
+        app_specific_action_docm_hidefromreader(self)
+
+    @task(config.percentage('standalone_extension_hidefromanonymous'))
+    def custom_action_hidefromanonymous(self):
+        app_specific_action_docm_hidefromanonymous(self)
+
     @task(config.percentage('standalone_extension'))
     def custom_action_dt(self):
         app_specific_action_dt(self)
@@ -76,9 +107,7 @@ class ConfluenceBehavior(MyBaseTaskSet):
 #    def custom_action_is(self):
 #        app_specific_action_is(self)
 
-    @task(config.percentage('standalone_extension'))
-    def custom_action_docm(self):
-        app_specific_action_docm(self)
+
 
 class ConfluenceUser(HttpUser):
     host = CONFLUENCE_SETTINGS.server_url
