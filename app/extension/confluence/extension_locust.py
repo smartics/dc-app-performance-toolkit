@@ -160,7 +160,7 @@ def assert_text(content, assertion_string):
         assert assertion_string in content
     else:
         logger.info(
-        f"'{assertion_string}' was found in content")
+            f"'{assertion_string}' was found in content")
 
 # {
 #     "size": 1,

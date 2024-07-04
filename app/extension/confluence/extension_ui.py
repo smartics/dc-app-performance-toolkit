@@ -16,6 +16,7 @@ def us_banner_is_appearing(webdriver, datasets):
     # To run action as specific user uncomment code bellow.
     # NOTE: If app_specific_action is running as specific user, make sure that app_specific_action is running
     # just before test_2_selenium_z_log_out
+    # smartics hier vielleicht den String ändern
     @print_timing("selenium_app_specific_user_login")
     def measure():
         def app_specific_user_login(username='admin', password='admin'):
@@ -82,7 +83,5 @@ def app_specific_action(webdriver, datasets):
             page.wait_until_visible((By.ID, "title-text"))  # Wait for title field visible
             page.wait_until_present(
                 (By.ID, "userscripts-admin-tool"))  # Wait for you app-specific UI element by ID selector
-
         sub_measure()
-
     measure()

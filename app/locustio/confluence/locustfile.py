@@ -1,5 +1,7 @@
 from locust import HttpUser, task, between
 
+#smartics comment in / out what you want to test. Must be synchron to the file(s) above
+
 #from extension.confluence.extension_locust import app_specific_action
 #from extension.confluence.extension_locust import app_specific_action_docm
 
@@ -21,7 +23,6 @@ from locustio.confluence.http_actions import login_and_view_dashboard, view_dash
 from util.conf import CONFLUENCE_SETTINGS
 
 config = LocustConfig(config_yml=CONFLUENCE_SETTINGS)
-
 
 class ConfluenceBehavior(MyBaseTaskSet):
 
@@ -69,11 +70,11 @@ class ConfluenceBehavior(MyBaseTaskSet):
     def like_page_action(self):
         like_page(self)
 
-#smartics the name in quotes can be configured in confluence.yml line 40ff
+    #smartics the name in quotes can be configured in confluence.yml line 40ff
 
-#    @task(config.percentage('standalone_extension'))
-#    def custom_action_docm(self):
-#        app_specific_action_docm(self)
+    #    @task(config.percentage('standalone_extension'))
+    #    def custom_action_docm(self):
+    #        app_specific_action_docm(self)
 
     @task(config.percentage('standalone_extension_section'))
     def custom_action_section(self):
@@ -106,7 +107,6 @@ class ConfluenceBehavior(MyBaseTaskSet):
 #    @task(config.percentage('standalone_extension'))
 #    def custom_action_is(self):
 #        app_specific_action_is(self)
-
 
 
 class ConfluenceUser(HttpUser):
