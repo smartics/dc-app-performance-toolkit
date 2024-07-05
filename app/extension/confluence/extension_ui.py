@@ -7,7 +7,7 @@ from selenium_ui.conftest import print_timing
 from selenium_ui.confluence.pages.pages import Login, AllUpdates
 from util.conf import CONFLUENCE_SETTINGS
 
-
+# smartics
 def us_banner_is_appearing(webdriver, datasets):
     page = BasePage(webdriver)
     if datasets['custom_pages']:

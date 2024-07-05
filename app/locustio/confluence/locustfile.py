@@ -21,7 +21,7 @@ from locustio.confluence.http_actions import login_and_view_dashboard, view_dash
     search_cql_and_view_results, open_editor_and_create_blog, create_and_edit_page, comment_page, view_attachments, \
     upload_attachments, like_page, view_page
 from util.conf import CONFLUENCE_SETTINGS
-
+# smartics
 config = LocustConfig(config_yml=CONFLUENCE_SETTINGS)
 
 class ConfluenceBehavior(MyBaseTaskSet):

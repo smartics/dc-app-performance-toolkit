@@ -1,7 +1,7 @@
 from selenium_ui.confluence import modules
 from extension.confluence import extension_ui  # noqa F401
 
-
+# smartics
 # this action should be the first one
 def test_0_selenium_a_login(confluence_webdriver, confluence_datasets, confluence_screen_shots):
     modules.login(confluence_webdriver, confluence_datasets)
@@ -51,7 +51,7 @@ Refer to `app/selenium_ui/confluence/modules.py` for examples.
 # def test_1_selenium_custom_action(confluence_webdriver, confluence_datasets, confluence_screen_shots):
 #     extension_ui.app_specific_action(confluence_webdriver, confluence_datasets)
 
-#smartics selenium
+# smartics selenium
 
 def test_1_selenium_us_banner_is_appearing(confluence_webdriver, confluence_datasets, confluence_screen_shots):
     extension_ui.us_banner_is_appearing(confluence_webdriver, confluence_datasets)

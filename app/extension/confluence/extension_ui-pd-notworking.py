@@ -4,6 +4,7 @@ from selenium_ui.base_page import BasePage
 from selenium_ui.conftest import print_timing
 from util.conf import CONFLUENCE_SETTINGS
 
+# smartics
 TC_TITLE_DISPLAY_TABLE = "Test Case Display Table"
 TC_TITLE_TRANSCLUDE_DOCUMENTS = "Test Case Transclude from Documents"
 
