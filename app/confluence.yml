@@ -5,7 +5,7 @@ settings:
   verbose: false
   check-updates: false    # disable bzt check for updates
   env:
-    application_hostname: a0e6ccd49893d48c2bdbfeb356982d97-838197334.us-east-2.elb.amazonaws.com   # Confluence DC hostname without protocol, port and postfix e.g. test-confluence.atlassian.com or localhost
+    application_hostname: a6f24a6a60232494f999eb85e1ca4436-1714390679.us-east-2.elb.amazonaws.com   # Confluence DC hostname without protocol, port and postfix e.g. test-confluence.atlassian.com or localhost
     application_protocol: http         # http or https
     application_port: 80               # 80, 443, 8080, 1990, etc
     secure: True                       # Set False to allow insecure connections, e.g. when using self-signed SSL certificate
@@ -13,7 +13,7 @@ settings:
     admin_login: admin
     admin_password: admin
 #smartics or jmeter
-    load_executor: locust              # jmeter and locust are supported. jmeter by default.
+    load_executor: jmeter              # jmeter and locust are supported. jmeter by default.
     concurrency: 200                   # number of concurrent virtual users for jmeter or locust scenario
     test_duration: 45m
     ramp-up: 5m                        # time to spin all concurrent users
@@ -36,12 +36,12 @@ settings:
     upload_attachment: 7
     like_page: 3
     upload_emoticon: 2      # For Confluence 8.4.x+
-    #    standalone_extension: 33 # By default disabled
+    standalone_extension: 0 # By default disabled
     #smartics
-    standalone_extension_section: 10 # By default disabled
-    standalone_extension_hide: 10 # By default disabled
-    standalone_extension_hidefromreader: 10 # By default disabled
-    standalone_extension_hidefromanonymous: 10 # By default disabled
+    #standalone_extension_section: 10 # By default disabled
+    #standalone_extension_hide: 10 # By default disabled
+    #standalone_extension_hidefromreader: 10 # By default disabled
+    #standalone_extension_hidefromanonymous: 10 # By default disabled
 
     #    view_page: 0
     #    view_dashboard: 0
@@ -54,7 +54,7 @@ settings:
     #    upload_attachment: 0
     #    like_page: 0
     #    upload_emoticon: 0      # For Confluence 8.4.x+
-    standalone_extension: 50 # By default disabled (0)
+    # standalone_extension: 50 # By default disabled (0)
 
     # Custom dataset section.
     #    custom_dataset_query:  # Write CQL query to add CQL output to the app/datasets/confluence/custom_pages.csv, e.g. "title ~ 'AppPage*'"
@@ -145,21 +145,21 @@ modules:
 #      version: "103.0.5060.134" # Supports Chrome version 103. You can refer to http://chromedriver.chromium.org/downloads
       version: "114.0.5735.90" # Supports Chrome version 103. You can refer to http://chromedriver.chromium.org/downloads
 #      version: "118.0.5993.70" # Supports Chrome version 118. You can refer to https://googlechromelabs.github.io/chrome-for-testing
-  blazemeter:
+#  blazemeter:
     # token: e41bf0cde4ff5c5d75ba5e5ee9aa200e85bfe870a51262efdf4a4e6dcb084f3a677dcb25
     # address: https://a.blazemeter.com  # reporting service address
     # data-address: https://data.blazemeter.com  # data service address
-    browser-open: none  # auto-open the report in browser,
+#    browser-open: none  # auto-open the report in browser,
     # can be "start", "end", "both", "none"
     # send-interval: 30s   # send data each n-th second
     # timeout: 5s  # connect and request timeout for BlazeMeter API
     # artifact-upload-size-limit: 5  # limit max size of file (in megabytes)
     # that goes into zip for artifact upload, 10 by default
     # following instructions will have effect when no per-reporter settings
-    report-name:  ask # if you will use value 'ask', it will ask it from command line
+#    report-name:  ask # if you will use value 'ask', it will ask it from command line
     #  modules.blazemeter.report-name="example-1"
-    test: regression-example
-    project: projectdoc
+#    test: regression-example
+#    project: projectdoc
 reporting:
 - data-source: sample-labels
   module: junit-xml
