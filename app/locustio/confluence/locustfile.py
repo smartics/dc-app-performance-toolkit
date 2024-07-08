@@ -1,20 +1,23 @@
 from locust import HttpUser, task, between
+from extension.confluence.extension_locust import app_specific_action_userscript_rest
+
 
 #smartics comment in / out what you want to test. Must be synchron to the file(s) above
-
 #from extension.confluence.extension_locust import app_specific_action
 #from extension.confluence.extension_locust import app_specific_action_docm
 
-from extension.confluence.extension_locust import app_specific_action_docm_section
-from extension.confluence.extension_locust import app_specific_action_docm_hide
-from extension.confluence.extension_locust import app_specific_action_docm_hidefromreader
-from extension.confluence.extension_locust import app_specific_action_docm_hidefromanonymous
-from extension.confluence.extension_locust import app_specific_action_docm_definitionlist
+#from extension.confluence.extension_locust import app_specific_action_docm_section
+#from extension.confluence.extension_locust import app_specific_action_docm_hide
+#from extension.confluence.extension_locust import app_specific_action_docm_hidefromreader
+#from extension.confluence.extension_locust import app_specific_action_docm_hidefromanonymous
+#from extension.confluence.extension_locust import app_specific_action_docm_definitionlist
 
-from extension.confluence.extension_locust import app_specific_action_td
-from extension.confluence.extension_locust import app_specific_action_dt
-from extension.confluence.extension_locust import app_specific_action_wa
-from extension.confluence.extension_locust import app_specific_action_is
+#from extension.confluence.extension_locust import app_specific_action_td
+#from extension.confluence.extension_locust import app_specific_action_dt
+#from extension.confluence.extension_locust import app_specific_action_wa
+#from extension.confluence.extension_locust import app_specific_action_is
+
+
 
 from locustio.common_utils import LocustConfig, MyBaseTaskSet
 from locustio.confluence.http_actions import login_and_view_dashboard, view_dashboard, view_blog, \
@@ -76,6 +79,11 @@ class ConfluenceBehavior(MyBaseTaskSet):
     #    def custom_action_docm(self):
     #        app_specific_action_docm(self)
 
+    @task(config.percentage('standalone_extension_us_rest_content'))
+    def custom_action_section(self):
+        app_specific_action_userscript_rest(self)
+
+'''
     @task(config.percentage('standalone_extension_section'))
     def custom_action_section(self):
         app_specific_action_docm_section(self)
@@ -107,7 +115,7 @@ class ConfluenceBehavior(MyBaseTaskSet):
 #    @task(config.percentage('standalone_extension'))
 #    def custom_action_is(self):
 #        app_specific_action_is(self)
-
+'''
 
 class ConfluenceUser(HttpUser):
     host = CONFLUENCE_SETTINGS.server_url
