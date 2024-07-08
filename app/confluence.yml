@@ -36,7 +36,7 @@ settings:
     upload_attachment: 7
     like_page: 3
     upload_emoticon: 2      # For Confluence 8.4.x+
-    standalone_extension: 0 # By default disabled
+    standalone_extension: 10 # By default disabled
     #smartics
     #standalone_extension_section: 10 # By default disabled
     #standalone_extension_hide: 10 # By default disabled
