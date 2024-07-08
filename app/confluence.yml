@@ -37,6 +37,7 @@ settings:
     like_page: 3
     upload_emoticon: 2      # For Confluence 8.4.x+
     standalone_extension: 10 # By default disabled
+    standalone_extension_us_rest_content: 10
     #smartics
     #standalone_extension_section: 10 # By default disabled
     #standalone_extension_hide: 10 # By default disabled

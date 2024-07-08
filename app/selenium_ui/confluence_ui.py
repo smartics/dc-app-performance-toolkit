@@ -51,8 +51,8 @@ Refer to `app/selenium_ui/confluence/modules.py` for examples.
 
 # smartics selenium
 
-#def test_1_selenium_us_banner_is_appearing(confluence_webdriver, confluence_datasets, confluence_screen_shots):
-#    extension_ui.us_banner_is_appearing(confluence_webdriver, confluence_datasets)
+def test_1_selenium_us_banner_is_appearing(confluence_webdriver, confluence_datasets, confluence_screen_shots):
+    extension_ui.us_banner_is_appearing(confluence_webdriver, confluence_datasets)
 
 def test_1_selenium_custom_action(confluence_webdriver, confluence_datasets, confluence_screen_shots):
     extension_ui.app_specific_action(confluence_webdriver, confluence_datasets)
