@@ -36,8 +36,8 @@ settings:
     upload_attachment: 7
     like_page: 3
     upload_emoticon: 2      # For Confluence 8.4.x+
-    standalone_extension: 0 # By default disabled
-    standalone_extension_us_rest_content: 0
+    standalone_extension: 5 # By default disabled
+    standalone_extension_us_rest_content: 8
     #smartics
     #standalone_extension_section: 10 # By default disabled
     #standalone_extension_hide: 10 # By default disabled
@@ -63,8 +63,8 @@ settings:
     # Write CQL query to add CQL output to the app/datasets/confluence/custom_pages.csv, e.g. "title ~ 'AppPage*'"
     #smartics compared
     #    custom_dataset_query:  "space='PROJECTDOCTEST' AND (title = 'Test Case Display Table' OR title =  'Test Case Transclude from Documents')"
-    custom_dataset_query:   # Write CQL query to add CQL output to the app/datasets/confluence/custom_pages.csv, e.g. "title ~ 'AppPage*'"
-    # custom_dataset_query:  "title ~ 'UC1 Home' OR title ~ 'UC2 Home'"  # Write CQL query to add CQL output to the app/datasets/confluence/custom_pages.csv, e.g. "title ~ 'AppPage*'"
+    # custom_dataset_query:   # Write CQL query to add CQL output to the app/datasets/confluence/custom_pages.csv, e.g. "title ~ 'AppPage*'"
+    custom_dataset_query:  "title ~ 'UC1 Home' OR title ~ 'UC2 Home'"  # Write CQL query to add CQL output to the app/datasets/confluence/custom_pages.csv, e.g. "title ~ 'AppPage*'"
     # custom_dataset_query: title ~ 'smarticsUserScriptPage'          # Write CQL query to add CQL output to the app/datasets/confluence/custom_pages.csv, e.g. "title ~ 'AppPage*'"
 services:
   - module: shellexec
