@@ -1,8 +1,8 @@
 from locust import HttpUser, task, between
 from extension.confluence.extension_locust import app_specific_action_userscript_rest
+from extension.confluence.extension_locust import app_specific_action
 
 #smartics comment in / out what you want to test. Must be synchron to the file(s) above
-#from extension.confluence.extension_locust import app_specific_action
 #from extension.confluence.extension_locust import app_specific_action_docm
 
 #from extension.confluence.extension_locust import app_specific_action_docm_section
@@ -81,6 +81,11 @@ class ConfluenceBehavior(MyBaseTaskSet):
     @task(config.percentage('standalone_extension_us_rest_content'))
     def custom_action_userscript_rest(self):
         app_specific_action_userscript_rest(self)
+
+    @task(config.percentage('standalone_extension'))
+    def custom_action_is(self):
+        app_specific_action(self)
+
 
 '''
     @task(config.percentage('standalone_extension_section'))
