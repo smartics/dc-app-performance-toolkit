@@ -41,7 +41,7 @@ def app_specific_action(locust):
     #http://a5a095e58e6b942858e3e49f205e74e8-472365187.us-east-2.elb.amazonaws.com/confluence/rest/userscripts-for-confluence/1/context
     response = locust.get('/rest/userscripts-for-confluence/1/context?page-id={}'.format("44171866"), catch_response=True)
     content = response.content.decode('utf-8')
-    assert_text(content, "/confluence/rest/userscripts-for-confluence/1/repo/de.smartics.userscripts/test-1.0.0.jsX")
+    assert_text(content, "/confluence/rest/userscripts-for-confluence/1/repo/de.smartics.userscripts/test-1.0.0.js")
 
 
 @confluence_measure("locust_app_specific_action_docm_section")
