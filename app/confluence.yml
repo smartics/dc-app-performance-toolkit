@@ -15,7 +15,7 @@ settings:
 #smartics or jmeter
     load_executor: locust              # jmeter and locust are supported. jmeter by default.
     concurrency: 10                    # number of concurrent virtual users for jmeter or locust scenario 
-    test_duration: 3m
+    test_duration: 2m
     ramp-up: 1m                        # time to spin all concurrent users
     total_actions_per_hour: 2000
     WEBDRIVER_VISIBLE: False
