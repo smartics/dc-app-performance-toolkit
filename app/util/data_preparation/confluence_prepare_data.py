@@ -21,13 +21,12 @@ DEFAULT_USER_PASSWORD = 'password'
 ERROR_LIMIT = 10
 CQL_WORDS_COUNT = 3
 
-#smartics CQL to find documents ??? but for what ?? Selenium or locust ?? or both ??
 PAGE_CQL = ('type=page'
             ' and title !~ JMeter'  # filter out pages created by JMeter
             ' and title !~ Selenium'  # filter out pages created by Selenium
             ' and title !~ locust'  # filter out pages created by locust
             ' and title !~ Home'  # filter out space Home pages
-            ' and space.key in (DCPTCONTENT1, DCPTCONTENT2, DCPTCONTENT3, DCPTCONTENT4, DCPTCONTENT5, DCPTTEST)' )
+            )
 
 BLOG_CQL = ('type=blogpost'
             ' and title !~ Performance'  # filter out blogs with Performance in title

@@ -11,7 +11,8 @@
 # This value can not be altered after the configuration has been applied.
 # Only lowercase letters, numbers, dashes, and dots are allowed.
 # ! REQUIRED !
-environment_name = "dcapt-confluence"
+environment_name = "dcapt-confluence-1"
+#environment_name = "dcapt-confluence-1"
 
 # Supported products: jira, confluence, bitbucket, crowd and bamboo.
 # For JSM set product as jira.
@@ -25,12 +26,8 @@ products = ["confluence"]
 # ! IMPORTANT ! Please make sure valid license is used without spaces and new line symbols.
 # ! REQUIRED !
 jira_license = "jira-license"
-<<<<<<< HEAD
 #confluence_license = "AAABtg0ODAoPeNp1kVFv0zAUhd/9K67EWyWnSRlCrRQJmphtsCVVmxQY8OA6t4shtSPb6ei/x01aMYom2S++vvd859xXRd3BR64gCiGczq6i2eQ1XN8XMAmjKcm63QZNvi0tGhvTiCRaOS5cxncYVy03Rtr6HXcNt1ZyFQi9I0KrbeD/yD3GznRIFp0RNbeYcofxcSwNI3/InRSoLBaHFvt5KVuzu3zBlucK+91Kc+jbFm8n4c1Znd1z2bwkv0KzR3ObxvPraUG/lOsr+unh4YbOw+jzwPZM95lmX/JaPEHl0Azoq25jhZGtk1oNL6PRKMsL+iFf0sUyT8ukuM0zWq6YL8SJQQ9bweYArkY4CQFTQldooDX6JwoH32rn2u+z8fhRB//Aj5uhg+LQ8SOAVIPSDippnZGbzqGfLC04DaKzTu/8XgLi8/DMiivxf2aeK1my9wVL6fzrEfKF3E6wPrhS/VL6SZEVy2J/6ZswJLl55Epa3geR4h4b3XpHBVp3tkl6975+uefL0C+WffK89k6Owyckxb+Z9wKnH7DVBo4bgmFFwNsWqjOLJWzPm24g3PLGA/0BPyf53zAsAhRkz1mJWp3LJ7VNdwkOE7bW79jdYAIUWX+0cHtBmtP2me+0RS/ClIlFOvQ=X02l1"
 confluence_license = "AAABqA0ODAoPeNptUltv2jAUfvevsDRp2h6giQOFIFkqSlJg5VIB66aKl5NwMlwSJ7UTSv79HJJo2rQ32+c73+Ucf/qBR7oCRdmIMntis8lgQD1/T5nFBsRTCIXIpA8F8vqlZzk9NiY+6kiJvC5xL5NxUqKMkH4xOKAeygLVVzq0LIt+16j0YUJ9vGCS5ajoHlVKlyJCqZGsQBiwBNMdXHOhqk5peFMakXWZhqg28Y2H15Sk7f0/PmmKLwZdm2NkV4Z/vBaqRBJcIClvsXgMiTGxUb9ACt086RRUISJNn1RmiI7G8We6RSHNYZaGcxKZvH2ICnHBhs8MoDD3wGRJOMgik/1z1/vQ0fWP2Hmbgz7xlffhPc4+7n7ms/Fj8Dr89j5/j9n5eneucji+XaenrReLfOimzJWhu1CBU03vw+rVvXjp9MAPvDHSDmNf5biGFLkfvATLzXOwbcq7wsijaoO24IXPlwt/F6x7S2bZruMMhg26Xl+zvSbZGatukPa9ZY2ssePY5LlU0Qk0/vsp2jncbMAbhDqTD1AkoLUA2Y+ylBhJ/rfsb1MV1OAwLAIUTd/2KQFWZv8xGVF7QkuK2cKV5usCFH2iJd5JhvWZOHuOK4WyNzexRYlzX02kc"
-=======
-confluence_license = "AAABtg0ODAoPeNp1kVFv0zAUhd/9K67EWyWnSRlCrRQJmphtsCVVmxQY8OA6t4shtSPb6ei/x01aMYom2S++vvd859xXRd3BR64gCiGczq6i2eQ1XN8XMAmjKcm63QZNvi0tGhvTiCRaOS5cxncYVy03Rtr6HXcNt1ZyFQi9I0KrbeD/yD3GznRIFp0RNbeYcofxcSwNI3/InRSoLBaHFvt5KVuzu3zBlucK+91Kc+jbFm8n4c1Znd1z2bwkv0KzR3ObxvPraUG/lOsr+unh4YbOw+jzwPZM95lmX/JaPEHl0Azoq25jhZGtk1oNL6PRKMsL+iFf0sUyT8ukuM0zWq6YL8SJQQ9bweYArkY4CQFTQldooDX6JwoH32rn2u+z8fhRB//Aj5uhg+LQ8SOAVIPSDippnZGbzqGfLC04DaKzTu/8XgLi8/DMiivxf2aeK1my9wVL6fzrEfKF3E6wPrhS/VL6SZEVy2J/6ZswJLl55Epa3geR4h4b3XpHBVp3tkl6975+uefL0C+WffK89k6Owyckxb+Z9wKnH7DVBo4bgmFFwNsWqjOLJWzPm24g3PLGA/0BPyf53zAsAhRkz1mJWp3LJ7VNdwkOE7bW79jdYAIUWX+0cHtBmtP2me+0RS/ClIlFOvQ=X02l1"
->>>>>>> 4a049738d9caad21827dc2b53d5db83ce1a724c1
 bitbucket_license = "bitbucket-license"
 crowd_license = "crowd-license"
 bamboo_license = "bamboo-license"
