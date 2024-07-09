@@ -11,7 +11,7 @@
 # This value can not be altered after the configuration has been applied.
 # Only lowercase letters, numbers, dashes, and dots are allowed.
 # ! REQUIRED !
-environment_name = "dcapt-confluence-1"
+environment_name = "dcapt-confluence-2"
 #environment_name = "dcapt-confluence-1"
 
 # Supported products: jira, confluence, bitbucket, crowd and bamboo.
