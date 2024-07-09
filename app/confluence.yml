@@ -5,7 +5,7 @@ settings:
   verbose: false
   check-updates: false    # disable bzt check for updates
   env:
-    application_hostname: a5a095e58e6b942858e3e49f205e74e8-472365187.us-east-2.elb.amazonaws.com  # Confluence DC hostname without protocol, port and postfix e.g. test-confluence.atlassian.com or localhost
+    application_hostname: aa9065165fe16480bb1ef194a9e1d10f-1892676786.us-east-2.elb.amazonaws.com  # Confluence DC hostname without protocol, port and postfix e.g. test-confluence.atlassian.com or localhost
     application_protocol: http         # http or https
     application_port: 80               # 80, 443, 8080, 1990, etc
     secure: True                       # Set False to allow insecure connections, e.g. when using self-signed SSL certificate
@@ -14,10 +14,10 @@ settings:
     admin_password: admin
 #smartics or jmeter
     load_executor: locust              # jmeter and locust are supported. jmeter by default.
-    concurrency: 200                    # number of concurrent virtual users for jmeter or locust scenario
-    test_duration: 45m
-    ramp-up: 5m                        # time to spin all concurrent users
-    total_actions_per_hour: 20000
+    concurrency: 5                    # number of concurrent virtual users for jmeter or locust scenario
+    test_duration: 3m
+    ramp-up: 1m                        # time to spin all concurrent users
+    total_actions_per_hour: 200
     WEBDRIVER_VISIBLE: False
     JMETER_VERSION: 5.6
     LANGUAGE: en_US.utf8
@@ -25,17 +25,17 @@ settings:
     environment_compliance_check: True # Pre-test environment compliance validation. Set to "False" to skip it.
     extended_metrics: False
     # Action percentage for JMeter and Locust load executors
-    view_page: 33
-    view_dashboard: 10
-    view_blog: 13
-    search_cql: 4
-    create_blog: 5
-    create_and_edit_page: 9
-    comment_page: 8
-    view_attachment: 6
-    upload_attachment: 7
-    like_page: 3
-    upload_emoticon: 2      # For Confluence 8.4.x+
+    view_page: 1 
+    view_dashboard: 0
+    view_blog: 0
+    search_cql: 0
+    create_blog: 0
+    create_and_edit_page: 0
+    comment_page: 0
+    view_attachment: 0
+    upload_attachment: 0
+    like_page: 0
+    upload_emoticon: 0      # For Confluence 8.4.x+
     standalone_extension: 5 # By default disabled
     standalone_extension_us_rest_content: 8
     #smartics
