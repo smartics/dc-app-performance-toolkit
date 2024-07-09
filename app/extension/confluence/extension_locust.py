@@ -26,7 +26,6 @@ TC_INFORMATIONSYSTEM_TEST = "Informationsystemtest"
 TC_INFORMATIONSYSTEM_ASSERTION_TEXT = "informationsystem-test-case-id"
 #smartics comment in only the wanted tests
 
-
 @confluence_measure("locust_app_specific_action_userscript_rest")
 def app_specific_action_userscript_rest(locust):
     page_id = "44236807"
@@ -43,14 +42,6 @@ def app_specific_action_userscript_rest(locust):
         else:
             response.failure(f"Request failed with status code {response.status_code}")
 
-#@confluence_measure("locust_app_specific_action")
-#def app_specific_action(locust):
-#    logger.info(f"Userscripts RestAPI content 1")
-    # http://a9ad5e96ce29c45b1a45a1d85829e3a3-1034839394.us-east-2.elb.amazonaws.com/confluence/rest/userscripts-for-confluence/1/context?page-id=44236807
-#    response = locust.get('/rest/userscripts-for-confluence/1/repo/de.smartics.test/test-1.0.0.js', catch_response=True)
-#    content = response.content.decode('utf-8')
-#    assert_text(content, "Copyright 2019-2020 Kronseder & Reiner GmbH, smartics")
-
 @confluence_measure("locust_app_specific_action")
 def app_specific_action(locust):
     page_id = "44236807"
@@ -66,6 +57,14 @@ def app_specific_action(locust):
                 response.failure(f"Expected text '{expected_text}' not found in response content.")
         else:
             response.failure(f"Request failed with status code {response.status_code}")
+
+#@confluence_measure("locust_app_specific_action")
+#def app_specific_action(locust):
+#    logger.info(f"Userscripts RestAPI content 1")
+# http://a9ad5e96ce29c45b1a45a1d85829e3a3-1034839394.us-east-2.elb.amazonaws.com/confluence/rest/userscripts-for-confluence/1/context?page-id=44236807
+#    response = locust.get('/rest/userscripts-for-confluence/1/repo/de.smartics.test/test-1.0.0.js', catch_response=True)
+#    content = response.content.decode('utf-8')
+#    assert_text(content, "Copyright 2019-2020 Kronseder & Reiner GmbH, smartics")
 
 #@confluence_measure("locust_app_specific_action")
 #def app_specific_action(locust):
