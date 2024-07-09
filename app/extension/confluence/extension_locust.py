@@ -35,7 +35,6 @@ def app_specific_action_userscript_rest(locust):
     content = response.content.decode('utf-8')
     assert_text(content, "test-1.0.0.js")
 
-
 @confluence_measure("locust_app_specific_action")
 def app_specific_action(locust):
     logger.info(f"Userscripts RestAPI content 1")
@@ -43,8 +42,6 @@ def app_specific_action(locust):
     response = locust.get('/rest/userscripts-for-confluence/1/repo/de.smartics.test/test-1.0.0.js', catch_response=True)
     content = response.content.decode('utf-8')
     assert_text(content, "Copyright 2019-2020 Kronseder & Reiner GmbH, smartics")
-
-
 
 #@confluence_measure("locust_app_specific_action")
 #def app_specific_action(locust):
