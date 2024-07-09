@@ -44,12 +44,12 @@ def app_specific_action_userscript_rest(locust):
 #    assert_text(content, "Copyright 2019-2020 Kronseder & Reiner GmbH, smartics")
 
 @confluence_measure("locust_app_specific_action")
-def app_specific_action(self):
+def app_specific_action(locust):
     page_id = "44236807"
     expected_text = "test-1.0.0.js"
     url = f'/rest/userscripts-for-confluence/1/context?page-id={page_id}'
-    logger.info(f"Requesting Userscripts RestAPI content for page ID {page_id}")
-    with self.client.get(url, catch_response=True) as response:
+    logger.info(f"Requesting Userscripts RestAPI content for: PAGEID {page_id}")
+    with locust.client.get(url, catch_response=True) as response:
         if response.status_code == 200:
             content = response.text
             if expected_text in content:
