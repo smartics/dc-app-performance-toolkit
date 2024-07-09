@@ -30,12 +30,10 @@ TC_INFORMATIONSYSTEM_ASSERTION_TEXT = "informationsystem-test-case-id"
 @confluence_measure("locust_app_specific_action_userscript_rest")
 def app_specific_action_userscript_rest(locust):
     logger.info(f"Userscripts RestAPI content 1")
-    #http://aa9065165fe16480bb1ef194a9e1d10f-1892676786.us-east-2.elb.amazonaws.com/confluence/rest/userscripts-for-confluence/1/context?page-id=44236807
-    #http://a9ad5e96ce29c45b1a45a1d85829e3a3-1034839394.us-east-2.elb.amazonaws.com/confluence/rest/userscripts-for-confluence/1/userscripts
-    # response = locust.get('/rest/userscripts-for-confluence/1/context?page-id={}'.format("44236807"), catch_response=True)
-    response = locust.get('/rest/userscripts-for-confluence/1/userscripts', catch_response=True)
+    # http://a9ad5e96ce29c45b1a45a1d85829e3a3-1034839394.us-east-2.elb.amazonaws.com/confluence/rest/userscripts-for-confluence/1/context?page-id=44236807
+    response = locust.get('/rest/userscripts-for-confluence/1/context?page-id={}'.format("44236807"), catch_response=True)
     content = response.content.decode('utf-8')
-    assert_text(content, "de.smartics.test")
+    assert_text(content, "test-1.0.0.js")
 
 @confluence_measure("locust_app_specific_action")
 def app_specific_action(locust):
