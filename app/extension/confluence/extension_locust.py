@@ -30,17 +30,28 @@ TC_INFORMATIONSYSTEM_ASSERTION_TEXT = "informationsystem-test-case-id"
 @confluence_measure("locust_app_specific_action_userscript_rest")
 def app_specific_action_userscript_rest(locust):
     logger.info(f"Userscripts RestAPI content 1")
-    # http://a9ad5e96ce29c45b1a45a1d85829e3a3-1034839394.us-east-2.elb.amazonaws.com/confluence/rest/userscripts-for-confluence/1/context?page-id=44236807
-    response = locust.get('/rest/userscripts-for-confluence/1/context?page-id={}'.format("44236807"), catch_response=True)
+    # response = locust.get('/rest/userscripts-for-confluence/1/context?page-id={}'.format("44236807"), catch_response=True)
+    response = locust.get('/rest/userscripts-for-confluence/1/context?page-id=44236807', catch_response=True)
     content = response.content.decode('utf-8')
     assert_text(content, "test-1.0.0.js")
 
+
 @confluence_measure("locust_app_specific_action")
 def app_specific_action(locust):
-    logger.info(f"Atlassian RestAPI check")
-    response = locust.get('/rest/api/user/current', catch_response=True)
+    logger.info(f"Userscripts RestAPI content 1")
+    # http://a9ad5e96ce29c45b1a45a1d85829e3a3-1034839394.us-east-2.elb.amazonaws.com/confluence/rest/userscripts-for-confluence/1/context?page-id=44236807
+    response = locust.get('/rest/userscripts-for-confluence/1/repo/de.smartics.test/test-1.0.0.js', catch_response=True)
     content = response.content.decode('utf-8')
-    assert_text(content, "type")
+    assert_text(content, "Copyright 2019-2020 Kronseder & Reiner GmbH, smartics")
+
+
+
+#@confluence_measure("locust_app_specific_action")
+#def app_specific_action(locust):
+#    logger.info(f"Atlassian RestAPI check")
+#    response = locust.get('/rest/api/user/current', catch_response=True)
+#    content = response.content.decode('utf-8')
+#    assert_text(content, "type")
 
 
 @confluence_measure("locust_app_specific_action_docm_section")
