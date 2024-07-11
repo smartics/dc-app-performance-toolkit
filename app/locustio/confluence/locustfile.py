@@ -1,34 +1,40 @@
 from locust import HttpUser, task, between
 
 # smartics uncomment for userscripts
-#from extension.confluence.extension_locust import app_specific_action_userscript_rest
-#from extension.confluence.extension_locust import app_specific_action
+# from extension.confluence.extension_locust import app_specific_action_userscript_rest
+# from extension.confluence.extension_locust import app_specific_action
 
-#smartics comment in / out what you want to test. Must be synchron to the file(s) above
-#from extension.confluence.extension_locust import app_specific_action_docm
+# smartics comment in / out what you want to test. Must be synchron to the file(s) above
+# from extension.confluence.extension_locust import app_specific_action_docm
 
-#from extension.confluence.extension_locust import app_specific_action_docm_section
-#from extension.confluence.extension_locust import app_specific_action_docm_hide
-#from extension.confluence.extension_locust import app_specific_action_docm_hidefromreader
-#from extension.confluence.extension_locust import app_specific_action_docm_hidefromanonymous
-#from extension.confluence.extension_locust import app_specific_action_docm_definitionlist
+# from extension.confluence.extension_locust import app_specific_action_docm_section
+# from extension.confluence.extension_locust import app_specific_action_docm_hide
+# from extension.confluence.extension_locust import app_specific_action_docm_hidefromreader
+# from extension.confluence.extension_locust import app_specific_action_docm_hidefromanonymous
+# from extension.confluence.extension_locust import app_specific_action_docm_definitionlist
 
 # smartics uncomment for projectdoc toolbox
-from extension.confluence.extension_locust import app_specific_action_transclude_documents
-from extension.confluence.extension_locust import app_specific_action_display_table
+from extension.confluence.extension_locust import \
+    app_specific_action_transclude_documents
+from extension.confluence.extension_locust import \
+    app_specific_action_display_table
 
 # smartics uncomment for projectdoc toolbox extensions
 from extension.confluence.extension_locust import app_specific_action_web_api
-from extension.confluence.extension_locust import app_specific_action_information_system
-
+from extension.confluence.extension_locust import \
+    app_specific_action_information_system
 
 from locustio.common_utils import LocustConfig, MyBaseTaskSet
-from locustio.confluence.http_actions import login_and_view_dashboard, view_dashboard, view_blog, \
-    search_cql_and_view_results, open_editor_and_create_blog, create_and_edit_page, comment_page, view_attachments, \
+from locustio.confluence.http_actions import login_and_view_dashboard, \
+    view_dashboard, view_blog, \
+    search_cql_and_view_results, open_editor_and_create_blog, \
+    create_and_edit_page, comment_page, view_attachments, \
     upload_attachments, like_page, view_page
 from util.conf import CONFLUENCE_SETTINGS
+
 # smartics
 config = LocustConfig(config_yml=CONFLUENCE_SETTINGS)
+
 
 class ConfluenceBehavior(MyBaseTaskSet):
 
@@ -76,11 +82,12 @@ class ConfluenceBehavior(MyBaseTaskSet):
     def like_page_action(self):
         like_page(self)
 
-    #smartics the name in quotes can be configured in confluence.yml line 40ff
+    # smartics the name in quotes can be configured in confluence.yml line 40ff
 
     #    @task(config.percentage('standalone_extension'))
     #    def custom_action_docm(self):
     #        app_specific_action_docm(self)
+
 
 '''
 # smartics uncomment for userscripts
@@ -113,22 +120,27 @@ class ConfluenceBehavior(MyBaseTaskSet):
 
 '''
 
-    @task(config.percentage('standalone_extension_transclude_documents'))
-    def custom_action_transclude_documents(self):
-        app_specific_action_transclude_documents(self)
 
-    @task(config.percentage('standalone_extension_display_table'))
-    def custom_action_display_table(self):
-        app_specific_action_display_table(self)
+@task(config.percentage('standalone_extension_transclude_documents'))
+def custom_action_transclude_documents(self):
+    app_specific_action_transclude_documents(self)
+
+
+@task(config.percentage('standalone_extension_display_table'))
+def custom_action_display_table(self):
+    app_specific_action_display_table(self)
+
 
 # smartics uncomment for projectdoc toolbox extensions
-    @task(config.percentage('standalone_extension_web_api'))
-    def custom_action_web_api(self):
-        app_specific_action_web_api(self)
+@task(config.percentage('standalone_extension_web_api'))
+def custom_action_web_api(self):
+    app_specific_action_web_api(self)
 
-    @task(config.percentage('standalone_extension_information_system'))
-    def custom_action_information_system(self):
-        app_specific_action_information_system(self)
+
+@task(config.percentage('standalone_extension_information_system'))
+def custom_action_information_system(self):
+    app_specific_action_information_system(self)
+
 
 class ConfluenceUser(HttpUser):
     host = CONFLUENCE_SETTINGS.server_url
