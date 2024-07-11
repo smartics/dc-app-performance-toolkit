@@ -117,27 +117,23 @@ class ConfluenceBehavior(MyBaseTaskSet):
 
 '''
 
-
-@task(config.percentage('standalone_extension_transclude_documents'))
-def custom_action_transclude_documents(self):
-    app_specific_action_transclude_documents(self)
-
-
-@task(config.percentage('standalone_extension_display_table'))
-def custom_action_display_table(self):
-    app_specific_action_display_table(self)
+    @task(config.percentage('standalone_extension_transclude_documents'))
+    def custom_action_transclude_documents(self):
+        app_specific_action_transclude_documents(self)
 
 
-# smartics uncomment for projectdoc toolbox extensions
-@task(config.percentage('standalone_extension_web_api'))
-def custom_action_web_api(self):
-    app_specific_action_web_api(self)
+    @task(config.percentage('standalone_extension_display_table'))
+    def custom_action_display_table(self):
+        app_specific_action_display_table(self)
 
+    @task(config.percentage('standalone_extension_information_system'))
+    def custom_action_information_system(self):
+        app_specific_action_information_system(self)
 
-@task(config.percentage('standalone_extension_information_system'))
-def custom_action_information_system(self):
-    app_specific_action_information_system(self)
-
+    # smartics uncomment for projectdoc toolbox extensions
+    @task(config.percentage('standalone_extension_web_api'))
+    def custom_action_web_api(self):
+        app_specific_action_web_api(self)
 
 class ConfluenceUser(HttpUser):
     host = CONFLUENCE_SETTINGS.server_url

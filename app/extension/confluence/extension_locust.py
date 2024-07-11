@@ -127,16 +127,6 @@ def app_specific_action_docm_definitionlist(locust):
     content = response.content.decode('utf-8')
     assert_text(content, TC_DOCM_DEFINITIONLIST_ASSERTION_TEXT)
 
-@confluence_measure("locust_app_specific_action_display_table")
-# @run_as_specific_user(username='admin', password='admin')  # run as specific user
-def app_specific_action_display_table(locust):
-    logger.info(f"DisplayTable")
-    response = locust.get(
-        '/display/{}/{}'.format(TESTCASE_SPACE_KEY, TC_DISPLAY_TABLE),
-        catch_response=True)
-    content = response.content.decode('utf-8')
-    assert_text(content, TC_DISPLAY_TABLE_ASSERTION_TEXT)
-
 @confluence_measure("locust_app_specific_action_transclude_documents")
 # @run_as_specific_user(username='admin', password='admin')  # run as specific user
 def app_specific_action_transclude_documents(locust):
@@ -147,8 +137,17 @@ def app_specific_action_transclude_documents(locust):
     content = response.content.decode('utf-8')
     assert_text(content, TC_TRANSCLUDE_DOCUMENTS_ASSERTION_TEXT)
 
+@confluence_measure("locust_app_specific_action_display_table")
+# @run_as_specific_user(username='admin', password='admin')  # run as specific user
+def app_specific_action_display_table(locust):
+    logger.info(f"DisplayTable")
+    response = locust.get(
+        '/display/{}/{}'.format(TESTCASE_SPACE_KEY, TC_DISPLAY_TABLE),
+        catch_response=True)
+    content = response.content.decode('utf-8')
+    assert_text(content, TC_DISPLAY_TABLE_ASSERTION_TEXT)
 
-@confluence_measure("locust_standalone_extension_information_system")
+@confluence_measure("locust_app_specific_action_information_system")
 # @run_as_specific_user(username='admin', password='admin')  # run as specific user
 def app_specific_action_information_system(locust):
     logger.info(f"Informationsystems")
