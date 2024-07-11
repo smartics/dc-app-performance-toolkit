@@ -1,4 +1,5 @@
 from locust import HttpUser, task, between
+import logging
 
 # smartics uncomment for userscripts
 # from extension.confluence.extension_locust import app_specific_action_userscript_rest
@@ -39,6 +40,7 @@ class ConfluenceBehavior(MyBaseTaskSet):
 
     def on_start(self):
         self.client.verify = config.secure
+        logging.error("Here I am! SMARTICS")
 #        login_and_view_dashboard(self)
 
     @task(config.percentage('view_page'))
