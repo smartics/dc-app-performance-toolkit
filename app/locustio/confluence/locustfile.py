@@ -14,12 +14,15 @@ from locust import HttpUser, task, between
 # from extension.confluence.extension_locust import app_specific_action_docm_definitionlist
 
 # smartics uncomment for projectdoc toolbox
-from extension.confluence.extension_locust import app_specific_action_transclude_documents
-from extension.confluence.extension_locust import app_specific_action_display_table
+from extension.confluence.extension_locust import \
+    app_specific_action_transclude_documents
+from extension.confluence.extension_locust import \
+    app_specific_action_display_table
 
 # smartics uncomment for projectdoc toolbox extensions
 from extension.confluence.extension_locust import app_specific_action_web_api
-from extension.confluence.extension_locust import app_specific_action_information_system
+from extension.confluence.extension_locust import \
+    app_specific_action_information_system
 
 from locustio.common_utils import LocustConfig, MyBaseTaskSet
 from locustio.confluence.http_actions import login_and_view_dashboard, \
@@ -79,6 +82,23 @@ class ConfluenceBehavior(MyBaseTaskSet):
     def like_page_action(self):
         like_page(self)
 
+    @task(config.percentage('standalone_extension_transclude_documents'))
+    def custom_action_transclude_documents(self):
+        app_specific_action_transclude_documents(self)
+
+    @task(config.percentage('standalone_extension_display_table'))
+    def custom_action_display_table(self):
+        app_specific_action_display_table(self)
+
+    @task(config.percentage('standalone_extension_information_system'))
+    def custom_action_information_system(self):
+        app_specific_action_information_system(self)
+
+    # smartics uncomment for projectdoc toolbox extensions
+    @task(config.percentage('standalone_extension_web_api'))
+    def custom_action_web_api(self):
+        app_specific_action_web_api(self)
+
     # smartics the name in quotes can be configured in confluence.yml line 40ff
 
     #    @task(config.percentage('standalone_extension'))
@@ -117,23 +137,6 @@ class ConfluenceBehavior(MyBaseTaskSet):
 
 '''
 
-    @task(config.percentage('standalone_extension_transclude_documents'))
-    def custom_action_transclude_documents(self):
-        app_specific_action_transclude_documents(self)
-
-
-    @task(config.percentage('standalone_extension_display_table'))
-    def custom_action_display_table(self):
-        app_specific_action_display_table(self)
-
-    @task(config.percentage('standalone_extension_information_system'))
-    def custom_action_information_system(self):
-        app_specific_action_information_system(self)
-
-    # smartics uncomment for projectdoc toolbox extensions
-    @task(config.percentage('standalone_extension_web_api'))
-    def custom_action_web_api(self):
-        app_specific_action_web_api(self)
 
 class ConfluenceUser(HttpUser):
     host = CONFLUENCE_SETTINGS.server_url
