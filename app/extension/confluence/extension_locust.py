@@ -150,7 +150,7 @@ def app_specific_action_transclude_documents(locust):
 
 @confluence_measure("locust_standalone_extension_information_system")
 # @run_as_specific_user(username='admin', password='admin')  # run as specific user
-def app_standalone_extension_information_system(locust):
+def app_specific_action_information_system(locust):
     logger.info(f"Informationsystems")
     response = locust.get(
         '/display/{}/{}'.format(TESTCASE_SPACE_KEY, TC_INFORMATIONSYSTEM_TEST),
