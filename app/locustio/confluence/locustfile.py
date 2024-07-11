@@ -8,6 +8,8 @@ from locustio.confluence.http_actions import login_and_view_dashboard, view_dash
 from util.conf import CONFLUENCE_SETTINGS
 
 config = LocustConfig(config_yml=CONFLUENCE_SETTINGS)
+
+
 class ConfluenceBehavior(MyBaseTaskSet):
 
     def on_start(self):

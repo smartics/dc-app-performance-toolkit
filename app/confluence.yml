@@ -15,7 +15,7 @@ settings:
 
 
     load_executor: locust              # jmeter and locust are supported. jmeter by default.
-    concurrency: 200                   # number of concurrent virtual users for jmeter or locust scenario
+    concurrency: 20                   # number of concurrent virtual users for jmeter or locust scenario
     test_duration: 4m
     ramp-up: 1m                        # time to spin all concurrent users
     total_actions_per_hour: 2000
@@ -119,8 +119,8 @@ modules:
     chromedriver:
       version: "126.0.6478.126" # Supports Chrome version 126. You can refer to https://googlechromelabs.github.io/chrome-for-testing
 reporting:
-  - data-source: sample-labels
-    module: junit-xml
-  - module: passfail
-    criteria:
-      - failures>25% over 300s, stop as failed
+- data-source: sample-labels
+  module: junit-xml
+- module: passfail
+  criteria:
+  - failures>25% over 300s, stop as failed
