@@ -26,22 +26,55 @@ settings:
     environment_compliance_check: True # Pre-test environment compliance validation. Set to "False" to skip it.
     extended_metrics: False
     # Action percentage for JMeter and Locust load executors
-    view_page: 33
-    view_dashboard: 10
-    view_blog: 13
-    search_cql: 4
-    create_blog: 5
-    create_and_edit_page: 9
-    comment_page: 8
-    view_attachment: 6
-    upload_attachment: 7
-    like_page: 3
-    upload_emoticon: 2      # For Confluence 8.4.x+
-    standalone_extension: 10 # By default disabled
-    # Custom dataset section.
-#    custom_dataset_query:           # Write CQL query to add CQL output to the app/datasets/confluence/custom_pages.csv, e.g. "title ~ 'AppPage*'"
-    custom_dataset_query:  "space='PROJECTDOCTEST' AND (title = 'Test Case Display Table' OR title =  'Test Case Transclude from Documents')"
+    # smartics ORIG
+    #view_page: 33
+    #view_dashboard: 10
+    #view_blog: 13
+    #search_cql: 4
+    #create_blog: 5
+    #create_and_edit_page: 9
+    #comment_page: 8
+    #view_attachment: 6
+    #upload_attachment: 7
+    #like_page: 3
+    #upload_emoticon: 2      # For Confluence 8.4.x+
 
+    # smartics test
+    view_page: 4
+    view_dashboard: 4
+    view_blog: 4
+    search_cql: 2
+    create_blog: 2
+    create_and_edit_page: 2
+    comment_page: 2
+    view_attachment: 1
+    upload_attachment: 2
+    like_page: 1
+    upload_emoticon: 1      # For Confluence 8.4.x+
+
+    standalone_extension: 15 # By default disabled
+    # standalone_extension_us_rest_content: 5
+    #smartics
+
+    #standalone_extension_section: 10 # By default disabled
+    #standalone_extension_hide: 10 # By default disabled
+    #standalone_extension_hidefromreader: 10 # By default disabled
+    #standalone_extension_hidefromanonymous: 10 # By default disabled
+
+    #standalone_extension_transclude_documents: 15
+    #standalone_extension_display_table: 15
+    #standalone_extension_web_api: 15
+    #standalone_extension_information_system: 15
+
+    # Custom dataset section.
+    # custom_dataset_query:  # Write CQL query to add CQL output to the app/datasets/confluence/custom_pages.csv, e.g. "title ~ 'AppPage*'"
+    # custom_dataset_query:  # Write CQL query to add CQL output to the app/datasets/confluence/custom_pages.csv, e.g. "title ~ 'AppPage*'"
+    # Write CQL query to add CQL output to the app/datasets/confluence/custom_pages.csv, e.g. "title ~ 'AppPage*'"
+    # custom_dataset_query:
+    custom_dataset_query:  "space='PROJECTDOCTEST' AND (title = 'Test Case Display Table' OR title =  'Test Case Transclude from Documents')"
+    # custom_dataset_query:   # Write CQL query to add CQL output to the app/datasets/confluence/custom_pages.csv, e.g. "title ~ 'AppPage*'"
+    # custom_dataset_query:  "title ~ 'UC1 Home' OR title ~ 'UC2 Home'"  # Write CQL query to add CQL output to the app/datasets/confluence/custom_pages.csv, e.g. "title ~ 'AppPage*'"
+    # custom_dataset_query: title ~ 'smarticsUserScriptPage'          # Write CQL query to add CQL output to the app/datasets/confluence/custom_pages.csv, e.g. "title ~ 'AppPage*'"git pull
 services:
   - module: shellexec
     prepare:
