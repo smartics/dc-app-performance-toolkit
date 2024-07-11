@@ -3,7 +3,7 @@ settings:
   artifacts-dir: results/confluence/%Y-%m-%d_%H-%M-%S
   aggregator: consolidator
   verbose: false
-  check-updates: false                 # disable bzt check for updates
+  check-updates: false    # disable bzt check for updates
   env:
     application_hostname: a49cd73e13ef64cbca4f252a643f3a87-535388177.us-east-2.elb.amazonaws.com   # Confluence DC hostname without protocol, port and postfix e.g. test-confluence.atlassian.com or localhost
     application_protocol: http         # http or https
@@ -13,10 +13,10 @@ settings:
     admin_login: admin
     admin_password: admin
 
-
+    #smartics or jmeter
     load_executor: locust              # jmeter and locust are supported. jmeter by default.
     concurrency: 200                   # number of concurrent virtual users for jmeter or locust scenario
-    test_duration: 4m
+    test_duration: 3m
     ramp-up: 1m                        # time to spin all concurrent users
     total_actions_per_hour: 2000
     WEBDRIVER_VISIBLE: False
@@ -26,22 +26,55 @@ settings:
     environment_compliance_check: True # Pre-test environment compliance validation. Set to "False" to skip it.
     extended_metrics: False
     # Action percentage for JMeter and Locust load executors
-    view_page: 33
-    view_dashboard: 10
-    view_blog: 13
-    search_cql: 4
-    create_blog: 5
-    create_and_edit_page: 9
-    comment_page: 8
-    view_attachment: 6
-    upload_attachment: 7
-    like_page: 3
-    upload_emoticon: 2      # For Confluence 8.4.x+
-    standalone_extension: 10 # By default disabled
-    # Custom dataset section.
-#    custom_dataset_query:           # Write CQL query to add CQL output to the app/datasets/confluence/custom_pages.csv, e.g. "title ~ 'AppPage*'"
-    custom_dataset_query:  "space='PROJECTDOCTEST' AND (title = 'Test Case Display Table' OR title =  'Test Case Transclude from Documents')"
+    # smartics ORIG
+    #view_page: 33
+    #view_dashboard: 10
+    #view_blog: 13
+    #search_cql: 4
+    #create_blog: 5
+    #create_and_edit_page: 9
+    #comment_page: 8
+    #view_attachment: 6
+    #upload_attachment: 7
+    #like_page: 3
+    #upload_emoticon: 2      # For Confluence 8.4.x+
 
+    # smartics test
+    view_page: 4
+    view_dashboard: 4
+    view_blog: 4
+    search_cql: 2
+    create_blog: 2
+    create_and_edit_page: 2
+    comment_page: 2
+    view_attachment: 1
+    upload_attachment: 2
+    like_page: 1
+    upload_emoticon: 1      # For Confluence 8.4.x+
+
+    standalone_extension: 15 # By default disabled
+    # standalone_extension_us_rest_content: 5
+    #smartics
+
+    #standalone_extension_section: 10 # By default disabled
+    #standalone_extension_hide: 10 # By default disabled
+    #standalone_extension_hidefromreader: 10 # By default disabled
+    #standalone_extension_hidefromanonymous: 10 # By default disabled
+
+    #standalone_extension_transclude_documents: 15
+    #standalone_extension_display_table: 15
+    #standalone_extension_web_api: 15
+    #standalone_extension_information_system: 15
+
+  # Custom dataset section.
+    # custom_dataset_query:  # Write CQL query to add CQL output to the app/datasets/confluence/custom_pages.csv, e.g. "title ~ 'AppPage*'"
+    # custom_dataset_query:  # Write CQL query to add CQL output to the app/datasets/confluence/custom_pages.csv, e.g. "title ~ 'AppPage*'"
+    # Write CQL query to add CQL output to the app/datasets/confluence/custom_pages.csv, e.g. "title ~ 'AppPage*'"
+    # custom_dataset_query:
+    custom_dataset_query:  "space='PROJECTDOCTEST' AND (title = 'Test Case Display Table' OR title =  'Test Case Transclude from Documents')"
+    # custom_dataset_query:   # Write CQL query to add CQL output to the app/datasets/confluence/custom_pages.csv, e.g. "title ~ 'AppPage*'"
+    # custom_dataset_query:  "title ~ 'UC1 Home' OR title ~ 'UC2 Home'"  # Write CQL query to add CQL output to the app/datasets/confluence/custom_pages.csv, e.g. "title ~ 'AppPage*'"
+    # custom_dataset_query: title ~ 'smarticsUserScriptPage'          # Write CQL query to add CQL output to the app/datasets/confluence/custom_pages.csv, e.g. "title ~ 'AppPage*'"
 services:
   - module: shellexec
     prepare:
@@ -117,10 +150,31 @@ modules:
       httpsampler.ignore_failed_embedded_resources: "true"
   selenium:
     chromedriver:
-      version: "126.0.6478.126" # Supports Chrome version 126. You can refer to https://googlechromelabs.github.io/chrome-for-testing
+       version: "126.0.6478.126"
+#      version: "101.0.4951.41" # Supports Chrome version 101. You can refer to http://chromedriver.chromium.org/downloads
+#      version: "90.0.4430.24" # Supports Chrome version 97. You can refer to http://chromedriver.chromium.org/downloads
+#      version: "102.0.5005.61" # Supports Chrome version 102. You can refer to http://chromedriver.chromium.org/downloads
+#      version: "103.0.5060.134" # Supports Chrome version 103. You can refer to http://chromedriver.chromium.org/downloads
+#      version: "114.0.5735.90" # Supports Chrome version 103. You can refer to http://chromedriver.chromium.org/downloads
+#      version: "118.0.5993.70" # Supports Chrome version 118. You can refer to https://googlechromelabs.github.io/chrome-for-testing
+#  blazemeter:
+    # token: e41bf0cde4ff5c5d75ba5e5ee9aa200e85bfe870a51262efdf4a4e6dcb084f3a677dcb25
+    # address: https://a.blazemeter.com  # reporting service address
+    # data-address: https://data.blazemeter.com  # data service address
+#    browser-open: none  # auto-open the report in browser,
+    # can be "start", "end", "both", "none"
+    # send-interval: 30s   # send data each n-th second
+    # timeout: 5s  # connect and request timeout for BlazeMeter API
+    # artifact-upload-size-limit: 5  # limit max size of file (in megabytes)
+    # that goes into zip for artifact upload, 10 by default
+    # following instructions will have effect when no per-reporter settings
+#    report-name:  ask # if you will use value 'ask', it will ask it from command line
+    #  modules.blazemeter.report-name="example-1"
+#    test: regression-example
+#    project: projectdoc
 reporting:
-  - data-source: sample-labels
-    module: junit-xml
-  - module: passfail
-    criteria:
-      - failures>25% over 300s, stop as failed
+- data-source: sample-labels
+  module: junit-xml
+- module: passfail
+  criteria:
+  - failures>25% over 300s, stop as failed
