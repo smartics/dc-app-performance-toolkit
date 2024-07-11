@@ -40,29 +40,29 @@ settings:
     #upload_emoticon: 2      # For Confluence 8.4.x+
 
     # smartics test
-    view_page: 1
-    view_dashboard: 1
-    view_blog: 1
-    search_cql: 1
-    create_blog: 1
-    create_and_edit_page: 1
-    comment_page: 1
+    view_page: 4
+    view_dashboard: 4
+    view_blog: 4
+    search_cql: 2
+    create_blog: 2
+    create_and_edit_page: 2
+    comment_page: 2
     view_attachment: 1
-    upload_attachment: 1
+    upload_attachment: 2
     like_page: 1
     upload_emoticon: 1      # For Confluence 8.4.x+
 
-    standalone_extension: 5 # By default disabled
+    standalone_extension: 15 # By default disabled
     # standalone_extension_us_rest_content: 5
     #smartics
     #standalone_extension_section: 10 # By default disabled
     #standalone_extension_hide: 10 # By default disabled
     #standalone_extension_hidefromreader: 10 # By default disabled
     #standalone_extension_hidefromanonymous: 10 # By default disabled
-    standalone_extension_transclude_documents: 3
-    standalone_extension_display_table: 3
-    standalone_extension_web_api: 3
-    standalone_extension_information_system: 3
+    standalone_extension_transclude_documents: 15
+    standalone_extension_display_table: 15
+    standalone_extension_web_api: 15
+    standalone_extension_information_system: 15
 
   # Custom dataset section.
     # custom_dataset_query:  # Write CQL query to add CQL output to the app/datasets/confluence/custom_pages.csv, e.g. "title ~ 'AppPage*'"

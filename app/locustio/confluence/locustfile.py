@@ -35,7 +35,6 @@ from util.conf import CONFLUENCE_SETTINGS
 # smartics
 config = LocustConfig(config_yml=CONFLUENCE_SETTINGS)
 
-
 class ConfluenceBehavior(MyBaseTaskSet):
 
     def on_start(self):
@@ -136,7 +135,6 @@ class ConfluenceBehavior(MyBaseTaskSet):
         app_specific_action_docm_hidefromanonymous(self)
 
 '''
-
 
 class ConfluenceUser(HttpUser):
     host = CONFLUENCE_SETTINGS.server_url
