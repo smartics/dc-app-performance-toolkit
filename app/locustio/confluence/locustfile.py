@@ -39,7 +39,7 @@ class ConfluenceBehavior(MyBaseTaskSet):
 
     def on_start(self):
         self.client.verify = config.secure
-        login_and_view_dashboard(self)
+#        login_and_view_dashboard(self)
 
     @task(config.percentage('view_page'))
     def view_page_action(self):
