@@ -40,8 +40,8 @@ class ConfluenceBehavior(MyBaseTaskSet):
 
     def on_start(self):
         self.client.verify = config.secure
-        logging.error("Here I am! SMARTICS")
-#        login_and_view_dashboard(self)
+        logging.info("Here I am! SMARTICS")
+        login_and_view_dashboard(self)
 
     @task(config.percentage('view_page'))
     def view_page_action(self):
