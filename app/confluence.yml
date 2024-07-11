@@ -52,7 +52,7 @@ settings:
     like_page: 1
     upload_emoticon: 1      # For Confluence 8.4.x+
 
-    # standalone_extension: 5 # By default disabled
+    standalone_extension: 5 # By default disabled
     # standalone_extension_us_rest_content: 5
     #smartics
     #standalone_extension_section: 10 # By default disabled

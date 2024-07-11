@@ -14,15 +14,12 @@ from locust import HttpUser, task, between
 # from extension.confluence.extension_locust import app_specific_action_docm_definitionlist
 
 # smartics uncomment for projectdoc toolbox
-from extension.confluence.extension_locust import \
-    app_specific_action_transclude_documents
-from extension.confluence.extension_locust import \
-    app_specific_action_display_table
+from extension.confluence.extension_locust import app_specific_action_transclude_documents
+from extension.confluence.extension_locust import app_specific_action_display_table
 
 # smartics uncomment for projectdoc toolbox extensions
 from extension.confluence.extension_locust import app_specific_action_web_api
-from extension.confluence.extension_locust import \
-    app_specific_action_information_system
+from extension.confluence.extension_locust import app_specific_action_information_system
 
 from locustio.common_utils import LocustConfig, MyBaseTaskSet
 from locustio.confluence.http_actions import login_and_view_dashboard, \

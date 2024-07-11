@@ -6,7 +6,7 @@ logger = init_logger(app_type='confluence')
 # smartics
 # smartics switch between userscripts and projectdoc toolbox
 #TESTCASE_SPACE_KEY = "DOCM"
-TESTCASE_SPACE_KEY = "s"
+TESTCASE_SPACE_KEY = "PROJECTDOCTEST"
 
 #DocumentationMacros (And Toolbox ?)
 TC_DOCM = "DOCM1"
