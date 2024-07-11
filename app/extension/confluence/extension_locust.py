@@ -47,19 +47,17 @@ def app_specific_action_userscript_rest(locust):
 
 @confluence_measure("locust_app_specific_action")
 def app_specific_action(locust):
-    page_id = "44236807"
-    expected_text = "test-1.0.0.js"
-    url = f'/rest/userscripts-for-confluence/1/context?page-id={page_id}'
-    logger.info(f"Requesting Userscripts RestAPI(2) content for: PAGEID {page_id}")
-    with locust.client.get(url, catch_response=True) as response:
-        if response.status_code == 200:
-            content = response.text
-            if expected_text in content:
-                response.success()
-            else:
-                response.failure(f"Expected text '{expected_text}' not found in response content.")
-        else:
-            response.failure(f"Request failed with status code {response.status_code}")
+    r = locust.get('/rest/projectdoc/1/document?select=Title%2CName%2CIteration&from=PROJECTDOCTEST&where=%24%3CTitle%3E%3D%5Bprojectdoc%20Space%20for%20Test%20Cases%5D&expand=property',
+                   catch_response=True)  # call app-specific GET endpoint
+    content = r.content.decode('utf-8')  # decode response content
+
+    token_pattern_example = '"id-list":"(.+?)"'
+    token = re.findall(token_pattern_example,
+                       content)  # get TOKEN from response using regexp
+    logger.locust_info(f'token: {token}')  # log info for debug when verbose is true in confluence.yml file
+    if token == "":
+        logger.error(f"'assertion string' was not found in {content}")
+    assert token != ""  # assert that TOKEN is not empty
 
 #@confluence_measure("locust_app_specific_action")
 #def app_specific_action(locust):

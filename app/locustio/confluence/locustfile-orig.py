@@ -8,7 +8,9 @@ from locustio.confluence.http_actions import login_and_view_dashboard, view_dash
 from util.conf import CONFLUENCE_SETTINGS
 
 config = LocustConfig(config_yml=CONFLUENCE_SETTINGS)
-class ConfluenceBehavior(MyBaseTaskSet):
+
+
+class ConfluenceBehaviorYYYYY(MyBaseTaskSet):
 
     def on_start(self):
         self.client.verify = config.secure
@@ -59,7 +61,7 @@ class ConfluenceBehavior(MyBaseTaskSet):
         app_specific_action(self)
 
 
-class ConfluenceUser(HttpUser):
+class ConfluenceUserYYYY(HttpUser):
     host = CONFLUENCE_SETTINGS.server_url
     tasks = [ConfluenceBehavior]
     wait_time = between(0, 0)
