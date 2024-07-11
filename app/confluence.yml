@@ -26,47 +26,52 @@ settings:
     environment_compliance_check: True # Pre-test environment compliance validation. Set to "False" to skip it.
     extended_metrics: False
     # Action percentage for JMeter and Locust load executors
-    view_page: 33
-    view_dashboard: 10
-    view_blog: 13
-    search_cql: 4
-    create_blog: 5
-    create_and_edit_page: 9
-    comment_page: 8
-    view_attachment: 6
-    upload_attachment: 7
-    like_page: 3
-    upload_emoticon: 2      # For Confluence 8.4.x+
-    standalone_extension: 5 # By default disabled
-    standalone_extension_us_rest_content: 5
+    # smartics ORIG
+    #view_page: 33
+    #view_dashboard: 10
+    #view_blog: 13
+    #search_cql: 4
+    #create_blog: 5
+    #create_and_edit_page: 9
+    #comment_page: 8
+    #view_attachment: 6
+    #upload_attachment: 7
+    #like_page: 3
+    #upload_emoticon: 2      # For Confluence 8.4.x+
+
+    # smartics test
+    view_page: 1
+    view_dashboard: 0
+    view_blog: 0
+    search_cql: 0
+    create_blog: 0
+    create_and_edit_page: 0
+    comment_page: 0
+    view_attachment: 0
+    upload_attachment: 0
+    like_page: 0
+    upload_emoticon: 0      # For Confluence 8.4.x+
+
+    # standalone_extension: 5 # By default disabled
+    # standalone_extension_us_rest_content: 5
     #smartics
     #standalone_extension_section: 10 # By default disabled
     #standalone_extension_hide: 10 # By default disabled
     #standalone_extension_hidefromreader: 10 # By default disabled
     #standalone_extension_hidefromanonymous: 10 # By default disabled
+    standalone_extension_transclude_documents: 3
+    standalone_extension_display_table: 3
+    standalone_extension_web_api: 3
+    standalone_extension_information_system: 3
 
-    #    view_page: 0
-    #    view_dashboard: 0
-    #    view_blog: 0
-    #    search_cql: 0
-    #    create_blog: 0
-    #    create_and_edit_page: 0
-    #    comment_page: 0
-    #    view_attachment: 0
-    #    upload_attachment: 0
-    #    like_page: 0
-    #    upload_emoticon: 0      # For Confluence 8.4.x+
-    # standalone_extension: 50 # By default disabled (0)
-
-    # Custom dataset section.
-    #    custom_dataset_query:  # Write CQL query to add CQL output to the app/datasets/confluence/custom_pages.csv, e.g. "title ~ 'AppPage*'"
+  # Custom dataset section.
+    # custom_dataset_query:  # Write CQL query to add CQL output to the app/datasets/confluence/custom_pages.csv, e.g. "title ~ 'AppPage*'"
     # custom_dataset_query:  # Write CQL query to add CQL output to the app/datasets/confluence/custom_pages.csv, e.g. "title ~ 'AppPage*'"
     # Write CQL query to add CQL output to the app/datasets/confluence/custom_pages.csv, e.g. "title ~ 'AppPage*'"
-    #smartics compared
-    # custom_dataset_query:
-    #    custom_dataset_query:  "space='PROJECTDOCTEST' AND (title = 'Test Case Display Table' OR title =  'Test Case Transclude from Documents')"
+    custom_dataset_query:
+    # custom_dataset_query:  "space='PROJECTDOCTEST' AND (title = 'Test Case Display Table' OR title =  'Test Case Transclude from Documents')"
     # custom_dataset_query:   # Write CQL query to add CQL output to the app/datasets/confluence/custom_pages.csv, e.g. "title ~ 'AppPage*'"
-    custom_dataset_query:  "title ~ 'UC1 Home' OR title ~ 'UC2 Home'"  # Write CQL query to add CQL output to the app/datasets/confluence/custom_pages.csv, e.g. "title ~ 'AppPage*'"
+    # custom_dataset_query:  "title ~ 'UC1 Home' OR title ~ 'UC2 Home'"  # Write CQL query to add CQL output to the app/datasets/confluence/custom_pages.csv, e.g. "title ~ 'AppPage*'"
     # custom_dataset_query: title ~ 'smarticsUserScriptPage'          # Write CQL query to add CQL output to the app/datasets/confluence/custom_pages.csv, e.g. "title ~ 'AppPage*'"
 services:
   - module: shellexec

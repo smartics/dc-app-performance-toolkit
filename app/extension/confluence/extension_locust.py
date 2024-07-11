@@ -4,8 +4,9 @@ from locustio.common_utils import init_logger, confluence_measure, \
 
 logger = init_logger(app_type='confluence')
 # smartics
-TESTCASE_SPACE_KEY = "DOCM"
-#TESTCASE_SPACE_KEY = "PROJECTDOCTEST"
+# smartics switch between userscripts and projectdoc toolbox
+#TESTCASE_SPACE_KEY = "DOCM"
+TESTCASE_SPACE_KEY = "s"
 
 #DocumentationMacros (And Toolbox ?)
 TC_DOCM = "DOCM1"
@@ -15,15 +16,17 @@ TC_DOCM_HIDEFROMANONYMOUS_ASSERTION_TEXT = "HideFromAnonymous"
 TC_DOCM_HIDEFROMREADER_ASSERTION_TEXT = "HideFromReader"
 TC_DOCM_DEFINITIONLIST_ASSERTION_TEXT = "Value2"
 
-#ProjectdocToolbox
+#ProjectdocToolbox (TC = TestCase)
 TC_DISPLAY_TABLE = "Test Case Display Table"
 TC_DISPLAY_TABLE_ASSERTION_TEXT = "List of Documents"
+
 TC_TRANSCLUDE_DOCUMENTS = "Test Case Transclude from Documents"
 TC_TRANSCLUDE_DOCUMENTS_ASSERTION_TEXT = "Transclusion from Documents"
 
 #Extension Informationssystem
 TC_INFORMATIONSYSTEM_TEST = "Informationsystemtest"
 TC_INFORMATIONSYSTEM_ASSERTION_TEXT = "informationsystem-test-case-id"
+
 #smartics comment in only the wanted tests
 
 @confluence_measure("locust_app_specific_action_userscript_rest")
@@ -124,11 +127,9 @@ def app_specific_action_docm_definitionlist(locust):
     content = response.content.decode('utf-8')
     assert_text(content, TC_DOCM_DEFINITIONLIST_ASSERTION_TEXT)
 
-
-
-@confluence_measure("locust_app_specific_action_dt")
+@confluence_measure("locust_app_specific_action_display_table")
 # @run_as_specific_user(username='admin', password='admin')  # run as specific user
-def app_specific_action_dt(locust):
+def app_specific_action_display_table(locust):
     logger.info(f"DisplayTable")
     response = locust.get(
         '/display/{}/{}'.format(TESTCASE_SPACE_KEY, TC_DISPLAY_TABLE),
@@ -136,11 +137,9 @@ def app_specific_action_dt(locust):
     content = response.content.decode('utf-8')
     assert_text(content, TC_DISPLAY_TABLE_ASSERTION_TEXT)
 
-
-
-@confluence_measure("locust_app_specific_action_td")
+@confluence_measure("locust_app_specific_action_transclude_documents")
 # @run_as_specific_user(username='admin', password='admin')  # run as specific user
-def app_specific_action_td(locust):
+def app_specific_action_transclude_documents(locust):
     logger.info(f"TranscludeDocuments")
     response = locust.get(
         '/display/{}/{}'.format(TESTCASE_SPACE_KEY, TC_TRANSCLUDE_DOCUMENTS),
@@ -149,9 +148,9 @@ def app_specific_action_td(locust):
     assert_text(content, TC_TRANSCLUDE_DOCUMENTS_ASSERTION_TEXT)
 
 
-@confluence_measure("locust_app_specific_action_is")
+@confluence_measure("locust_standalone_extension_information_system")
 # @run_as_specific_user(username='admin', password='admin')  # run as specific user
-def app_specific_action_is(locust):
+def app_standalone_extension_information_system(locust):
     logger.info(f"Informationsystems")
     response = locust.get(
         '/display/{}/{}'.format(TESTCASE_SPACE_KEY, TC_INFORMATIONSYSTEM_TEST),
@@ -161,9 +160,9 @@ def app_specific_action_is(locust):
 
 
 #REST API (Web API = wa)
-@confluence_measure("locust_app_specific_action_wa")
+@confluence_measure("locust_app_specific_action_web_api")
 # @run_as_specific_user(username='admin', password='admin')  # run as specific user
-def app_specific_action_wa(locust):
+def app_specific_action_web_api(locust):
     r = locust.get('/rest/projectdoc/1/document?select=Title%2CName%2CIteration&from=PROJECTDOCTEST&where=%24%3CTitle%3E%3D%5Bprojectdoc%20Space%20for%20Test%20Cases%5D&expand=property',
                    catch_response=True)  # call app-specific GET endpoint
     content = r.content.decode('utf-8')  # decode response content
@@ -177,7 +176,7 @@ def app_specific_action_wa(locust):
     assert token != ""  # assert that TOKEN is not empty
 
 
-@confluence_measure("locust_app_specific_action")
+#@confluence_measure("locust_app_specific_action")
 # @run_as_specific_user(username='admin', password='admin')  # run as specific user
 #def app_specific_action(locust):
 #    r = locust.get('/app/get_endpoint', catch_response=True)  # call app-specific GET endpoint
