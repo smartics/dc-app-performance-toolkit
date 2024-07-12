@@ -6,7 +6,7 @@ retrospective
 product-backlog
 iteration
 improvement
-swad
+# swad
 whitebox
 interface
 blackbox

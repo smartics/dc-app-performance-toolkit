@@ -176,44 +176,41 @@ def app_specific_action_web_api(locust):
     assert token != ""  # assert that TOKEN is not empty
 
 @confluence_measure("locust_app_specific_action_blueprints")
-def app_specific_action_create_from_blueprint(locust):
-    with open('doctypes.txt', 'r') as file:
-        for line in file.readlines():
-            DOCTYPE = line.strip()
-            NAME = f"{DOCTYPE} "+"".join([random.choice(string.ascii_lowercase) for _ in range(20)])
-            SHORT_DESCRIPTION = f"Short Description for doctype {DOCTYPE}"
-            SPACEKEY = "BLUEPRINT"
-            LOCATION = "44320083"
-            j_payload = {
-                    "property": [
-                        {
-                            "name": "New Property",
-                            "value": "My Value",
-                            "controls": "",
-                            "position": "after",
-                            "ref": "Name"
-                        }
-                    ],
-                    "section": [
-                        {
-                            "title": "My Section",
-                            "content": "<p>Some text</p>",
-                            "position": "before",
-                            "ref": "References"
-                        }
-                    ]
-            }
+def app_specific_action_create_from_blueprint(locust, doctypes):
+    DOCTYPE = random.choice(doctypes)
+    NAME = f"{DOCTYPE} "+"".join([random.choice(string.ascii_lowercase) for _ in range(20)])
+    SHORT_DESCRIPTION = f"Short Description for doctype {DOCTYPE}"
+    SPACEKEY = "BLUEPRINT"
+    LOCATION = "44320083"
+    j_payload = {
+            "property": [
+                {
+                    "name": "New Property",
+                    "value": "My Value",
+                    "controls": "",
+                    "position": "after",
+                    "ref": "Name"
+                }
+            ],
+            "section": [
+                {
+                    "title": "My Section",
+                    "content": "<p>Some text</p>",
+                    "position": "before",
+                    "ref": "References"
+                }
+            ]
+    }
 
-            URL = f"/rest/projectdoc/1/document.json?doctype={DOCTYPE}&name={NAME}&short-description={SHORT_DESCRIPTION}&space-key={SPACEKEY}&location=%7B{LOCATION}%7D"
-            headers = {'Content-Type': 'application/json'}
-            response = locust.post(URL, headers=headers, data=json.dumps(j_payload))
-            content = response.content.decode('utf-8')  # decode response content
-            if response.status_code != 200:
-                logger.error(f'Failed to create from blueprint with doctype: {DOCTYPE}')
-                assert response.status_code != 200
-            else:
-                print(f'Successfully created from blueprint with doctype: {DOCTYPE}')
-
+    URL = f"/rest/projectdoc/1/document.json?doctype={DOCTYPE}&name={NAME}&short-description={SHORT_DESCRIPTION}&space-key={SPACEKEY}&location=%7B{LOCATION}%7D"
+    headers = {'Content-Type': 'application/json'}
+    response = locust.post(URL, headers=headers, data=json.dumps(j_payload))
+    content = response.content.decode('utf-8')  # decode response content
+    if response.status_code != 200:
+        logger.error(f'Failed to create from blueprint with doctype: {DOCTYPE}')
+        assert response.status_code != 200
+    else:
+        print(f'Successfully created from blueprint with doctype: {DOCTYPE}')
 
 
 #@confluence_measure("locust_app_specific_action")
