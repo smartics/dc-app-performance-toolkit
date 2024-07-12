@@ -106,6 +106,9 @@ class ConfluenceBehavior(MyBaseTaskSet):
 
     @task(config.percentage('standalone_extension_blueprints'))
     def custom_action_blueprints(self):
+        r = self.get(f'/display/BLUEPRINT/Blueprints', catch_response=True)
+        logging.info("SMARTICS BLUEPRINT")
+        logging.info(r.content.decode('utf-8'))
         app_specific_action_create_from_blueprint(self, doctypes, doctypesALL)
 
 
