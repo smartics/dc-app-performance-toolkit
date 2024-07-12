@@ -1,6 +1,7 @@
 import re
 import random
 import string
+import json
 from locustio.common_utils import init_logger, confluence_measure, run_as_specific_user  # noqa F401
 
 logger = init_logger(app_type='confluence')
@@ -182,11 +183,30 @@ def app_specific_action_create_from_blueprint(locust):
             NAME = f"{DOCTYPE} "+"".join([random.choice(string.ascii_lowercase) for _ in range(20)])
             SHORT_DESCRIPTION = f"Short Description for doctype {DOCTYPE}"
             SPACEKEY = "BLUEPRINT"
-            LOCATION = "44313245"
+            LOCATION = "44320083"
+            j_payload = {
+                    "property": [
+                        {
+                            "name": "New Property",
+                            "value": "My Value",
+                            "controls": "",
+                            "position": "after",
+                            "ref": "Name"
+                        }
+                    ],
+                    "section": [
+                        {
+                            "title": "My Section",
+                            "content": "<p>Some text</p>",
+                            "position": "before",
+                            "ref": "References"
+                        }
+                    ]
+            }
 
             URL = f"/rest/projectdoc/1/document.json?doctype={DOCTYPE}&name={NAME}&short-description={SHORT_DESCRIPTION}&space-key={SPACEKEY}&location=%7B{LOCATION}%7D"
             headers = {'Content-Type': 'application/json'}
-            response = locust.post(URL, headers=headers)
+            response = locust.post(URL, headers=headers, data=json.dumps(j_payload))
             content = response.content.decode('utf-8')  # decode response content
 
             if response.status_code != 200:
