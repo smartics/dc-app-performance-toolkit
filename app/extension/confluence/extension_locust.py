@@ -208,13 +208,12 @@ def app_specific_action_create_from_blueprint(locust):
             headers = {'Content-Type': 'application/json'}
             response = locust.post(URL, headers=headers, data=json.dumps(j_payload))
             content = response.content.decode('utf-8')  # decode response content
-
             if response.status_code != 200:
-                print(f'Failed to create from blueprint with doctype: {line.strip()}')
-                assert True
+                logger.error(f'Failed to create from blueprint with doctype: {DOCTYPE}')
+                assert response.status_code != 200
             else:
-                print(f'Successfully created from blueprint with doctype: {line.strip()}')
-                assert False
+                print(f'Successfully created from blueprint with doctype: {DOCTYPE}')
+
 
 
 #@confluence_measure("locust_app_specific_action")
