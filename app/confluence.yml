@@ -65,6 +65,7 @@ settings:
     standalone_extension_display_table: 10
     standalone_extension_web_api: 10
     standalone_extension_information_system: 10
+    standalone_extension_blueprints: 10
 
     # Custom dataset section.
     # custom_dataset_query:  # Write CQL query to add CQL output to the app/datasets/confluence/custom_pages.csv, e.g. "title ~ 'AppPage*'"

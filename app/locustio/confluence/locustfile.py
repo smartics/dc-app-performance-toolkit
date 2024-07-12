@@ -22,6 +22,7 @@ from extension.confluence.extension_locust import app_specific_action_display_ta
 # smartics uncomment for projectdoc toolbox extensions
 from extension.confluence.extension_locust import app_specific_action_web_api
 from extension.confluence.extension_locust import app_specific_action_information_system
+from extension.confluence.extension_locust import app_specific_action_create_from_blueprint
 
 from locustio.common_utils import LocustConfig, MyBaseTaskSet
 from locustio.confluence.http_actions import login_and_view_dashboard, view_dashboard, view_blog, \
@@ -98,6 +99,11 @@ class ConfluenceBehavior(MyBaseTaskSet):
     @task(config.percentage('standalone_extension_web_api'))
     def custom_action_web_api(self):
         app_specific_action_web_api(self)
+
+    @task(config.percentage('standalone_extension_blueprints'))
+    def custom_action_blueprints(self):
+        app_specific_action_create_from_blueprint(self)
+
 
 '''
 # smartics uncomment for userscripts
