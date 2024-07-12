@@ -176,8 +176,13 @@ def app_specific_action_web_api(locust):
     assert token != ""  # assert that TOKEN is not empty
 
 @confluence_measure("locust_app_specific_action_blueprints")
-def app_specific_action_create_from_blueprint(locust, doctypes):
+def app_specific_action_create_from_blueprint(locust, doctypes, doctypesAll):
     DOCTYPE = random.choice(doctypes)
+    doctypes.remove(DOCTYPE)
+
+    if len(doctypes) == 0:
+        doctypes.extend(doctypesAll)
+
     NAME = f"{DOCTYPE} "+"".join([random.choice(string.ascii_lowercase) for _ in range(20)])
     SHORT_DESCRIPTION = f"Short Description for doctype {DOCTYPE}"
     SPACEKEY = "BLUEPRINT"

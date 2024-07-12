@@ -34,6 +34,7 @@ config = LocustConfig(config_yml=CONFLUENCE_SETTINGS)
 
 with open('doctypes.txt', 'r') as file:
     doctypes = [line.strip() for line in file if not line.strip().startswith("#")]
+doctypesALL = doctypes.copy()
 
 class ConfluenceBehavior(MyBaseTaskSet):
 
@@ -105,7 +106,7 @@ class ConfluenceBehavior(MyBaseTaskSet):
 
     @task(config.percentage('standalone_extension_blueprints'))
     def custom_action_blueprints(self):
-        app_specific_action_create_from_blueprint(self, doctypes)
+        app_specific_action_create_from_blueprint(self, doctypes, doctypesALL)
 
 
 '''
