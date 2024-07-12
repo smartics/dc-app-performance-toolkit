@@ -1,7 +1,7 @@
 from locust import HttpUser, task, between
 import logging
 
-from extension.confluence.extension_locust import app_specific_action
+#from extension.confluence.extension_locust import app_specific_action
 # smartics uncomment for userscripts
 # from extension.confluence.extension_locust import app_specific_action_userscript_rest
 # from extension.confluence.extension_locust import app_specific_action
@@ -15,7 +15,6 @@ from extension.confluence.extension_locust import app_specific_action
 # from extension.confluence.extension_locust import app_specific_action_docm_hidefromanonymous
 # from extension.confluence.extension_locust import app_specific_action_docm_definitionlist
 
-
 # smartics uncomment for projectdoc toolbox
 from extension.confluence.extension_locust import app_specific_action_transclude_documents
 from extension.confluence.extension_locust import app_specific_action_display_table
@@ -23,7 +22,6 @@ from extension.confluence.extension_locust import app_specific_action_display_ta
 # smartics uncomment for projectdoc toolbox extensions
 from extension.confluence.extension_locust import app_specific_action_web_api
 from extension.confluence.extension_locust import app_specific_action_information_system
-
 
 from locustio.common_utils import LocustConfig, MyBaseTaskSet
 from locustio.confluence.http_actions import login_and_view_dashboard, view_dashboard, view_blog, \
@@ -80,9 +78,9 @@ class ConfluenceBehavior(MyBaseTaskSet):
     def like_page_action(self):
         like_page(self)
 
-    @task(config.percentage('standalone_extension'))
-    def custom_action(self):
-        app_specific_action(self)
+#    @task(config.percentage('standalone_extension'))
+#    def custom_action(self):
+#        app_specific_action(self)
 
     @task(config.percentage('standalone_extension_transclude_documents'))
     def custom_action_transclude_documents(self):
