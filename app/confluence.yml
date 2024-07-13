@@ -61,11 +61,11 @@ settings:
     #standalone_extension_hidefromreader: 10 # By default disabled
     #standalone_extension_hidefromanonymous: 10 # By default disabled
 
-    standalone_extension_transclude_documents: 2
-    standalone_extension_display_table: 2
-    standalone_extension_web_api: 2
-    standalone_extension_information_system: 2
-    standalone_extension_blueprints: 30  
+    standalone_extension_transclude_documents: 6
+    standalone_extension_display_table: 6
+    standalone_extension_web_api: 6
+    standalone_extension_information_system: 6
+    standalone_extension_blueprints: 2   
 
     # Custom dataset section.
     # custom_dataset_query:  # Write CQL query to add CQL output to the app/datasets/confluence/custom_pages.csv, e.g. "title ~ 'AppPage*'"
