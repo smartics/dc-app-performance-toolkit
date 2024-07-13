@@ -104,7 +104,7 @@ product-backlog
 profile
 project-constraint
 project-rule
-project vision
+#project vision
 property
 quality
 quality-scenario
