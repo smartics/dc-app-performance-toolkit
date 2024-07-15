@@ -37,7 +37,7 @@ bamboo_license = "bamboo-license"
 # Note: For initial installation this value needs to be set to 1 and it can be changed only after product is fully
 # installed and configured.
 jira_replica_count = 1
-confluence_replica_count = 1
+confluence_replica_count = 4
 bitbucket_replica_count = 1
 crowd_replica_count = 1
 
