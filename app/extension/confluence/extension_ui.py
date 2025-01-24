@@ -37,7 +37,7 @@ def verify_page_content(page_title, webdriver):
             print("XXXX Fehler. Unbekannte Seite")
     except Exception as e:
         print(f"XXXX Fehler bei der Seitenprüfung: {e}")
-        raise AssertionError("Unbekannte Seite. Test schlägt fehl.")
+        raise AssertionError("Unbekannte Seite: "+page_title+" Test schlägt fehl.")
 
 
 def dm_uc1(webdriver, datasets):
