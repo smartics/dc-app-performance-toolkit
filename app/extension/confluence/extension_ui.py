@@ -9,46 +9,121 @@ from selenium_ui.conftest import print_timing
 from selenium_ui.confluence.pages.pages import Login, AllUpdates
 from util.conf import CONFLUENCE_SETTINGS
 
-def dm_uc(webdriver, datasets):
+def verify_page_content(page_title, webdriver):
+    """
+    Überprüft den Seiteninhalt basierend auf dem Seitentitel und wartet auf spezifische Elemente.
+
+    :param page_title: Der Titel der Seite, die überprüft werden soll
+    :param webdriver: Der WebDriver, der für die Interaktionen verwendet wird
+    """
+    try:
+        if "UseCase Sections" in page_title:
+            # Warten auf ein spezifisches Element auf der "UseCase Sections"-Seite
+            locator = (By.ID, "div-UseCaseSections-Section1")
+            WebDriverWait(webdriver, 10).until(EC.presence_of_element_located(locator))
+            print("XXXX UseCase Sections Content loaded successfully")
+        elif "UseCase Hide" in page_title:
+            # Warten auf ein spezifisches Hide-Element
+            locator = (By.ID, "div-UseCaseHide-Hide_me_1")
+            WebDriverWait(webdriver, 10).until(EC.presence_of_element_located(locator))
+            print("XXXX UseCase Hide Content loaded successfully")
+        elif "UseCase Definitionlist" in page_title:
+            # Warten auf ein spezifisches Definitionlist-Element
+            locator = (By.ID, "div-UseCaseDefinitionlist-DefinitionlistSection")
+            WebDriverWait(webdriver, 10).until(EC.presence_of_element_located(locator))
+            print("XXXX UseCase Definitionlist Content loaded successfully")
+        else:
+            # Standardprüfung für unbekannte Seiten
+            print("XXXX Fehler. Unbekannte Seite")
+    except Exception as e:
+        print(f"XXXX Fehler bei der Seitenprüfung: {e}")
+        raise AssertionError("Unbekannte Seite. Test schlägt fehl.")
+
+
+def dm_uc1(webdriver, datasets):
     page = BasePage(webdriver)
     if datasets['custom_pages']:
         app_specific_page_id = datasets['custom_page_id']
 
-    @print_timing("selenium_dm_uc")
+    @print_timing("selenium_dm_uc1")
     def measure():
 
-        @print_timing("selenium_dm_uc:view_page")
+        @print_timing("selenium_dm_uc1:view_page")
         def sub_measure():
-            page.go_to_url(f"{CONFLUENCE_SETTINGS.server_url}/pages/viewpage.action?pageId={app_specific_page_id}")
+            page.go_to_url(f"{CONFLUENCE_SETTINGS.server_url}/display/DOC/UseCase+Definitionlist")
             title_locator = (By.ID, "title-text")
             WebDriverWait(webdriver, 10).until(EC.presence_of_element_located(title_locator))
             # Titel auslesen
             title_element = webdriver.find_element(*title_locator)
             page_title = title_element.text  # Hol Text des Titel-Elements
             print(f"XXXX Page Title: {page_title}")
+            # Beispielaufruf:
+            verify_page_content(page_title="UseCase Sections", webdriver=webdriver)
+        sub_measure()
+    measure()
 
-            # Basierend auf dem Titel wird der Seiteninhalt überprüft
-            if "UseCase Sections" in page_title:
-                # Warten auf ein spezifisches Element, das nur auf der "UseCase Sections"-Seite existiert
-                sections_locator = (By.ID, "div-UseCaseSections-Section1")
-                WebDriverWait(webdriver, 10).until(EC.presence_of_element_located(sections_locator))
-                print("XXXX UseCase Sections Content loaded successfully")
+def dm_uc2(webdriver, datasets):
+    page = BasePage(webdriver)
+    if datasets['custom_pages']:
+        app_specific_page_id = datasets['custom_page_id']
 
-            elif "UseCase Hide" in page_title:
-                # Warten auf ein spezifisches Hide-Element
-                hide_locator = (By.ID, "div-UseCaseHide-Hide_me_1")
-                WebDriverWait(webdriver, 10).until(EC.presence_of_element_located(hide_locator))
-                print("XXXX UseCase Hide Content loaded successfully")
+    @print_timing("selenium_dm_uc2")
+    def measure():
 
-            elif "UseCase Definitionlist" in page_title:
-                # Warten auf ein spezifisches Definitionlist-Element
-                definitionlist_locator = (By.ID, "div-UseCaseDefinitionlist-DefinitionlistSection")
-                WebDriverWait(webdriver, 10).until(EC.presence_of_element_located(definitionlist_locator))
-                print("XXXX UseCase Definitionlist Content loaded successfully")
+        @print_timing("selenium_dm_uc2:view_page")
+        def sub_measure():
+            page.go_to_url(f"{CONFLUENCE_SETTINGS.server_url}/display/DOC/UseCase+Hide")
+            title_locator = (By.ID, "title-text")
+            WebDriverWait(webdriver, 10).until(EC.presence_of_element_located(title_locator))
+            # Titel auslesen
+            title_element = webdriver.find_element(*title_locator)
+            page_title = title_element.text  # Hol Text des Titel-Elements
+            print(f"XXXX Page Title: {page_title}")
+            # Beispielaufruf:
+            verify_page_content(page_title="UseCase+Hide", webdriver=webdriver)
+        sub_measure()
+    measure()
 
-            else:
-                # Standardprüfung für andere Seiten
-                print("XXXX Fehler. Unbekannte Seite")
+def dm_uc3(webdriver, datasets):
+    page = BasePage(webdriver)
+    if datasets['custom_pages']:
+        app_specific_page_id = datasets['custom_page_id']
 
+    @print_timing("selenium_dm_uc3")
+    def measure():
+
+        @print_timing("selenium_dm_uc3:view_page")
+        def sub_measure():
+            page.go_to_url(f"{CONFLUENCE_SETTINGS.server_url}/display/DOC/UseCase+Sections")
+            title_locator = (By.ID, "title-text")
+            WebDriverWait(webdriver, 10).until(EC.presence_of_element_located(title_locator))
+            # Titel auslesen
+            title_element = webdriver.find_element(*title_locator)
+            page_title = title_element.text  # Hol Text des Titel-Elements
+            print(f"XXXX Page Title: {page_title}")
+            # Beispielaufruf:
+            verify_page_content(page_title="UseCase+Sections", webdriver=webdriver)
+        sub_measure()
+    measure()
+
+def dm_uc9(webdriver, datasets):
+    page = BasePage(webdriver)
+    if datasets['custom_pages']:
+        app_specific_page_id = datasets['custom_page_id']
+
+    @print_timing("selenium_dm_uc9")
+    def measure():
+
+        @print_timing("selenium_dm_uc9:view_page")
+        def sub_measure():
+            page.go_to_url(f"{CONFLUENCE_SETTINGS.server_url}/display/DOC/UseCase+Sections")
+            title_locator = (By.ID, "title-text")
+            WebDriverWait(webdriver, 10).until(EC.presence_of_element_located(title_locator))
+            # Titel auslesen
+            title_element = webdriver.find_element(*title_locator)
+            page_title = title_element.text  # Hol Text des Titel-Elements
+            print(f"XXXX Page Title: {page_title}")
+            # Beispielaufruf:
+            verify_page_content(page_title="FEHLER-SEITE", webdriver=webdriver)
         sub_measure()
     measure()
