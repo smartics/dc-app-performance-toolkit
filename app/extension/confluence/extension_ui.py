@@ -58,7 +58,7 @@ def dm_uc1(webdriver, datasets):
             page_title = title_element.text  # Hol Text des Titel-Elements
             print(f"XXXX Page Title: {page_title}")
             # Beispielaufruf:
-            verify_page_content(page_title="UseCase Sections", webdriver=webdriver)
+            verify_page_content(page_title="UseCase Definitionlist", webdriver=webdriver)
         sub_measure()
     measure()
 
