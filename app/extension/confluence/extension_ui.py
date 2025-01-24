@@ -105,25 +105,3 @@ def dm_uc3(webdriver, datasets):
             verify_page_content(page_title="UseCase+Sections", webdriver=webdriver)
         sub_measure()
     measure()
-
-def dm_uc9(webdriver, datasets):
-    page = BasePage(webdriver)
-    if datasets['custom_pages']:
-        app_specific_page_id = datasets['custom_page_id']
-
-    @print_timing("selenium_dm_uc9")
-    def measure():
-
-        @print_timing("selenium_dm_uc9:view_page")
-        def sub_measure():
-            page.go_to_url(f"{CONFLUENCE_SETTINGS.server_url}/display/DOC/UseCase+Sections")
-            title_locator = (By.ID, "title-text")
-            WebDriverWait(webdriver, 10).until(EC.presence_of_element_located(title_locator))
-            # Titel auslesen
-            title_element = webdriver.find_element(*title_locator)
-            page_title = title_element.text  # Hol Text des Titel-Elements
-            print(f"XXXX Page Title: {page_title}")
-            # Beispielaufruf:
-            verify_page_content(page_title="FEHLER-SEITE", webdriver=webdriver)
-        sub_measure()
-    measure()
