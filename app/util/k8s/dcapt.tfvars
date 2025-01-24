@@ -11,13 +11,13 @@
 # This value can not be altered after the configuration has been applied.
 # Only lowercase letters, numbers, dashes, and dots are allowed.
 # ! REQUIRED !
-environment_name = "dcapt-product"
+environment_name = "dcapt-smartics-large"
 
 # Supported products: jira, confluence, bitbucket, crowd and bamboo.
 # For JSM set product as jira.
 # e.g.: products = ["jira"]
 # ! REQUIRED !
-products = ["product-to-deploy"]
+products = ["confluence"]
 
 # License
 # To avoid storing license in a plain text file, we recommend storing it in an environment variable prefixed with `TF_VAR_` (i.e. `TF_VAR_jira_license`) and keep the below line commented out
@@ -25,7 +25,7 @@ products = ["product-to-deploy"]
 # ! IMPORTANT ! Please make sure valid license is used without spaces and new line symbols.
 # ! REQUIRED !
 jira_license = "jira-license"
-confluence_license = "confluence-license"
+confluence_license = "AAABoA0ODAoPeNp9Ul1P2zAUfc+vsDRp2oRSxekgWSVL65w0LeQDEmBj6osbbhuP1Klsp9B/j4uJ2CaNN/ue43PPPdcfZpKjcyYQDpAXTsbh5EuIaHWNfM8/dagEpnknIqaBHCuuh10cOhGoWvLdESK0E+u2B1ED+mR4DFEQGuTn5QTFe9b2LwJOxripCmZo8dOOy8Mfkr6LAyflNQj1H7C14C1IdWzpO1W/enOgZQ9ObWyM8n67Almsb5RhEhc7bw4sq5AbJriyFbVlUvNaoQvZGfV7kOgjKoELc0i2q7nVZLXme7DPzaza3GMzTUuY0J0YPQxvvw1yo3sYDM+ZakhGH+mMpn2pbyov38yS/YplUG8Skd7NZ5k/ba6w+H3yo2mmhxPetee/aARdVvqXZQKbJVkSa+Q1oevDDnK2BUKLLItLupimFq+06Q+SrFmrYMhzEZF0EVVx7qa+F/iB5wVOBXIP0iDff5p4v94V2F3k4ZmbFqeJlTru0a7Rzv0AhyF7fGYkvHA8xs5lL+uGKfj3d7ym9GLyvZCMK/K3s2ds19lHMC0CFD9jknD6n9wSvBwzki5uJbVGnHb1AhUAhq7w5rt9IMabnACFkaGEXiKD6Lw=X02k4"
 bitbucket_license = "bitbucket-license"
 crowd_license = "crowd-license"
 bamboo_license = "bamboo-license"
@@ -172,7 +172,7 @@ jira_additional_jvm_args = ["-Dupm.plugin.upload.enabled=true"]
 ################################################################################
 
 # Supported versions by DCAPT: https://github.com/atlassian/dc-app-performance-toolkit#supported-versions
-confluence_version_tag = "8.5.14"
+confluence_version_tag = "9.0.2"
 
 # Dataset size. Used only when snapshots_json_file_path is defined. Defaults to large
 confluence_dataset_size = "large"

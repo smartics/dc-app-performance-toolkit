@@ -5,7 +5,7 @@ settings:
   verbose: false
   check-updates: false    # disable bzt check for updates
   env:
-    application_hostname: a3c369244f8014a3397ae51e39ece2a1-1343776282.us-east-2.elb.amazonaws.com    # Confluence DC hostname without protocol, port and postfix e.g. test-confluence.atlassian.com or localhost
+    application_hostname: aef60daddeb494bfdbd3d4e326f905f9-1264821389.us-east-2.elb.amazonaws.com    # Confluence DC hostname without protocol, port and postfix e.g. test-confluence.atlassian.com or localhost
     application_protocol: http        # http or https
     application_port: 80              # 80, 443, 8080, 1990, etc
     secure: False                      # Set False to allow insecure connections, e.g. when using self-signed SSL certificate
