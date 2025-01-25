@@ -21,22 +21,18 @@ def verify_page_content(page_title, webdriver):
             # Warten auf ein spezifisches Element auf der "UseCase Sections"-Seite
             locator = (By.ID, "div-UseCaseSections-Section1")
             WebDriverWait(webdriver, 10).until(EC.presence_of_element_located(locator))
-            print("XXXX UseCase Sections Content loaded successfully")
         elif "UseCase Hide" in page_title:
             # Warten auf ein spezifisches Hide-Element
             locator = (By.ID, "div-UseCaseHide-Hide_me_1")
             WebDriverWait(webdriver, 10).until(EC.presence_of_element_located(locator))
-            print("XXXX UseCase Hide Content loaded successfully")
         elif "UseCase Definitionlist" in page_title:
             # Warten auf ein spezifisches Definitionlist-Element
             locator = (By.ID, "div-UseCaseDefinitionlist-DefinitionlistSection")
             WebDriverWait(webdriver, 10).until(EC.presence_of_element_located(locator))
-            print("XXXX UseCase Definitionlist Content loaded successfully")
         else:
             # Standardprüfung für unbekannte Seiten
-            print("XXXX Fehler. Unbekannte Seite")
+            raise AssertionError("Unbekannte Seite (Elsezweig): "+page_title+" Test schlägt fehl.")
     except Exception as e:
-        print(f"XXXX Fehler bei der Seitenprüfung: {e}")
         raise AssertionError("Unbekannte Seite: "+page_title+" Test schlägt fehl.")
 
 
@@ -56,7 +52,6 @@ def dm_uc1(webdriver, datasets):
             # Titel auslesen
             title_element = webdriver.find_element(*title_locator)
             page_title = title_element.text  # Hol Text des Titel-Elements
-            print(f"XXXX Page Title: {page_title}")
             # Beispielaufruf:
             verify_page_content(page_title="UseCase Definitionlist", webdriver=webdriver)
         sub_measure()
@@ -78,7 +73,6 @@ def dm_uc2(webdriver, datasets):
             # Titel auslesen
             title_element = webdriver.find_element(*title_locator)
             page_title = title_element.text  # Hol Text des Titel-Elements
-            print(f"XXXX Page Title: {page_title}")
             # Beispielaufruf:
             verify_page_content(page_title="UseCase+Hide", webdriver=webdriver)
         sub_measure()
@@ -100,7 +94,6 @@ def dm_uc3(webdriver, datasets):
             # Titel auslesen
             title_element = webdriver.find_element(*title_locator)
             page_title = title_element.text  # Hol Text des Titel-Elements
-            print(f"XXXX Page Title: {page_title}")
             # Beispielaufruf:
             verify_page_content(page_title="UseCase+Sections", webdriver=webdriver)
         sub_measure()
