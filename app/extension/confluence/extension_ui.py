@@ -16,16 +16,17 @@ def verify_page_content(page_title, webdriver):
     :param page_title: Der Titel der Seite, die überprüft werden soll
     :param webdriver: Der WebDriver, der für die Interaktionen verwendet wird
     """
+    normalized_page_title = page_title.replace("+", " ")
     try:
-        if "UseCase Sections" in page_title:
+        if "UseCase Sections" in normalized_page_title:
             # Warten auf ein spezifisches Element auf der "UseCase Sections"-Seite
             locator = (By.ID, "div-UseCaseSections-Section1")
             WebDriverWait(webdriver, 10).until(EC.presence_of_element_located(locator))
-        elif "UseCase Hide" in page_title:
+        elif "UseCase Hide" in normalized_page_title:
             # Warten auf ein spezifisches Hide-Element
             locator = (By.ID, "div-UseCaseHide-Hide_me_1")
             WebDriverWait(webdriver, 10).until(EC.presence_of_element_located(locator))
-        elif "UseCase Definitionlist" in page_title:
+        elif "UseCase Definitionlist" in normalized_page_title:
             # Warten auf ein spezifisches Definitionlist-Element
             locator = (By.ID, "div-UseCaseDefinitionlist-DefinitionlistSection")
             WebDriverWait(webdriver, 10).until(EC.presence_of_element_located(locator))
