@@ -33,7 +33,7 @@ def verify_page_content(page_title, webdriver):
             # Standardprüfung für unbekannte Seiten
             raise AssertionError("Unbekannte Seite (Elsezweig): "+page_title+" Test schlägt fehl.")
     except Exception as e:
-        raise AssertionError("Unbekannte Seite: "+page_title+" Test schlägt fehl.")
+        raise AssertionError("Unbekannte Seite: "+page_title+" Test schlägt fehl: "+e)
 
 
 def dm_uc1(webdriver, datasets):
