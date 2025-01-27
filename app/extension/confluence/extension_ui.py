@@ -37,6 +37,29 @@ def verify_page_content(page_title, webdriver):
         raise AssertionError("Unbekannte Seite: "+page_title+" Test schlägt fehl: " + str(e))
 
 
+
+def app_specific_action(webdriver, datasets):
+    page = BasePage(webdriver)
+    if datasets['custom_pages']:
+        app_specific_page_id = datasets['custom_page_id']
+
+    @print_timing("selenium_specific_action")
+    def measure():
+
+        @print_timing("selenium_specific_action:view_page")
+        def sub_measure():
+            page.go_to_url(f"{CONFLUENCE_SETTINGS.server_url}/display/DOC/UseCase+Definitionlist")
+            title_locator = (By.ID, "title-text")
+            WebDriverWait(webdriver, 10).until(EC.presence_of_element_located(title_locator))
+            # Titel auslesen
+            title_element = webdriver.find_element(*title_locator)
+            page_title = title_element.text  # Hol Text des Titel-Elements
+            # Beispielaufruf:
+            verify_page_content(page_title="UseCase Definitionlist", webdriver=webdriver)
+        sub_measure()
+    measure()
+
+
 def dm_uc1(webdriver, datasets):
     page = BasePage(webdriver)
     if datasets['custom_pages']:
