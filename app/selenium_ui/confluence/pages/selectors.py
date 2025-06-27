@@ -11,6 +11,7 @@ class UrlManager:
         self.dashboard_params = '/dashboard.action#all-updates'
         self.edit_page_params = f'/pages/editpage.action?pageId={page_id}'
         self.logout_params = "/logout.action"
+        self.admin_system_params = f"/admin/viewgeneralconfig.action"
 
     def login_url(self):
         return f"{self.host}{self.login_params}"
@@ -27,14 +28,19 @@ class UrlManager:
     def logout_url(self):
         return f"{self.host}{self.logout_params}"
 
+    def admin_system_url(self):
+        return f"{self.host}{self.admin_system_params}"
+
 
 class PopupLocators:
-    timezone_popups = '.button-panel-button .set-timezone-button'
-    skip_onbording_1 = '.aui-button aui-button-link .skip-onboarding'
-    skip_onboarding_2 = '.aui-button.aui-button-link.skip-onboarding'
-    time_saving_template = '#closeDisDialog'
-    welcome_to_confluence = '.aui-button.aui-button-primary.show-onboarding'
-    dark_theme_popup = 'button[aria-label="Close this modal"]'
+    popup_selectors = [
+        (By.CSS_SELECTOR, ".button-panel-button .set-timezone-button"),
+        (By.CSS_SELECTOR, ".aui-button aui-button-link .skip-onboarding"),
+        (By.CSS_SELECTOR, ".aui-button.aui-button-link.skip-onboarding"),
+        (By.CSS_SELECTOR, "#closeDisDialog"),
+        (By.CSS_SELECTOR, ".aui-button.aui-button-primary.show-onboarding"),
+        (By.CSS_SELECTOR, 'button[aria-label="Close this modal"]')
+    ]
 
 
 class LoginPageLocators:
@@ -108,3 +114,10 @@ class LogoutLocators:
 
 class XsrfTokenLocators:
     xsrf_token = (By.ID, "atlassian-token")
+
+class AdminLocators:
+    admin_system_page_url = UrlManager().admin_system_url()
+    web_sudo_password = (By.ID, 'password')
+    web_sudo_submit_btn = (By.ID, 'authenticateButton')
+    login_form = (By.ID, 'login-container')
+    edit_baseurl = (By.ID, 'editbaseurl')

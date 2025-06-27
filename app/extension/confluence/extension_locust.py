@@ -1,10 +1,8 @@
 import re
-from locustio.common_utils import init_logger, confluence_measure, \
-    run_as_specific_user  # noqa F401
+from locustio.common_utils import init_logger, confluence_measure, run_as_specific_user  # noqa F401
 
 logger = init_logger(app_type='confluence')
 
-TESTCASE_SPACE_KEY = "DOCM"
 #TESTCASE_SPACE_KEY = "PROJECTDOCTEST"
 TC_DOCM = "DOCM1"
 TC_DOCM_ASSERTION_TEXT = "Section1"
@@ -16,7 +14,7 @@ TC_INFORMATIONSYSTEM_TEST = "Informationsystemtest"
 TC_INFORMATIONSYSTEM_ASSERTION_TEXT = "informationsystem-test-case-id"
 
 @confluence_measure("locust_app_specific_action_docm")
-# @run_as_specific_user(username='admin', password='admin')  # run as specific user
+# @run_as_specific_user(username='admin', password='admin', do_websudo=False)  # run as specific user
 def app_specific_action_docm(locust):
     logger.info(f"DocumentationMacro")
     response = locust.get(
@@ -34,7 +32,7 @@ def app_specific_action_docm(locust):
 
 
 @confluence_measure("locust_app_specific_action_dt")
-# @run_as_specific_user(username='admin', password='admin')  # run as specific user
+# @run_as_specific_user(username='admin', password='admin', do_websudo=False)  # run as specific user
 def app_specific_action_dt(locust):
     logger.info(f"DisplayTable")
     response = locust.get(
@@ -52,7 +50,7 @@ def app_specific_action_dt(locust):
 
 
 @confluence_measure("locust_app_specific_action_td")
-# @run_as_specific_user(username='admin', password='admin')  # run as specific user
+# @run_as_specific_user(username='admin', password='admin', do_websudo=False)  # run as specific user
 def app_specific_action_td(locust):
     logger.info(f"TranscludeDocuments")
     response = locust.get(
@@ -69,7 +67,7 @@ def app_specific_action_td(locust):
             f"'{assertion_string}' was found in content")
 
 @confluence_measure("locust_app_specific_action_is")
-# @run_as_specific_user(username='admin', password='admin')  # run as specific user
+# @run_as_specific_user(username='admin', password='admin', do_websudo=False)  # run as specific user
 def app_specific_action_is(locust):
     logger.info(f"Informationsystems")
     response = locust.get(
@@ -87,7 +85,7 @@ def app_specific_action_is(locust):
 
 
 @confluence_measure("locust_app_specific_action_wa")
-# @run_as_specific_user(username='admin', password='admin')  # run as specific user
+# @run_as_specific_user(username='admin', password='admin', do_websudo=False)  # run as specific user
 def app_specific_action_wa(locust):
     r = locust.get('/rest/projectdoc/1/document?select=Title%2CName%2CIteration&from=PROJECTDOCTEST&where=%24%3CTitle%3E%3D%5Bprojectdoc%20Space%20for%20Test%20Cases%5D&expand=property',
                    catch_response=True)  # call app-specific GET endpoint
@@ -127,24 +125,25 @@ def app_specific_action_wa(locust):
 #     ]
 # }
 
-
-
 #@confluence_measure("locust_app_specific_action")
-# @run_as_specific_user(username='admin', password='admin')  # run as specific user
+# WebSudo is a feature that enhances security by requiring administrators to re-authenticate before
+# accessing administrative functions within Atlassian applications.
+# do_websudo=True requires user administrative rights, otherwise requests fail.
+#@run_as_specific_user(username='admin', password='admin', do_websudo=False)  # run as specific user
 #def app_specific_action(locust):
 #    r = locust.get('/app/get_endpoint', catch_response=True)  # call app-specific GET endpoint
 #    content = r.content.decode('utf-8')   # decode response content
-
+#
 #    token_pattern_example = '"token":"(.+?)"'
 #    id_pattern_example = '"id":"(.+?)"'
 #    token = re.findall(token_pattern_example, content)  # get TOKEN from response using regexp
 #    id = re.findall(id_pattern_example, content)    # get ID from response using regexp
-
+#
 #    logger.locust_info(f'token: {token}, id: {id}')  # log info for debug when verbose is true in confluence.yml file
 #    if 'assertion string' not in content:
 #        logger.error(f"'assertion string' was not found in {content}")
 #    assert 'assertion string' in content  # assert specific string in response content
-
+#
 #    body = {"id": id, "token": token}  # include parsed variables to POST request body
 #    headers = {'content-type': 'application/json'}
 #    r = locust.post('/app/post_endpoint', body, headers, catch_response=True)  # call app-specific POST endpoint
