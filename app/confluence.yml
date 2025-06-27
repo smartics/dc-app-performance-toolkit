@@ -18,7 +18,7 @@ settings:
     ramp-up: 5m                       # time to spin all concurrent users
     total_actions_per_hour: 20000
     WEBDRIVER_VISIBLE: False
-    JMETER_VERSION: 5.5
+    JMETER_VERSION: 5.6.3
     LANGUAGE: en_US.utf8
     allow_analytics: Yes              # Allow sending basic run analytics to Atlassian. These analytics help us to understand how the tool is being used and help us to continue to invest in this tooling. For more details please see our README.
     # Action percentage for JMeter and Locust load executors
@@ -33,7 +33,8 @@ settings:
     view_attachment: 6
     upload_attachment: 7
     like_page: 3
-    upload_emoticon: 2      # For Confluence 8.4.x+
+    upload_emoticon: 4      # For Confluence 8.4.x+
+    standalone_extension: 0 # By default disabled
 
     #    view_page: 0
     #    view_dashboard: 0
@@ -46,13 +47,13 @@ settings:
     #    upload_attachment: 0
     #    like_page: 0
     #    upload_emoticon: 0      # For Confluence 8.4.x+
-    standalone_extension: 50 # By default disabled (0)
+    # standalone_extension: 50 # By default disabled (0)
 
     # Custom dataset section.
     #    custom_dataset_query:  # Write CQL query to add CQL output to the app/datasets/confluence/custom_pages.csv, e.g. "title ~ 'AppPage*'"
     # custom_dataset_query:  # Write CQL query to add CQL output to the app/datasets/confluence/custom_pages.csv, e.g. "title ~ 'AppPage*'"
     # Write CQL query to add CQL output to the app/datasets/confluence/custom_pages.csv, e.g. "title ~ 'AppPage*'"
-    custom_dataset_query:  "space='PROJECTDOCTEST' AND (title = 'Test Case Display Table' OR title =  'Test Case Transclude from Documents')"
+    # custom_dataset_query:  "space='PROJECTDOCTEST' AND (title = 'Test Case Display Table' OR title =  'Test Case Transclude from Documents')"
     # custom_dataset_query:   # Write CQL query to add CQL output to the app/datasets/confluence/custom_pages.csv, e.g. "title ~ 'AppPage*'"
     # custom_dataset_query: title ~ 'smarticsUserScriptPage'          # Write CQL query to add CQL output to the app/datasets/confluence/custom_pages.csv, e.g. "title ~ 'AppPage*'"
 services:
@@ -69,7 +70,7 @@ services:
       - python util/post_run/cleanup_results_dir.py
   - module: pip-install
     packages:
-      - selenium==4.21.0
+      - selenium==4.25.0
 execution:
   - scenario: ${load_executor}
     executor: ${load_executor}
@@ -124,6 +125,7 @@ modules:
       - jpgc-perfmon=2.1
       - jpgc-prmctl=0.4
       - jpgc-tst=2.6
+      - bzm-random-csv=0.8    # not used default jmx file
     system-properties:
       server.rmi.ssl.disable: true
       java.rmi.server.hostname: localhost
@@ -134,23 +136,25 @@ modules:
 #      version: "90.0.4430.24" # Supports Chrome version 97. You can refer to http://chromedriver.chromium.org/downloads
 #      version: "102.0.5005.61" # Supports Chrome version 102. You can refer to http://chromedriver.chromium.org/downloads
 #      version: "103.0.5060.134" # Supports Chrome version 103. You can refer to http://chromedriver.chromium.org/downloads
-      version: "114.0.5735.90" # Supports Chrome version 103. You can refer to http://chromedriver.chromium.org/downloads
+#      version: "114.0.5735.90" # Supports Chrome version 103. You can refer to http://chromedriver.chromium.org/downloads
 #      version: "118.0.5993.70" # Supports Chrome version 118. You can refer to https://googlechromelabs.github.io/chrome-for-testing
-  blazemeter:
+      version: "130.0.6723.91" # Supports Chrome version 130. You can refer to https://googlechromelabs.github.io/chrome-for-testing
+    #  blazemeter:
     # token: e41bf0cde4ff5c5d75ba5e5ee9aa200e85bfe870a51262efdf4a4e6dcb084f3a677dcb25
     # address: https://a.blazemeter.com  # reporting service address
     # data-address: https://data.blazemeter.com  # data service address
-    browser-open: none  # auto-open the report in browser,
+    # browser-open: none  # auto-open the report in browser,
     # can be "start", "end", "both", "none"
     # send-interval: 30s   # send data each n-th second
     # timeout: 5s  # connect and request timeout for BlazeMeter API
     # artifact-upload-size-limit: 5  # limit max size of file (in megabytes)
     # that goes into zip for artifact upload, 10 by default
     # following instructions will have effect when no per-reporter settings
-    report-name:  ask # if you will use value 'ask', it will ask it from command line
+    # report-name:  ask # if you will use value 'ask', it will ask it from command line
     #  modules.blazemeter.report-name="example-1"
-    test: regression-example
-    project: projectdoc
+    # test: regression-example
+    #project: projectdoc
+       # version: "130.0.6723.91" # Supports Chrome version 130. You can refer to https://googlechromelabs.github.io/chrome-for-testing
 reporting:
 - data-source: sample-labels
   module: junit-xml
