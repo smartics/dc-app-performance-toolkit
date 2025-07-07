@@ -17,3 +17,4 @@ chromedriver-98/
 chromedriver-99/
 confluence.yml.patch
 confluence.yml-smartics
+app/util/k8s/aws_envs
