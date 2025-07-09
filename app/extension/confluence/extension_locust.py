@@ -43,7 +43,7 @@ def app_specific_action_userscript_rest(locust):
             if expected_text in content:
                 response.success()
             else:
-                response.failure(f"Expected text '{expected_text}' not found in response content.")
+                response.failure(f"Expected text '{expected_text}' not found in response content. But found: {content}")
         else:
             response.failure(f"Request failed with status code {response.status_code}")
 
