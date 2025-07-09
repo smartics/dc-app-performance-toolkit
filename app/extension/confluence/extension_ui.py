@@ -8,7 +8,7 @@ from selenium_ui.confluence.pages.pages import Login, AllUpdates, AdminPage
 from util.conf import CONFLUENCE_SETTINGS
 
 # smartics
-def us_banner_is_appearing(webdriver, datasets):
+def us_inspect_button(webdriver, datasets):
     page = BasePage(webdriver)
     if datasets['custom_pages']:
         app_specific_page_id = datasets['custom_page_id']
@@ -37,16 +37,15 @@ def us_banner_is_appearing(webdriver, datasets):
 
     measure()
 
-    @print_timing("selenium_us_banner_is_appearing")
+    @print_timing("selenium_us_inspect_button")
     def measure():
 
-        @print_timing("selenium_us_banner_is_appearing:view_page")
+        @print_timing("selenium_us_inspect_button:view_page")
         def sub_measure():
             page.go_to_url(f"{CONFLUENCE_SETTINGS.server_url}/pages/viewpage.action?pageId={app_specific_page_id}")
             page.wait_until_present(
-                (By.ID, "userscripts-dc-test-banner"))  # Wait for you app-specific UI element by ID selector
+                (By.ID, "inspect-root"))  # Wait for you app-specific UI element by ID selector
         sub_measure()
-
     measure()
 
 

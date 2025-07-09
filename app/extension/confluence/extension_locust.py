@@ -33,7 +33,7 @@ TC_INFORMATIONSYSTEM_ASSERTION_TEXT = "informationsystem-test-case-id"
 
 @confluence_measure("locust_app_specific_action_userscript_rest")
 def app_specific_action_userscript_rest(locust):
-    page_id = {TC_US_PAGEID}
+    page_id = TC_US_PAGEID
     expected_text = {TC_US_EXPECTED_SCRIPT_NAME}
     url = f'/rest/userscripts-for-confluence/1/context?page-id={page_id}'
     logger.info(f"Requesting Userscripts RestAPI(1) content for: PAGEID {page_id}")
@@ -49,7 +49,7 @@ def app_specific_action_userscript_rest(locust):
 
 @confluence_measure("locust_app_specific_action")
 def app_specific_action(locust):
-    page_id = {TC_US_PAGEID}
+    page_id = TC_US_PAGEID
     expected_text = {TC_US_EXPECTED_SCRIPT_NAME}
     url = f'/rest/userscripts-for-confluence/1/context?page-id={page_id}'
     logger.info(f"Requesting Userscripts RestAPI(2) content for: PAGEID {page_id}")
