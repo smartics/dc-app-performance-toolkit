@@ -1,10 +1,15 @@
 import re
-from locustio.common_utils import init_logger, confluence_measure, \
-    run_as_specific_user  # noqa F401
+from locustio.common_utils import init_logger, confluence_measure, run_as_specific_user  # noqa F401
 
 logger = init_logger(app_type='confluence')
 # smartics
-TESTCASE_SPACE_KEY = "DOCM"
+# USERSCRIPT-PARAMETERS
+TC_US_PAGEID = "3539099"
+TC_US_EXPECTED_SCRIPT_NAME = "projectdoc-inspect-menu.js"
+
+# DOCUMENTATION Macros, projectdoc, ...
+TESTCASE_SPACE_KEY = "DCPTCONTENT1"
+#TESTCASE_SPACE_KEY = "DOCM"
 #TESTCASE_SPACE_KEY = "PROJECTDOCTEST"
 
 #DocumentationMacros (And Toolbox ?)
@@ -28,8 +33,8 @@ TC_INFORMATIONSYSTEM_ASSERTION_TEXT = "informationsystem-test-case-id"
 
 @confluence_measure("locust_app_specific_action_userscript_rest")
 def app_specific_action_userscript_rest(locust):
-    page_id = "44236807"
-    expected_text = "test-1.0.0.js"
+    page_id = {TC_US_PAGEID}
+    expected_text = {TC_US_EXPECTED_SCRIPT_NAME}
     url = f'/rest/userscripts-for-confluence/1/context?page-id={page_id}'
     logger.info(f"Requesting Userscripts RestAPI(1) content for: PAGEID {page_id}")
     with locust.client.get(url, catch_response=True) as response:
@@ -44,8 +49,8 @@ def app_specific_action_userscript_rest(locust):
 
 @confluence_measure("locust_app_specific_action")
 def app_specific_action(locust):
-    page_id = "44236807"
-    expected_text = "test-1.0.0.js"
+    page_id = {TC_US_PAGEID}
+    expected_text = {TC_US_EXPECTED_SCRIPT_NAME}
     url = f'/rest/userscripts-for-confluence/1/context?page-id={page_id}'
     logger.info(f"Requesting Userscripts RestAPI(2) content for: PAGEID {page_id}")
     with locust.client.get(url, catch_response=True) as response:

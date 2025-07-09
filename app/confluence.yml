@@ -20,7 +20,7 @@ settings:
     ramp-up: 5m                        # time to spin all concurrent users
     total_actions_per_hour: 20000
     WEBDRIVER_VISIBLE: False
-    JMETER_VERSION: 5.6
+    JMETER_VERSION: 5.6.3
     LANGUAGE: en_US.utf8
     allow_analytics: Yes               # Allow sending basic run analytics to Atlassian. These analytics help us to understand how the tool is being used and help us to continue to invest in this tooling. For more details please see our README.
     environment_compliance_check: True # Pre-test environment compliance validation. Set to "False" to skip it.
@@ -36,8 +36,8 @@ settings:
     view_attachment: 6
     upload_attachment: 7
     like_page: 3
-    upload_emoticon: 2      # For Confluence 8.4.x+
-    standalone_extension: 5 # By default disabled
+    upload_emoticon: 4      # For Confluence 8.4.x+
+    standalone_extension: 0 # By default disabled
     standalone_extension_us_rest_content: 5
     #smartics
     #standalone_extension_section: 10 # By default disabled
@@ -82,7 +82,7 @@ services:
       - python util/post_run/cleanup_results_dir.py
   - module: pip-install
     packages:
-      - selenium==4.21.0
+      - selenium==4.31.0
 execution:
   - scenario: ${load_executor}
     executor: ${load_executor}
@@ -137,6 +137,7 @@ modules:
       - jpgc-perfmon=2.1
       - jpgc-prmctl=0.4
       - jpgc-tst=2.6
+      - bzm-random-csv=0.8    # not used default jmx file
     system-properties:
       server.rmi.ssl.disable: true
       java.rmi.server.hostname: localhost

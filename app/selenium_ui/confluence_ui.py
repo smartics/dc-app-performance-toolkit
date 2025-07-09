@@ -31,6 +31,10 @@ def test_1_selenium_edit_by_url(confluence_webdriver, confluence_datasets, confl
     modules.edit_confluence_page_by_url(confluence_webdriver, confluence_datasets)
 
 
+def test_1_selenium_cql_search_two_words(confluence_webdriver, confluence_datasets, confluence_screen_shots):
+    modules.cql_search_two_words(confluence_webdriver)
+
+
 def test_1_selenium_edit_page_quick_edit(confluence_webdriver, confluence_datasets, confluence_screen_shots):
     modules.edit_confluence_page_quick_edit(confluence_webdriver, confluence_datasets)
 
@@ -38,9 +42,8 @@ def test_1_selenium_edit_page_quick_edit(confluence_webdriver, confluence_datase
 def test_1_selenium_create_inline_comment(confluence_webdriver, confluence_datasets, confluence_screen_shots):
     modules.create_inline_comment(confluence_webdriver, confluence_datasets)
 
-
-def test_1_selenium_cql_search(confluence_webdriver, confluence_datasets, confluence_screen_shots):
-    modules.cql_search(confluence_webdriver, confluence_datasets)
+def test_1_selenium_cql_search_three_words(confluence_webdriver, confluence_datasets, confluence_screen_shots):
+    modules.cql_search_three_words(confluence_webdriver)
 
 
 """
@@ -48,6 +51,8 @@ Add custom actions anywhere between login and log out action. Move this to a dif
 Write your custom selenium scripts in `app/extension/confluence/extension_ui.py`.
 Refer to `app/selenium_ui/confluence/modules.py` for examples.
 """
+# def test_1_selenium_custom_action(confluence_webdriver, confluence_datasets, confluence_screen_shots):
+#     extension_ui.app_specific_action(confluence_webdriver, confluence_datasets)
 
 # smartics selenium
 def test_1_selenium_us_banner_is_appearing(confluence_webdriver, confluence_datasets, confluence_screen_shots):

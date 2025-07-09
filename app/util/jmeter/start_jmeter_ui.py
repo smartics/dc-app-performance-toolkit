@@ -6,7 +6,7 @@ from sys import version_info
 
 import yaml
 
-SUPPORTED_PYTHON_VERSIONS = ["3.9", "3.10", "3.11", "3.12"]
+SUPPORTED_PYTHON_VERSIONS = ["3.9", "3.10", "3.11", "3.12", "3.13"]
 
 python_full_version = '.'.join(map(str, version_info[0:3]))
 python_short_version = '.'.join(map(str, version_info[0:2]))
@@ -87,8 +87,8 @@ class StartJMeter:
             else:
                 raise SystemExit(f'JSM unsupported type: {self.args.type}. Valid types: {AGENTS}, {CUSTOMERS}')
         else:
-            raise SystemExit("Application type {} is not supported. Valid values: {} {} {} {}".
-                             format(self.args.app, JIRA, CONFLUENCE, BITBUCKET, JSM))
+            raise SystemExit("Application type {} is not supported. Valid values: {} {} {} {} {} {}".
+                             format(self.args.app, JIRA, CONFLUENCE, BITBUCKET, JSM, BAMBOO, CROWD))
 
     @staticmethod
     def read_yml_file(file):

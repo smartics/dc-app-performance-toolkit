@@ -1,4 +1,5 @@
 from locust import HttpUser, task, between
+# smartics-US
 from extension.confluence.extension_locust import app_specific_action_userscript_rest
 from extension.confluence.extension_locust import app_specific_action
 
@@ -20,10 +21,10 @@ from extension.confluence.extension_locust import app_specific_action
 
 from locustio.common_utils import LocustConfig, MyBaseTaskSet
 from locustio.confluence.http_actions import login_and_view_dashboard, view_dashboard, view_blog, \
-    search_cql_and_view_results, open_editor_and_create_blog, create_and_edit_page, comment_page, view_attachments, \
-    upload_attachments, like_page, view_page
+    open_editor_and_create_blog, create_and_edit_page, comment_page, view_attachments, \
+    upload_attachments, like_page, view_page, search_cql_two_words_and_view_results, search_cql_three_words
 from util.conf import CONFLUENCE_SETTINGS
-# smartics
+
 config = LocustConfig(config_yml=CONFLUENCE_SETTINGS)
 
 class ConfluenceBehavior(MyBaseTaskSet):
@@ -46,7 +47,11 @@ class ConfluenceBehavior(MyBaseTaskSet):
 
     @task(config.percentage('search_cql'))
     def search_cql_action(self):
-        search_cql_and_view_results(self)
+        search_cql_two_words_and_view_results(self)
+
+    @task(config.percentage('search_cql'))
+    def search_cql_action(self):
+        search_cql_three_words(self)
 
     @task(config.percentage('create_blog'))
     def create_blog_action(self):
