@@ -5,7 +5,7 @@ settings:
   verbose: false
   check-updates: false    # disable bzt check for updates
   env:
-    application_hostname: a9ad5e96ce29c45b1a45a1d85829e3a3-1034839394.us-east-2.elb.amazonaws.com  # Confluence DC hostname without protocol, port and postfix e.g. test-confluence.atlassian.com or localhost
+    application_hostname: ae69c91bcbebd48f290221533a5d66b1-2113012738.us-east-2.elb.amazonaws.com  # Confluence DC hostname without protocol, port and postfix e.g. test-confluence.atlassian.com or localhost
     application_protocol: http         # http or https
     application_port: 80               # 80, 443, 8080, 1990, etc
     secure: True                       # Set False to allow insecure connections, e.g. when using self-signed SSL certificate
@@ -15,10 +15,10 @@ settings:
 
     #smartics or jmeter
     load_executor: locust              # jmeter and locust are supported. jmeter by default.
-    concurrency: 200                   # number of concurrent virtual users for jmeter or locust scenario
-    test_duration: 45m
-    ramp-up: 5m                        # time to spin all concurrent users
-    total_actions_per_hour: 20000
+    concurrency: 20                   # number of concurrent virtual users for jmeter or locust scenario
+    test_duration: 5m
+    ramp-up: 5s                        # time to spin all concurrent users
+    total_actions_per_hour: 2000
     WEBDRIVER_VISIBLE: False
     JMETER_VERSION: 5.6.3
     LANGUAGE: en_US.utf8
@@ -59,7 +59,8 @@ settings:
     # standalone_extension: 50 # By default disabled (0)
 
     # Custom dataset section.
-    #    custom_dataset_query:  # Write CQL query to add CQL output to the app/datasets/confluence/custom_pages.csv, e.g. "title ~ 'AppPage*'"
+    custom_dataset_query: space='MAN1' AND title ~ 'Versuch*' 
+    # Write CQL query to add CQL output to the app/datasets/confluence/custom_pages.csv, e.g. "title ~ 'AppPage*'"
     # custom_dataset_query:  # Write CQL query to add CQL output to the app/datasets/confluence/custom_pages.csv, e.g. "title ~ 'AppPage*'"
     # Write CQL query to add CQL output to the app/datasets/confluence/custom_pages.csv, e.g. "title ~ 'AppPage*'"
     #smartics compared
@@ -144,14 +145,17 @@ modules:
       httpsampler.ignore_failed_embedded_resources: "true"
   selenium:
     chromedriver:
-       version: "126.0.6478.126"
+#      version: "126.0.6478.126"
 #      version: "101.0.4951.41" # Supports Chrome version 101. You can refer to http://chromedriver.chromium.org/downloads
 #      version: "90.0.4430.24" # Supports Chrome version 97. You can refer to http://chromedriver.chromium.org/downloads
 #      version: "102.0.5005.61" # Supports Chrome version 102. You can refer to http://chromedriver.chromium.org/downloads
 #      version: "103.0.5060.134" # Supports Chrome version 103. You can refer to http://chromedriver.chromium.org/downloads
 #      version: "114.0.5735.90" # Supports Chrome version 103. You can refer to http://chromedriver.chromium.org/downloads
 #      version: "118.0.5993.70" # Supports Chrome version 118. You can refer to https://googlechromelabs.github.io/chrome-for-testing
-#  blazemeter:
+#      version: "130.0.6723.91" # Supports Chrome version 130. You can refer to https://googlechromelabs.github.io/chrome-for-testing
+#      version: "137.0.7151.70" # Supports Chrome version 137. You can refer to https://googlechromelabs.github.io/chrome-for-testing
+      version: "138.0.7204.92" 
+        #  blazemeter:
     # token: e41bf0cde4ff5c5d75ba5e5ee9aa200e85bfe870a51262efdf4a4e6dcb084f3a677dcb25
     # address: https://a.blazemeter.com  # reporting service address
     # data-address: https://data.blazemeter.com  # data service address
