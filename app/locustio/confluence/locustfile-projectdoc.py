@@ -1,6 +1,10 @@
 from locust import HttpUser, task, between
 
-from extension.confluence.extension_locust import app_specific_action
+from extension.confluence.extension_locust import app_specific_action_docm
+#from extension.confluence.extension_locust import app_specific_action_td
+#from extension.confluence.extension_locust import app_specific_action_dt
+#from extension.confluence.extension_locust import app_specific_action_wa
+#from extension.confluence.extension_locust import app_specific_action_is
 from locustio.common_utils import LocustConfig, MyBaseTaskSet
 from locustio.confluence.http_actions import login_and_view_dashboard, view_dashboard, view_blog,\
     open_editor_and_create_blog, create_and_edit_page, comment_page, view_attachments, \
@@ -61,9 +65,24 @@ class ConfluenceBehavior(MyBaseTaskSet):
         like_page(self)
 
     @task(config.percentage('standalone_extension'))
-    def custom_action(self):
-        app_specific_action(self)
+    def custom_action_dt(self):
+        app_specific_action_dt(self)
 
+#    @task(config.percentage('standalone_extension'))
+#    def custom_action_td(self):
+#        app_specific_action_td(self)
+
+#    @task(config.percentage('standalone_extension'))
+#    def custom_action_wa(self):
+#        app_specific_action_wa(self)
+
+#    @task(config.percentage('standalone_extension'))
+#    def custom_action_is(self):
+#        app_specific_action_is(self)
+
+    @task(config.percentage('standalone_extension'))
+    def custom_action_docm(self):
+        app_specific_action_docm(self)
 
 class ConfluenceUser(HttpUser):
     host = CONFLUENCE_SETTINGS.server_url
