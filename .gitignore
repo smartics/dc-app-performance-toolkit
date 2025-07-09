@@ -19,3 +19,4 @@ confluence.yml.patch
 confluence.yml-smartics
 app/util/k8s/aws_envs
 app/util/k8s/logs
+app/util/k8s/aws_envs_SECRETS
