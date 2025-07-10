@@ -51,15 +51,15 @@ Add custom actions anywhere between login and log out action. Move this to a dif
 Write your custom selenium scripts in `app/extension/confluence/extension_ui.py`.
 Refer to `app/selenium_ui/confluence/modules.py` for examples.
 """
-# def test_1_selenium_custom_action(confluence_webdriver, confluence_datasets, confluence_screen_shots):
-#     extension_ui.app_specific_action(confluence_webdriver, confluence_datasets)
+#OLD def test_1_selenium_custom_action(confluence_webdriver, confluence_datasets, confluence_screen_shots):
+#OLD     extension_ui.app_specific_action(confluence_webdriver, confluence_datasets)
 
 # smartics selenium
-def test_1_selenium_us_inspect_button(confluence_webdriver, confluence_datasets, confluence_screen_shots):
-    extension_ui.us_inspect_button(confluence_webdriver, confluence_datasets)
+#def test_1_selenium_us_inspect_button(confluence_webdriver, confluence_datasets, confluence_screen_shots):
+#    extension_ui.us_inspect_button(confluence_webdriver, confluence_datasets)
 
-def test_1_selenium_custom_action(confluence_webdriver, confluence_datasets, confluence_screen_shots):
-    extension_ui.app_specific_action(confluence_webdriver, confluence_datasets)
+#def test_1_selenium_custom_action(confluence_webdriver, confluence_datasets, confluence_screen_shots):
+#    extension_ui.app_specific_action(confluence_webdriver, confluence_datasets)
 
 # this action should be the last one
 def test_2_selenium_z_log_out(confluence_webdriver, confluence_datasets, confluence_screen_shots):
