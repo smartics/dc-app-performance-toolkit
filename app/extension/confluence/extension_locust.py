@@ -4,8 +4,8 @@ from locustio.common_utils import init_logger, confluence_measure, run_as_specif
 logger = init_logger(app_type='confluence')
 # smartics
 # USERSCRIPT-PARAMETERS
-TC_US_PAGEID = "3539099"
-TC_US_EXPECTED_SCRIPT_NAME = "projectdoc-inspect-menu.js"
+TC_US_PAGEID = "44957866"
+TC_US_EXPECTED_SCRIPT_NAME = "Inspect-1.0.js"
 
 # DOCUMENTATION Macros, projectdoc, ...
 TESTCASE_SPACE_KEY = "DCPTCONTENT1"

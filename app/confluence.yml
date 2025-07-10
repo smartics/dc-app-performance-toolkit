@@ -37,8 +37,8 @@ settings:
     upload_attachment: 7
     like_page: 3
     upload_emoticon: 4      # For Confluence 8.4.x+
-    standalone_extension: 0 # By default disabled
-    standalone_extension_us_rest_content: 5
+#    standalone_extension: 5 # By default disabled
+#    standalone_extension_us_rest_content: 5
     #smartics
     #standalone_extension_section: 10 # By default disabled
     #standalone_extension_hide: 10 # By default disabled
@@ -58,8 +58,9 @@ settings:
     #    upload_emoticon: 0      # For Confluence 8.4.x+
     # standalone_extension: 50 # By default disabled (0)
 
-    # Custom dataset section.
-    custom_dataset_query: space='MAN1' AND title ~ 'Versuch*' 
+    # Custom dataset section
+    custom_dataset_query: 
+# custom_dataset_query: space='MAN1' AND title ~ 'Versuch*' 
     # Write CQL query to add CQL output to the app/datasets/confluence/custom_pages.csv, e.g. "title ~ 'AppPage*'"
     # custom_dataset_query:  # Write CQL query to add CQL output to the app/datasets/confluence/custom_pages.csv, e.g. "title ~ 'AppPage*'"
     # Write CQL query to add CQL output to the app/datasets/confluence/custom_pages.csv, e.g. "title ~ 'AppPage*'"
@@ -67,7 +68,7 @@ settings:
     # custom_dataset_query:
     #    custom_dataset_query:  "space='PROJECTDOCTEST' AND (title = 'Test Case Display Table' OR title =  'Test Case Transclude from Documents')"
     # custom_dataset_query:   # Write CQL query to add CQL output to the app/datasets/confluence/custom_pages.csv, e.g. "title ~ 'AppPage*'"
-    custom_dataset_query:  "title ~ 'DCPTCONTENT1 Home' OR title ~ 'Versuch A'"  # Write CQL query to add CQL output to the app/datasets/confluence/custom_pages.csv, e.g. "title ~ 'AppPage*'"
+#    custom_dataset_query:  "title ~ 'DCPTCONTENT1 Home' OR title ~ 'Versuch A'"  # Write CQL query to add CQL output to the app/datasets/confluence/custom_pages.csv, e.g. "title ~ 'AppPage*'"
     # custom_dataset_query: title ~ 'smarticsUserScriptPage'          # Write CQL query to add CQL output to the app/datasets/confluence/custom_pages.csv, e.g. "title ~ 'AppPage*'"
 services:
   - module: shellexec
@@ -154,7 +155,8 @@ modules:
 #      version: "118.0.5993.70" # Supports Chrome version 118. You can refer to https://googlechromelabs.github.io/chrome-for-testing
 #      version: "130.0.6723.91" # Supports Chrome version 130. You can refer to https://googlechromelabs.github.io/chrome-for-testing
 #      version: "137.0.7151.70" # Supports Chrome version 137. You can refer to https://googlechromelabs.github.io/chrome-for-testing
-      version: "138.0.7204.92" 
+      version: "137.0.7151.103"
+        #      version: "138.0.7204.92" 
         #  blazemeter:
     # token: e41bf0cde4ff5c5d75ba5e5ee9aa200e85bfe870a51262efdf4a4e6dcb084f3a677dcb25
     # address: https://a.blazemeter.com  # reporting service address
