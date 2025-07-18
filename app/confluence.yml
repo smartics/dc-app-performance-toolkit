@@ -37,7 +37,7 @@ settings:
     upload_attachment: 7
     like_page: 3
     upload_emoticon: 4      # For Confluence 8.4.x+
-#    standalone_extension: 5 # By default disabled
+#    standalone_extension: 5
 #    standalone_extension_us_rest_content: 5
     #smartics
     #standalone_extension_section: 10 # By default disabled
@@ -60,7 +60,7 @@ settings:
 
     # Custom dataset section
     custom_dataset_query: 
-# custom_dataset_query: space='MAN1' AND title ~ 'Versuch*' 
+#    custom_dataset_query: space='MAN1' AND title ~ 'Versuch*' 
     # Write CQL query to add CQL output to the app/datasets/confluence/custom_pages.csv, e.g. "title ~ 'AppPage*'"
     # custom_dataset_query:  # Write CQL query to add CQL output to the app/datasets/confluence/custom_pages.csv, e.g. "title ~ 'AppPage*'"
     # Write CQL query to add CQL output to the app/datasets/confluence/custom_pages.csv, e.g. "title ~ 'AppPage*'"

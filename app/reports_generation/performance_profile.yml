@@ -5,14 +5,14 @@ runs:
   # E.g. relativePath: "./app/results/jira/2024-01-01_10-10-10"
   - runName: "without app"
     runType: "baseline"
-    relativePath: "./app/results/confluence/run1a"
+    relativePath: "./app/results/confluence/RUN1"
   - runName: "with app"
     runType: "experiment"
-    relativePath: "./app/results/confluence/run2a"
+    relativePath: "./app/results/confluence/RUN2_US"
 
 # Chart generation config
 index_col: "Action"
-title: "Projectdoc Regression Performance Testing"
+title: "Userscripts Regression Performance Testing"
 image_height_px: 1000
 image_width_px: 1600
 check_actions_count: false
