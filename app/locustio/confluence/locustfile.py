@@ -1,13 +1,12 @@
 from locust import HttpUser, task, between
 
-from extension.confluence.extension_locust import app_specific_action
  --------------------------------------------------------------------------------------------
 #Hier muss alles mit from importiert werden, was unten genutzt werden soll
 # smartics-US uncomment for Userscripts
 # --------------------------------------------------------------------------------------------
 
 from extension.confluence.extension_locust import app_specific_action_userscript_rest
-#### from extension.confluence.extension_locust import app_specific_action
+from extension.confluence.extension_locust import app_specific_action
 
 # --------------------------------------------------------------------------------------------
 # smartics-dm uncomment for Userscripts
@@ -68,6 +67,7 @@ config = LocustConfig(config_yml=CONFLUENCE_SETTINGS)
 # smartics-bp
 # --------------------------------------------------------------------------------------------
 
+logging.info("Here I am! SMARTICS I")
 with open('doctypes.txt', 'r') as file:
     doctypes = [line.strip() for line in file if not line.strip().startswith("#")]
 doctypesALL = doctypes.copy()
@@ -76,7 +76,7 @@ class ConfluenceBehavior(MyBaseTaskSet):
 
     def on_start(self):
         self.client.verify = config.secure
-        logging.info("Here I am! SMARTICS")
+        logging.info("Here I am! SMARTICS II")
         login_and_view_dashboard(self)
 
     @task(config.percentage('view_page'))
@@ -135,11 +135,13 @@ class ConfluenceBehavior(MyBaseTaskSet):
 # smartics-pd
 # --------------------------------------------------------------------------------------------------------------------
 
-    @task(config.percentage('standalone_extension_transclude_documents'))
+#    @task(config.percentage('standalone_extension_transclude_documents'))
+    @task(config.percentage('standalone_extension'))
     def custom_action_transclude_documents(self):
         app_specific_action_transclude_documents(self)
 
-    @task(config.percentage('standalone_extension_display_table'))
+#    @task(config.percentage('standalone_extension_display_table'))
+    @task(config.percentage('standalone_extension'))
     def custom_action_display_table(self):
         app_specific_action_display_table(self)
 
@@ -147,7 +149,8 @@ class ConfluenceBehavior(MyBaseTaskSet):
 # smartics-is
 # --------------------------------------------------------------------------------------------------------------------
 
-    @task(config.percentage('standalone_extension_information_system'))
+#    @task(config.percentage('standalone_extension_information_system'))
+    @task(config.percentage('standalone_extension'))
     def custom_action_information_system(self):
         app_specific_action_information_system(self)
 
@@ -155,11 +158,13 @@ class ConfluenceBehavior(MyBaseTaskSet):
 # smartics-wa
 # --------------------------------------------------------------------------------------------------------------------
 
-    @task(config.percentage('standalone_extension_web_api'))
+#    @task(config.percentage('standalone_extension_web_api'))
+    @task(config.percentage('standalone_extension'))
     def custom_action_web_api(self):
         app_specific_action_web_api(self)
 
-    @task(config.percentage('standalone_extension_blueprints'))
+#    @task(config.percentage('standalone_extension_blueprints'))
+    @task(config.percentage('standalone_extension'))
     def custom_action_blueprints(self):
         r = self.get(f'/display/BLUEPRINT/Blueprints', catch_response=True)
         logging.info("SMARTICS BLUEPRINT")
@@ -181,22 +186,27 @@ class ConfluenceBehavior(MyBaseTaskSet):
 # --------------------------------------------------------------------------------------------------------------------
 # smartics-dm
 # --------------------------------------------------------------------------------------------------------------------
-
+'''
 #    @task(config.percentage('standalone_extension_section'))
-#    def custom_action_section(self):
-#        app_specific_action_docm_section(self)
-#
+    @task(config.percentage('standalone_extension'))
+    def custom_action_section(self):
+        app_specific_action_docm_section(self)
+
 #    @task(config.percentage('standalone_extension_hide'))
-#    def custom_action_hide(self):
-#        app_specific_action_docm_hide(self)
-#
+    @task(config.percentage('standalone_extension'))
+    def custom_action_hide(self):
+        app_specific_action_docm_hide(self)
+
 #    @task(config.percentage('standalone_extension_hidefromreader'))
-#    def custom_action_hidefromreader(self):
-#        app_specific_action_docm_hidefromreader(self)
-#
+    @task(config.percentage('standalone_extension'))
+    def custom_action_hidefromreader(self):
+        app_specific_action_docm_hidefromreader(self)
+
 #    @task(config.percentage('standalone_extension_hidefromanonymous'))
-#    def custom_action_hidefromanonymous(self):
-#        app_specific_action_docm_hidefromanonymous(self)
+    @task(config.percentage('standalone_extension'))
+    def custom_action_hidefromanonymous(self):
+        app_specific_action_docm_hidefromanonymous(self)
+'''
 
 class ConfluenceUser(HttpUser):
     host = CONFLUENCE_SETTINGS.server_url

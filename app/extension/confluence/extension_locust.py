@@ -65,7 +65,7 @@ BLUEPRINT_LOCATION = "44320083"
 
 @confluence_measure("locust_app_specific_action_userscript_rest")
 def app_specific_action_userscript_rest(locust):
-    page_id = TC_US_PAGEID
+    page_id = TC_US_PAGEID  # Entfernen der geschweiften Klammern
     expected_text = TC_US_EXPECTED_SCRIPT_NAME
     url = f'/rest/userscripts-for-confluence/1/context?page-id={page_id}'
     logger.info(f"Requesting Userscripts RestAPI(1) content for: PAGEID {page_id}")
@@ -76,6 +76,22 @@ def app_specific_action_userscript_rest(locust):
                 response.success()
             else:
                 response.failure(f"Expected text '{expected_text}' not found in response content. But found: {content}")
+        else:
+            response.failure(f"Request failed with status code {response.status_code}")
+
+@confluence_measure("locust_app_specific_action")
+def app_specific_action(locust):
+    page_id = TC_US_PAGEID
+    expected_text = TC_US_EXPECTED_SCRIPT_NAME
+    url = f'/rest/userscripts-for-confluence/1/context?page-id={page_id}'
+    logger.info(f"Requesting Userscripts RestAPI(2) content for: PAGEID {page_id}")
+    with locust.client.get(url, catch_response=True) as response:
+        if response.status_code == 200:
+            content = response.text
+            if expected_text in content:
+                response.success()
+            else:
+                response.failure(f"Expected text '{expected_text}' not found in response content.")
         else:
             response.failure(f"Request failed with status code {response.status_code}")
 
@@ -134,15 +150,6 @@ def app_specific_action_docm_definitionlist(locust):
 # smartics-pd
 # --------------------------------------------------------------------------------------------------------------------
 
-@confluence_measure("locust_app_specific_action_transclude_documents")
-# @run_as_specific_user(username='admin', password='admin')  # run as specific user
-def app_specific_action_transclude_documents(locust):
-    logger.info(f"TranscludeDocuments")
-    response = locust.get(
-        '/display/{}/{}'.format(TESTCASE_SPACE_KEY, TC_TRANSCLUDE_DOCUMENTS),
-        catch_response=True)
-    content = response.content.decode('utf-8')
-    assert_text(content, TC_TRANSCLUDE_DOCUMENTS_ASSERTION_TEXT)
 
 @confluence_measure("locust_app_specific_action_display_table")
 # @run_as_specific_user(username='admin', password='admin')  # run as specific user
@@ -153,6 +160,19 @@ def app_specific_action_display_table(locust):
         catch_response=True)
     content = response.content.decode('utf-8')
     assert_text(content, TC_DISPLAY_TABLE_ASSERTION_TEXT)
+
+
+
+@confluence_measure("locust_app_specific_action_transclude_documents")
+# @run_as_specific_user(username='admin', password='admin')  # run as specific user
+def app_specific_action_transclude_documents(locust):
+    logger.info(f"TranscludeDocuments")
+    response = locust.get(
+        '/display/{}/{}'.format(TESTCASE_SPACE_KEY, TC_TRANSCLUDE_DOCUMENTS),
+        catch_response=True)
+    content = response.content.decode('utf-8')
+    assert_text(content, TC_TRANSCLUDE_DOCUMENTS_ASSERTION_TEXT)
+
 
 # --------------------------------------------------------------------------------------------------------------------
 # smartics-is
