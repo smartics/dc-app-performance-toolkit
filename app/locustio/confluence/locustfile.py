@@ -1,5 +1,7 @@
 from locust import HttpUser, task, between
-# --------------------------------------------------------------------------------------------
+
+from extension.confluence.extension_locust import app_specific_action
+ --------------------------------------------------------------------------------------------
 #Hier muss alles mit from importiert werden, was unten genutzt werden soll
 # smartics-US uncomment for Userscripts
 # --------------------------------------------------------------------------------------------

@@ -234,6 +234,16 @@ def app_specific_action_create_from_blueprint(locust, doctypes, doctypesAll):
     else:
         print(f'Successfully created from blueprint with doctype: {DOCTYPE}')
 
+
+@confluence_measure("locust_app_specific_action")
+def app_specific_action_transclude_documents(locust):
+    logger.info(f"TranscludeDocuments")
+    response = locust.get(
+        '/display/{}/{}'.format(TESTCASE_SPACE_KEY, TC_TRANSCLUDE_DOCUMENTS),
+        catch_response=True)
+    content = response.content.decode('utf-8')
+    assert_text(content, TC_TRANSCLUDE_DOCUMENTS_ASSERTION_TEXT)
+
 # --------------------------------------------------------------------------------------------------------------------
 # smartics ENDE
 # --------------------------------------------------------------------------------------------------------------------
