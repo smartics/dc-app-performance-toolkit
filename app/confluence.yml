@@ -44,20 +44,11 @@ settings:
     #standalone_extension_hide: 10 # By default disabled
     #standalone_extension_hidefromreader: 10 # By default disabled
     #standalone_extension_hidefromanonymous: 10 # By default disabled
-
-    #    view_page: 0
-    #    view_dashboard: 0
-    #    view_blog: 0
-    #    search_cql: 0
-    #    create_blog: 0
-    #    create_and_edit_page: 0
-    #    comment_page: 0
-    #    view_attachment: 0
-    #    upload_attachment: 0
-    #    like_page: 0
-    #    upload_emoticon: 0      # For Confluence 8.4.x+
-    # standalone_extension: 50 # By default disabled (0)
-
+    standalone_extension_transclude_documents: 6
+    standalone_extension_display_table: 6
+    standalone_extension_web_api: 0
+    standalone_extension_information_system: 0
+    standalone_extension_blueprints: 0
     # Custom dataset section
     custom_dataset_query: 
 #    custom_dataset_query: space='MAN1' AND title ~ 'Versuch*' 

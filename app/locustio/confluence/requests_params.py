@@ -2,7 +2,11 @@
 from locustio.common_utils import read_input_file, BaseResource
 from util.project_paths import (CONFLUENCE_PAGES, CONFLUENCE_BLOGS, CONFLUENCE_USERS, CONFLUENCE_STATIC_CONTENT)
 
+# smartics??
+#from util.project_paths import (CONFLUENCE_PAGES, CONFLUENCE_BLOGS, CONFLUENCE_USERS, CONFLUENCE_STATIC_CONTENT,
+#                                CONFLUENCE_CQLS)
 
+# smartics??     data_sets["cqls"] = read_input_file(CONFLUENCE_CQLS) HINZUFÜGEN ??
 def confluence_datasets():
     data_sets = dict()
     data_sets["pages"] = read_input_file(CONFLUENCE_PAGES)
