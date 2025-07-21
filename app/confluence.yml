@@ -44,11 +44,13 @@ settings:
     #standalone_extension_hide: 10 # By default disabled
     #standalone_extension_hidefromreader: 10 # By default disabled
     #standalone_extension_hidefromanonymous: 10 # By default disabled
-    standalone_extension_transclude_documents: 6
-    standalone_extension_display_table: 6
-    standalone_extension_web_api: 0
-    standalone_extension_information_system: 0
-    standalone_extension_blueprints: 0
+
+#    standalone_extension_transclude_documents: 6
+#    standalone_extension_display_table: 6
+#    standalone_extension_web_api: 0
+#    standalone_extension_information_system: 0
+#    standalone_extension_blueprints: 0
+
     # Custom dataset section
     custom_dataset_query: 
 #    custom_dataset_query: space='MAN1' AND title ~ 'Versuch*' 
