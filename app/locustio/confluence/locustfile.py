@@ -11,6 +11,7 @@ from extension.confluence.extension_locust import app_specific_action
 # --------------------------------------------------------------------------------------------
 # smartics-dm uncomment for Userscripts
 # --------------------------------------------------------------------------------------------
+
 '''
 from extension.confluence.extension_locust import app_specific_action_docm
 from extension.confluence.extension_locust import app_specific_action_docm_section
@@ -19,28 +20,34 @@ from extension.confluence.extension_locust import app_specific_action_docm_hidef
 from extension.confluence.extension_locust import app_specific_action_docm_hidefromanonymous
 from extension.confluence.extension_locust import app_specific_action_docm_definitionlist
 '''
+
 # --------------------------------------------------------------------------------------------
 # smartics-Projectdoc uncomment for projectdoc Toolbox
 # smartics-pd
 # --------------------------------------------------------------------------------------------
+
 '''
 from extension.confluence.extension_locust import app_specific_action_transclude_documents
 from extension.confluence.extension_locust import app_specific_action_display_table
 '''
+
 # --------------------------------------------------------------------------------------------
 # smartics-Projectdoc uncomment for projectdoc Toolbox
 # smartixs-pd
 # --------------------------------------------------------------------------------------------
+
 '''
 from extension.confluence.extension_locust import app_specific_action_td
 from extension.confluence.extension_locust import app_specific_action_dt
 from extension.confluence.extension_locust import app_specific_action_wa
 from extension.confluence.extension_locust import app_specific_action_is
 '''
+
 # --------------------------------------------------------------------------------------------
 # smartics uncomment for projectdoc toolbox extensions
 # smartics-wa
 # --------------------------------------------------------------------------------------------
+
 '''
 from extension.confluence.extension_locust import app_specific_action_web_api
 '''
@@ -49,6 +56,7 @@ from extension.confluence.extension_locust import app_specific_action_web_api
 # smartics uncomment for projectdoc toolbox extensions
 # smartics-is
 # --------------------------------------------------------------------------------------------
+
 '''
 from extension.confluence.extension_locust import app_specific_action_information_system
 '''
@@ -57,6 +65,7 @@ from extension.confluence.extension_locust import app_specific_action_informatio
 # smartics uncomment for projectdoc toolbox extensions
 # smartics-bp
 # --------------------------------------------------------------------------------------------
+
 '''
 from extension.confluence.extension_locust import app_specific_action_create_from_blueprint
 '''
@@ -72,6 +81,7 @@ config = LocustConfig(config_yml=CONFLUENCE_SETTINGS)
 # --------------------------------------------------------------------------------------------
 # smartics-bp
 # --------------------------------------------------------------------------------------------
+
 '''
 logging.info("Here I am! SMARTICS I")
 with open('doctypes.txt', 'r') as file:
@@ -141,6 +151,7 @@ class ConfluenceBehavior(MyBaseTaskSet):
 # --------------------------------------------------------------------------------------------------------------------
 # smartics-pd
 # --------------------------------------------------------------------------------------------------------------------
+
 '''
 #    @task(config.percentage('standalone_extension_transclude_documents'))
     @task(config.percentage('standalone_extension'))
@@ -156,6 +167,7 @@ class ConfluenceBehavior(MyBaseTaskSet):
 # --------------------------------------------------------------------------------------------------------------------
 # smartics-is
 # --------------------------------------------------------------------------------------------------------------------
+
 '''
 #    @task(config.percentage('standalone_extension_information_system'))
     @task(config.percentage('standalone_extension'))
@@ -166,6 +178,7 @@ class ConfluenceBehavior(MyBaseTaskSet):
 # --------------------------------------------------------------------------------------------------------------------
 # smartics-wa
 # --------------------------------------------------------------------------------------------------------------------
+
 '''
 #    @task(config.percentage('standalone_extension_web_api'))
     @task(config.percentage('standalone_extension'))
@@ -180,6 +193,7 @@ class ConfluenceBehavior(MyBaseTaskSet):
         logging.info(r.content.decode('utf-8'))
         app_specific_action_create_from_blueprint(self, doctypes, doctypesALL)
 '''
+
 # --------------------------------------------------------------------------------------------------------------------
 # smartics-us
 # --------------------------------------------------------------------------------------------------------------------
@@ -195,6 +209,7 @@ class ConfluenceBehavior(MyBaseTaskSet):
 # --------------------------------------------------------------------------------------------------------------------
 # smartics-dm
 # --------------------------------------------------------------------------------------------------------------------
+
 '''
 #    @task(config.percentage('standalone_extension_section'))
     @task(config.percentage('standalone_extension'))
