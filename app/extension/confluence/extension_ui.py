@@ -7,10 +7,7 @@ from selenium_ui.conftest import print_timing
 from selenium_ui.confluence.pages.pages import Login, AllUpdates, AdminPage
 from util.conf import CONFLUENCE_SETTINGS
 
-# -------------------------------------------------------------------------------------------------------------------
-# smartics-us
-# -------------------------------------------------------------------------------------------------------------------
-
+# smartics
 def us_inspect_button(webdriver, datasets):
     page = BasePage(webdriver)
     if datasets['custom_pages']:
@@ -61,7 +58,7 @@ def app_specific_action(webdriver, datasets):
     # NOTE: If app_specific_action is running as specific user, make sure that app_specific_action is running
     # just before test_2_selenium_z_log_out
     # @print_timing("selenium_app_specific_user_login")
-#    def measure():
+    # def measure():
     #     def app_specific_user_login(username='admin', password='admin'):
     #         login_page = Login(webdriver)
     #         login_page.delete_all_cookies()
@@ -74,7 +71,7 @@ def app_specific_action(webdriver, datasets):
     #         all_updates_page = AllUpdates(webdriver)
     #         all_updates_page.wait_for_page_loaded()
     #     app_specific_user_login(username='admin', password='admin')
-#    measure()
+    # measure()
 
     @print_timing("selenium_app_custom_action")
     def measure():
