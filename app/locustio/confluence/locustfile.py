@@ -172,13 +172,13 @@ class ConfluenceBehavior(MyBaseTaskSet):
 # smartics-us
 # --------------------------------------------------------------------------------------------------------------------
 
-#    @task(config.percentage('standalone_extension_us_rest_content'))
-#    def custom_action_userscript_rest(self):
-#        app_specific_action_userscript_rest(self)
+    @task(config.percentage('standalone_extension_us_rest_content'))
+    def custom_action_userscript_rest(self):
+        app_specific_action_userscript_rest(self)
 
-###    @task(config.percentage('standalone_extension'))
-###    def custom_action_is(self):
-###        app_specific_action(self)
+    @task(config.percentage('standalone_extension'))
+    def custom_action_is(self):
+        app_specific_action(self)
 
 # --------------------------------------------------------------------------------------------------------------------
 # smartics-dm
