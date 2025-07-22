@@ -1,4 +1,6 @@
-from locust import HttpUser, task, between
+import logging
++from locust import HttpUser, task, between
+
 
  --------------------------------------------------------------------------------------------
 #Hier muss alles mit from importiert werden, was unten genutzt werden soll
@@ -98,7 +100,7 @@ class ConfluenceBehavior(MyBaseTaskSet):
         search_cql_two_words_and_view_results(self)
 
     @task(config.percentage('search_cql'))
-    def search_cql_action(self):
+    def search_cql_action_three_words(self):
         search_cql_three_words(self)
 
     @task(config.percentage('create_blog'))
