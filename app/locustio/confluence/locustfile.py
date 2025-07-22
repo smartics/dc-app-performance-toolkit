@@ -1,4 +1,3 @@
-import logging
 from locust import HttpUser, task, between
 
 
@@ -80,7 +79,6 @@ class ConfluenceBehavior(MyBaseTaskSet):
 
     def on_start(self):
         self.client.verify = config.secure
-        logging.info("Here I am! SMARTICS II")
         login_and_view_dashboard(self)
 
     @task(config.percentage('view_page'))
