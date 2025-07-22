@@ -12,63 +12,49 @@ from extension.confluence.extension_locust import app_specific_action
 # smartics-dm uncomment for Userscripts
 # --------------------------------------------------------------------------------------------
 
-'''
-from extension.confluence.extension_locust import app_specific_action_docm
-from extension.confluence.extension_locust import app_specific_action_docm_section
-from extension.confluence.extension_locust import app_specific_action_docm_hide
-from extension.confluence.extension_locust import app_specific_action_docm_hidefromreader
-from extension.confluence.extension_locust import app_specific_action_docm_hidefromanonymous
-from extension.confluence.extension_locust import app_specific_action_docm_definitionlist
-'''
+#from extension.confluence.extension_locust import app_specific_action_docm
+#from extension.confluence.extension_locust import app_specific_action_docm_section
+#from extension.confluence.extension_locust import app_specific_action_docm_hide
+#from extension.confluence.extension_locust import app_specific_action_docm_hidefromreader
+#from extension.confluence.extension_locust import app_specific_action_docm_hidefromanonymous
+#from extension.confluence.extension_locust import app_specific_action_docm_definitionlist
 
 # --------------------------------------------------------------------------------------------
 # smartics-Projectdoc uncomment for projectdoc Toolbox
 # smartics-pd
 # --------------------------------------------------------------------------------------------
 
-'''
-from extension.confluence.extension_locust import app_specific_action_transclude_documents
-from extension.confluence.extension_locust import app_specific_action_display_table
-'''
+#from extension.confluence.extension_locust import app_specific_action_transclude_documents
+#from extension.confluence.extension_locust import app_specific_action_display_table
 
 # --------------------------------------------------------------------------------------------
 # smartics-Projectdoc uncomment for projectdoc Toolbox
 # smartixs-pd
 # --------------------------------------------------------------------------------------------
 
-'''
-from extension.confluence.extension_locust import app_specific_action_td
-from extension.confluence.extension_locust import app_specific_action_dt
-from extension.confluence.extension_locust import app_specific_action_wa
-from extension.confluence.extension_locust import app_specific_action_is
-'''
+#from extension.confluence.extension_locust import app_specific_action_td
+#from extension.confluence.extension_locust import app_specific_action_dt
+#from extension.confluence.extension_locust import app_specific_action_wa
+#from extension.confluence.extension_locust import app_specific_action_is
 
 # --------------------------------------------------------------------------------------------
 # smartics uncomment for projectdoc toolbox extensions
 # smartics-wa
 # --------------------------------------------------------------------------------------------
-
-'''
-from extension.confluence.extension_locust import app_specific_action_web_api
-'''
+# from extension.confluence.extension_locust import app_specific_action_web_api
 
 # --------------------------------------------------------------------------------------------
 # smartics uncomment for projectdoc toolbox extensions
 # smartics-is
 # --------------------------------------------------------------------------------------------
+# from extension.confluence.extension_locust import app_specific_action_information_system
 
-'''
-from extension.confluence.extension_locust import app_specific_action_information_system
-'''
 
 # --------------------------------------------------------------------------------------------
 # smartics uncomment for projectdoc toolbox extensions
 # smartics-bp
 # --------------------------------------------------------------------------------------------
-
-'''
-from extension.confluence.extension_locust import app_specific_action_create_from_blueprint
-'''
+# from extension.confluence.extension_locust import app_specific_action_create_from_blueprint
 
 from locustio.common_utils import LocustConfig, MyBaseTaskSet
 from locustio.confluence.http_actions import login_and_view_dashboard, view_dashboard, view_blog, \
@@ -82,12 +68,11 @@ config = LocustConfig(config_yml=CONFLUENCE_SETTINGS)
 # smartics-bp
 # --------------------------------------------------------------------------------------------
 
-'''
-logging.info("Here I am! SMARTICS I")
-with open('doctypes.txt', 'r') as file:
-    doctypes = [line.strip() for line in file if not line.strip().startswith("#")]
-doctypesALL = doctypes.copy()
-'''
+# logging.info("Here I am! SMARTICS I")
+# with open('doctypes.txt', 'r') as file:
+#     doctypes = [line.strip() for line in file if not line.strip().startswith("#")]
+# doctypesALL = doctypes.copy()
+
 
 class ConfluenceBehavior(MyBaseTaskSet):
 
@@ -152,47 +137,41 @@ class ConfluenceBehavior(MyBaseTaskSet):
 # smartics-pd
 # --------------------------------------------------------------------------------------------------------------------
 
-'''
-#    @task(config.percentage('standalone_extension_transclude_documents'))
-    @task(config.percentage('standalone_extension'))
-    def custom_action_transclude_documents(self):
-        app_specific_action_transclude_documents(self)
+##    @task(config.percentage('standalone_extension_transclude_documents'))
+#    @task(config.percentage('standalone_extension'))
+#    def custom_action_transclude_documents(self):
+#        app_specific_action_transclude_documents(self)
 
-#    @task(config.percentage('standalone_extension_display_table'))
-    @task(config.percentage('standalone_extension'))
-    def custom_action_display_table(self):
-        app_specific_action_display_table(self)
-'''
+##    @task(config.percentage('standalone_extension_display_table'))
+#    @task(config.percentage('standalone_extension'))
+#    def custom_action_display_table(self):
+#        app_specific_action_display_table(self)
 
 # --------------------------------------------------------------------------------------------------------------------
 # smartics-is
 # --------------------------------------------------------------------------------------------------------------------
 
-'''
-#    @task(config.percentage('standalone_extension_information_system'))
-    @task(config.percentage('standalone_extension'))
-    def custom_action_information_system(self):
-        app_specific_action_information_system(self)
-'''
+##    @task(config.percentage('standalone_extension_information_system'))
+#    @task(config.percentage('standalone_extension'))
+#    def custom_action_information_system(self):
+#        app_specific_action_information_system(self)
 
 # --------------------------------------------------------------------------------------------------------------------
 # smartics-wa
 # --------------------------------------------------------------------------------------------------------------------
 
-'''
-#    @task(config.percentage('standalone_extension_web_api'))
-    @task(config.percentage('standalone_extension'))
-    def custom_action_web_api(self):
-        app_specific_action_web_api(self)
+##    @task(config.percentage('standalone_extension_web_api'))
+#    @task(config.percentage('standalone_extension'))
+#    def custom_action_web_api(self):
+#        app_specific_action_web_api(self)
 
-#    @task(config.percentage('standalone_extension_blueprints'))
-    @task(config.percentage('standalone_extension'))
-    def custom_action_blueprints(self):
-        r = self.get(f'/display/BLUEPRINT/Blueprints', catch_response=True)
-        logging.info("SMARTICS BLUEPRINT")
-        logging.info(r.content.decode('utf-8'))
-        app_specific_action_create_from_blueprint(self, doctypes, doctypesALL)
-'''
+##    @task(config.percentage('standalone_extension_blueprints'))
+#    @task(config.percentage('standalone_extension'))
+#    def custom_action_blueprints(self):
+#        r = self.get(f'/display/BLUEPRINT/Blueprints', catch_response=True)
+#        logging.info("SMARTICS BLUEPRINT")
+#        logging.info(r.content.decode('utf-8'))
+#        app_specific_action_create_from_blueprint(self, doctypes, doctypesALL)
 
 # --------------------------------------------------------------------------------------------------------------------
 # smartics-us
@@ -210,27 +189,25 @@ class ConfluenceBehavior(MyBaseTaskSet):
 # smartics-dm
 # --------------------------------------------------------------------------------------------------------------------
 
-'''
-#    @task(config.percentage('standalone_extension_section'))
-    @task(config.percentage('standalone_extension'))
-    def custom_action_section(self):
-        app_specific_action_docm_section(self)
+##    @task(config.percentage('standalone_extension_section'))
+#    @task(config.percentage('standalone_extension'))
+#    def custom_action_section(self):
+#        app_specific_action_docm_section(self)
 
-#    @task(config.percentage('standalone_extension_hide'))
-    @task(config.percentage('standalone_extension'))
-    def custom_action_hide(self):
-        app_specific_action_docm_hide(self)
+##    @task(config.percentage('standalone_extension_hide'))
+#    @task(config.percentage('standalone_extension'))
+#    def custom_action_hide(self):
+#        app_specific_action_docm_hide(self)
 
-#    @task(config.percentage('standalone_extension_hidefromreader'))
-    @task(config.percentage('standalone_extension'))
-    def custom_action_hidefromreader(self):
-        app_specific_action_docm_hidefromreader(self)
+##    @task(config.percentage('standalone_extension_hidefromreader'))
+#    @task(config.percentage('standalone_extension'))
+#    def custom_action_hidefromreader(self):
+#        app_specific_action_docm_hidefromreader(self)
 
-#    @task(config.percentage('standalone_extension_hidefromanonymous'))
-    @task(config.percentage('standalone_extension'))
-    def custom_action_hidefromanonymous(self):
-        app_specific_action_docm_hidefromanonymous(self)
-'''
+##    @task(config.percentage('standalone_extension_hidefromanonymous'))
+#    @task(config.percentage('standalone_extension'))
+#    def custom_action_hidefromanonymous(self):
+#        app_specific_action_docm_hidefromanonymous(self)
 
 class ConfluenceUser(HttpUser):
     host = CONFLUENCE_SETTINGS.server_url
