@@ -1,5 +1,5 @@
 import logging
-+from locust import HttpUser, task, between
+from locust import HttpUser, task, between
 
 
  --------------------------------------------------------------------------------------------
