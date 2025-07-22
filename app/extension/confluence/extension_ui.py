@@ -7,7 +7,10 @@ from selenium_ui.conftest import print_timing
 from selenium_ui.confluence.pages.pages import Login, AllUpdates, AdminPage
 from util.conf import CONFLUENCE_SETTINGS
 
-# smartics
+# -------------------------------------------------------------------------------------------------------------------
+# smartics-us
+# -------------------------------------------------------------------------------------------------------------------
+
 def us_inspect_button(webdriver, datasets):
     page = BasePage(webdriver)
     if datasets['custom_pages']:
