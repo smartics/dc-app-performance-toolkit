@@ -64,6 +64,17 @@ from util.conf import CONFLUENCE_SETTINGS
 
 config = LocustConfig(config_yml=CONFLUENCE_SETTINGS)
 
+# --------------------------------------------------------------------------------------------
+# smartics-bp
+# --------------------------------------------------------------------------------------------
+
+'''
+logging.info("Here I am! SMARTICS I")
+with open('doctypes.txt', 'r') as file:
+    doctypes = [line.strip() for line in file if not line.strip().startswith("#")]
+doctypesALL = doctypes.copy()
+'''
+
 class ConfluenceBehavior(MyBaseTaskSet):
 
     def on_start(self):
