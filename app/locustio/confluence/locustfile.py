@@ -32,7 +32,6 @@ from extension.confluence.extension_locust import app_specific_action_display_ta
 # smartixs-pd
 # --------------------------------------------------------------------------------------------
 
-
 # --------------------------------------------------------------------------------------------
 # smartics uncomment for projectdoc toolbox extensions
 # smartics-wa
@@ -50,7 +49,7 @@ from extension.confluence.extension_locust import app_specific_action_informatio
 # smartics uncomment for projectdoc toolbox extensions
 # smartics-bp
 # --------------------------------------------------------------------------------------------
-# from extension.confluence.extension_locust import app_specific_action_create_from_blueprint
+from extension.confluence.extension_locust import app_specific_action_create_from_blueprint
 
 from locustio.common_utils import LocustConfig, MyBaseTaskSet
 from locustio.confluence.http_actions import login_and_view_dashboard, view_dashboard, view_blog, \
@@ -133,49 +132,49 @@ class ConfluenceBehavior(MyBaseTaskSet):
 # smartics-pd
 # --------------------------------------------------------------------------------------------------------------------
 
-#    @task(config.percentage('standalone_extension_transclude_documents'))
-    @task(config.percentage('standalone_extension'))
-    def custom_action_transclude_documents(self):
-        app_specific_action_transclude_documents(self)
+##    @task(config.percentage('standalone_extension_transclude_documents'))
+#    @task(config.percentage('standalone_extension'))
+#    def custom_action_transclude_documents(self):
+#        app_specific_action_transclude_documents(self)
 
-#    @task(config.percentage('standalone_extension_display_table'))
-    @task(config.percentage('standalone_extension'))
-    def custom_action_display_table(self):
-        app_specific_action_display_table(self)
+##    @task(config.percentage('standalone_extension_display_table'))
+#    @task(config.percentage('standalone_extension'))
+#    def custom_action_display_table(self):
+#        app_specific_action_display_table(self)
 
 # --------------------------------------------------------------------------------------------------------------------
 # smartics-is
 # --------------------------------------------------------------------------------------------------------------------
 
-#    @task(config.percentage('standalone_extension_information_system'))
-    @task(config.percentage('standalone_extension'))
-    def custom_action_information_system(self):
-        app_specific_action_information_system(self)
+##    @task(config.percentage('standalone_extension_information_system'))
+#    @task(config.percentage('standalone_extension'))
+#    def custom_action_information_system(self):
+#        app_specific_action_information_system(self)
 
 # --------------------------------------------------------------------------------------------------------------------
 # smartics-wa
 # --------------------------------------------------------------------------------------------------------------------
 
-#    @task(config.percentage('standalone_extension_web_api'))
-    @task(config.percentage('standalone_extension'))
-    def custom_action_web_api(self):
-        app_specific_action_web_api(self)
+##    @task(config.percentage('standalone_extension_web_api'))
+#    @task(config.percentage('standalone_extension'))
+#    def custom_action_web_api(self):
+#        app_specific_action_web_api(self)
 
-#    @task(config.percentage('standalone_extension_blueprints'))
-    @task(config.percentage('standalone_extension'))
-    def custom_action_blueprints(self):
-        r = self.get(f'/display/BLUEPRINT/Blueprints', catch_response=True)
-        logging.info("SMARTICS BLUEPRINT")
-        logging.info(r.content.decode('utf-8'))
-        app_specific_action_create_from_blueprint(self, doctypes, doctypesALL)
+##    @task(config.percentage('standalone_extension_blueprints'))
+#    @task(config.percentage('standalone_extension'))
+#    def custom_action_blueprints(self):
+#        r = self.get(f'/display/BLUEPRINT/Blueprints', catch_response=True)
+#        logging.info("SMARTICS BLUEPRINT")
+#        logging.info(r.content.decode('utf-8'))
+#        app_specific_action_create_from_blueprint(self, doctypes, doctypesALL)
 
 # --------------------------------------------------------------------------------------------------------------------
 # smartics-us
 # --------------------------------------------------------------------------------------------------------------------
 
-    @task(config.percentage('standalone_extension_us_rest_content'))
-    def custom_action_userscript_rest(self):
-        app_specific_action_userscript_rest(self)
+#    @task(config.percentage('standalone_extension_us_rest_content'))
+#    def custom_action_userscript_rest(self):
+#        app_specific_action_userscript_rest(self)
 
 ###    @task(config.percentage('standalone_extension'))
 ###    def custom_action_is(self):
