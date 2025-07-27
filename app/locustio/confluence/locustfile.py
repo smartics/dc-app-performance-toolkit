@@ -177,7 +177,7 @@ class ConfluenceBehavior(MyBaseTaskSet):
 #        app_specific_action_userscript_rest(self)
 #
     @task(config.percentage('standalone_extension'))
-    def custom_action_is(self):
+    def custom_action(self):
         app_specific_action(self)
 
 # --------------------------------------------------------------------------------------------------------------------
