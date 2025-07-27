@@ -16,7 +16,7 @@ settings:
     #smartics or jmeter
     load_executor: locust              # jmeter and locust are supported. jmeter by default.
     concurrency: 20                   # number of concurrent virtual users for jmeter or locust scenario
-    test_duration: 4m
+    test_duration: 1m
     ramp-up: 5s                        # time to spin all concurrent users
     total_actions_per_hour: 2000
     WEBDRIVER_VISIBLE: False
@@ -37,7 +37,7 @@ settings:
     upload_attachment: 7
     like_page: 3
     upload_emoticon: 4      # For Confluence 8.4.x+
-#    standalone_extension: 5 # By default disabled
+    standalone_extension: 5 # By default disabled
 #    standalone_extension_us_rest_content: 5
     #smartics
     #standalone_extension_section: 10 # By default disabled
@@ -52,7 +52,7 @@ settings:
 #    standalone_extension_blueprints: 0
 
     # Custom dataset section
-    custom_dataset_query: 
+    custom_dataset_query: title ~ 'Test Case'
 #    custom_dataset_query: space='MAN1' AND title ~ 'Versuch*' 
     # Write CQL query to add CQL output to the app/datasets/confluence/custom_pages.csv, e.g. "title ~ 'AppPage*'"
     # custom_dataset_query:  # Write CQL query to add CQL output to the app/datasets/confluence/custom_pages.csv, e.g. "title ~ 'AppPage*'"
