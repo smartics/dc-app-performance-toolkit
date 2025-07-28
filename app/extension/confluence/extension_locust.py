@@ -154,7 +154,6 @@ def app_specific_action_docm_definitionlist(locust):
 
 
 @confluence_measure("locust_app_specific_action_display_table")
-# @run_as_specific_user(username='admin', password='admin')  # run as specific user
 def app_specific_action_display_table(locust):
     logger.info(f"DisplayTable")
     response = locust.get(
@@ -166,7 +165,6 @@ def app_specific_action_display_table(locust):
 
 
 @confluence_measure("locust_app_specific_action_transclude_documents")
-# @run_as_specific_user(username='admin', password='admin')  # run as specific user
 def app_specific_action_transclude_documents(locust):
     logger.info(f"TranscludeDocuments")
     response = locust.get(
@@ -257,14 +255,14 @@ def app_specific_action_create_from_blueprint(locust, doctypes, doctypesAll):
         print(f'Successfully created from blueprint with doctype: {DOCTYPE}')
 
 
-@confluence_measure("locust_app_specific_action")
-def app_specific_action_transclude_documents(locust):
-    logger.info(f"TranscludeDocuments")
-    response = locust.get(
-        '/display/{}/{}'.format(TESTCASE_SPACE_KEY, TC_TRANSCLUDE_DOCUMENTS),
-        catch_response=True)
-    content = response.content.decode('utf-8')
-    assert_text(content, TC_TRANSCLUDE_DOCUMENTS_ASSERTION_TEXT)
+#@confluence_measure("locust_app_specific_action")
+#def app_specific_action_transclude_documents(locust):
+#    logger.info(f"TranscludeDocuments")
+#    response = locust.get(
+#        '/display/{}/{}'.format(TESTCASE_SPACE_KEY, TC_TRANSCLUDE_DOCUMENTS),
+#        catch_response=True)
+#    content = response.content.decode('utf-8')
+#    assert_text(content, TC_TRANSCLUDE_DOCUMENTS_ASSERTION_TEXT)
 
 # --------------------------------------------------------------------------------------------------------------------
 # smartics ENDE
