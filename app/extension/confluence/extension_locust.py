@@ -50,7 +50,7 @@ TC_TRANSCLUDE_DOCUMENTS_ASSERTION_TEXT = "Transclusion from Documents"
 # smartics-is Extension Informationssystem
 # --------------------------------------------------------------------------------------------------------------------
 TC_INFORMATIONSYSTEM_ASSERTION_URL= "https://raw.githubusercontent.com/smartics/dc-app-performance-toolkit/refs/heads/master/informationsystem-test-case.txt"
-TC_INFORMATIONSYSTEM_TEST = "Informationsystemtest"
+TC_INFORMATIONSYSTEM_TEST = "Test+Case+Informationsystemtest"
 TC_INFORMATIONSYSTEM_ASSERTION_TEXT = "informationsystem-test-case-id"
 
 # --------------------------------------------------------------------------------------------------------------------
