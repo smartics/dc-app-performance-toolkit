@@ -214,6 +214,7 @@ def app_specific_action_web_api(locust):
 
 @confluence_measure("locust_app_specific_action_blueprints")
 def app_specific_action_create_from_blueprint(locust, doctypes, doctypesAll):
+    logger.locust_info(f'XXXXX blueprint: {doctypesAll}')
     DOCTYPE = random.choice(doctypes)
     doctypes.remove(DOCTYPE)
 
