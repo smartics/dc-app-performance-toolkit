@@ -132,13 +132,13 @@ class ConfluenceBehavior(MyBaseTaskSet):
 # smartics-pd
 # --------------------------------------------------------------------------------------------------------------------
 
-##    @task(config.percentage('standalone_extension_transclude_documents'))
-    @task(config.percentage('standalone_extension'))
+    @task(config.percentage('standalone_extension_transclude_documents'))
+#    @task(config.percentage('standalone_extension'))
     def custom_action_transclude_documents(self):
         app_specific_action_transclude_documents(self)
 
-##    @task(config.percentage('standalone_extension_display_table'))
-    @task(config.percentage('standalone_extension'))
+    @task(config.percentage('standalone_extension_display_table'))
+#    @task(config.percentage('standalone_extension'))
     def custom_action_display_table(self):
         app_specific_action_display_table(self)
 
@@ -146,8 +146,8 @@ class ConfluenceBehavior(MyBaseTaskSet):
 # smartics-is
 # --------------------------------------------------------------------------------------------------------------------
 
-##    @task(config.percentage('standalone_extension_information_system'))
-    @task(config.percentage('standalone_extension'))
+    @task(config.percentage('standalone_extension_information_system'))
+#    @task(config.percentage('standalone_extension'))
     def custom_action_information_system(self):
         app_specific_action_information_system(self)
 
@@ -155,13 +155,13 @@ class ConfluenceBehavior(MyBaseTaskSet):
 # smartics-wa
 # --------------------------------------------------------------------------------------------------------------------
 
-##    @task(config.percentage('standalone_extension_web_api'))
-    @task(config.percentage('standalone_extension'))
+    @task(config.percentage('standalone_extension_web_api'))
+#    @task(config.percentage('standalone_extension'))
     def custom_action_web_api(self):
         app_specific_action_web_api(self)
 
-##    @task(config.percentage('standalone_extension_blueprints'))
-    @task(config.percentage('standalone_extension'))
+    @task(config.percentage('standalone_extension_blueprints'))
+#    @task(config.percentage('standalone_extension'))
     def custom_action_blueprints(self):
         r = self.get(f'/display/BLUEPRINT/Blueprints', catch_response=True)
         logging.info("SMARTICS BLUEPRINT")
@@ -176,9 +176,9 @@ class ConfluenceBehavior(MyBaseTaskSet):
 #    def custom_action_userscript_rest(self):
 #        app_specific_action_userscript_rest(self)
 #
-    @task(config.percentage('standalone_extension'))
-    def custom_action(self):
-        app_specific_action(self)
+#    @task(config.percentage('standalone_extension'))
+#    def custom_action(self):
+#        app_specific_action(self)
 
 # --------------------------------------------------------------------------------------------------------------------
 # smartics-dm
