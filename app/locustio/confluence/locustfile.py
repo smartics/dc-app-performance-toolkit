@@ -1,7 +1,5 @@
 from locust import HttpUser, task, between
 
-logger = init_logger(app_type='confluence')
-
 # --------------------------------------------------------------------------------------------
 #Hier muss alles mit from importiert werden, was unten genutzt werden soll
 # smartics-US uncomment for Userscripts
@@ -160,8 +158,6 @@ class ConfluenceBehavior(MyBaseTaskSet):
     @task(config.percentage('standalone_extension_blueprints'))
     def custom_action_blueprints(self):
         r = self.get(f'/display/BLUEPRINT/Blueprints', catch_response=True)
-        logger.info("SMARTICS BLUEPRINT")
-        logger.info(r.content.decode('utf-8'))
         app_specific_action_create_from_blueprint(self, doctypes, doctypesALL)
 
 # --------------------------------------------------------------------------------------------------------------------
