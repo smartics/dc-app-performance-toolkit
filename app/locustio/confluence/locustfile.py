@@ -1,4 +1,5 @@
 from locust import HttpUser, task, between
+import logging
 
 # --------------------------------------------------------------------------------------------
 #Hier muss alles mit from importiert werden, was unten genutzt werden soll
