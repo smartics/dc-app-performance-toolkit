@@ -16,7 +16,7 @@ settings:
     #smartics or jmeter
     load_executor: locust              # jmeter and locust are supported. jmeter by default.
     concurrency: 20                   # number of concurrent virtual users for jmeter or locust scenario
-    test_duration: 1m
+    test_duration: 5m
     ramp-up: 5s                        # time to spin all concurrent users
     total_actions_per_hour: 2000
     WEBDRIVER_VISIBLE: False
@@ -38,18 +38,18 @@ settings:
     like_page: 3
     upload_emoticon: 4      # For Confluence 8.4.x+
     standalone_extension: 5 # By default disabled
-#    standalone_extension_us_rest_content: 5
+    standalone_extension_us_rest_content: 5
     #smartics
     #standalone_extension_section: 10 # By default disabled
     #standalone_extension_hide: 10 # By default disabled
     #standalone_extension_hidefromreader: 10 # By default disabled
     #standalone_extension_hidefromanonymous: 10 # By default disabled
 
-#    standalone_extension_transclude_documents: 6
-#    standalone_extension_display_table: 6
-#    standalone_extension_web_api: 0
-#    standalone_extension_information_system: 0
-#    standalone_extension_blueprints: 0
+    standalone_extension_transclude_documents: 6
+    standalone_extension_display_table: 6
+    standalone_extension_web_api: 6 
+    standalone_extension_information_system: 6
+    standalone_extension_blueprints: 6
 
     # Custom dataset section
     custom_dataset_query: title ~ 'Test Case'
