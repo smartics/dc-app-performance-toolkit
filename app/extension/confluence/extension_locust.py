@@ -57,7 +57,7 @@ TC_INFORMATIONSYSTEM_ASSERTION_TEXT = "informationsystem-test-case-id"
 # smartics-bp BluePrints
 # --------------------------------------------------------------------------------------------------------------------
 BLUEPRINT_LOCATION = "47596907"
-
+BLUEPRINT_SPACEKEY= "BLUEPRINT"
 # --------------------------------------------------------------------------------------------------------------------
 # smartics-us
 # --------------------------------------------------------------------------------------------------------------------
@@ -251,7 +251,7 @@ def app_specific_action_create_from_blueprint(locust, doctypes, doctypesAll):
     response = locust.post(URL, headers=headers, data=json.dumps(j_payload), name="locust_app_specific_action_blueprints:"+DOCTYPE)
     content = response.content.decode('utf-8')  # decode response content
     if response.status_code != 200:
-        logger.info(f"Failed to create from blueprint with doctype: {DOCTYPE}")
+        logger.info(f"Failed to create from blueprint with doctype: {DOCTYPE} with response: {content}")
         assert response.status_code != 200
     else:
         print(f'Successfully created from blueprint with doctype: {DOCTYPE}')
