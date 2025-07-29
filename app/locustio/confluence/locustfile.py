@@ -68,6 +68,9 @@ with open('doctypes.txt', 'r') as file:
     doctypes = [line.strip() for line in file if not line.strip().startswith("#")]
 doctypesALL = doctypes.copy()
 
+print(f"DEBUG: XXXX {doctypesALL}")
+
+
 
 class ConfluenceBehavior(MyBaseTaskSet):
 

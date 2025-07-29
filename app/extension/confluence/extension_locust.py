@@ -214,7 +214,8 @@ def app_specific_action_web_api(locust):
 
 @confluence_measure("locust_app_specific_action_blueprints")
 def app_specific_action_create_from_blueprint(locust, doctypes, doctypesAll):
-    logger.locust_info(f'XXXXX blueprint: {doctypesAll}')
+
+    print(f"DEBUG: XXXX doctypes Länge: {len(doctypes)}")
     DOCTYPE = random.choice(doctypes)
     doctypes.remove(DOCTYPE)
 
@@ -250,7 +251,7 @@ def app_specific_action_create_from_blueprint(locust, doctypes, doctypesAll):
     response = locust.post(URL, headers=headers, data=json.dumps(j_payload), name="locust_app_specific_action_blueprints:"+DOCTYPE)
     content = response.content.decode('utf-8')  # decode response content
     if response.status_code != 200:
-        logger.error(f'Failed to create from blueprint with doctype: {DOCTYPE}')
+        print(f'Failed to create from blueprint with doctype: {DOCTYPE}')
         assert response.status_code != 200
     else:
         print(f'Successfully created from blueprint with doctype: {DOCTYPE}')
