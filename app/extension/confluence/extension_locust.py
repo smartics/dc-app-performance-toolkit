@@ -196,13 +196,13 @@ def app_specific_action_information_system(locust):
 @confluence_measure("locust_app_specific_action_web_api")
 # @run_as_specific_user(username='admin', password='admin')  # run as specific user
 def app_specific_action_web_api(locust):
+    logger.info(f"WEB-API")
     r = locust.get('/rest/projectdoc/1/document?select=Title%2CName%2CIteration&from=PROJECTDOCTEST&where=%24%3CTitle%3E%3D%5Bprojectdoc%20Space%20for%20Test%20Cases%5D&expand=property',
                    catch_response=True)  # call app-specific GET endpoint
     content = r.content.decode('utf-8')  # decode response content
 
     token_pattern_example = '"id-list":"(.+?)"'
-    token = re.findall(token_pattern_example,
-                       content)  # get TOKEN from response using regexp
+    token = re.findall(token_pattern_example, content)
     logger.locust_info(f'token: {token}')  # log info for debug when verbose is true in confluence.yml file
     if token == "":
         logger.error(f"'assertion string' was not found in {content}")
@@ -215,7 +215,7 @@ def app_specific_action_web_api(locust):
 @confluence_measure("locust_app_specific_action_blueprints")
 def app_specific_action_create_from_blueprint(locust, doctypes, doctypesAll):
 
-    print(f"DEBUG: XXXX doctypes Länge: {len(doctypes)}")
+    logger.info(f"Blueprints: doctypes Länge: {len(doctypes)}")
     DOCTYPE = random.choice(doctypes)
     doctypes.remove(DOCTYPE)
 
@@ -251,7 +251,7 @@ def app_specific_action_create_from_blueprint(locust, doctypes, doctypesAll):
     response = locust.post(URL, headers=headers, data=json.dumps(j_payload), name="locust_app_specific_action_blueprints:"+DOCTYPE)
     content = response.content.decode('utf-8')  # decode response content
     if response.status_code != 200:
-        print(f'Failed to create from blueprint with doctype: {DOCTYPE}')
+        logger.info(f"Failed to create from blueprint with doctype: {DOCTYPE}")
         assert response.status_code != 200
     else:
         print(f'Successfully created from blueprint with doctype: {DOCTYPE}')
