@@ -249,7 +249,7 @@ def app_specific_action_create_from_blueprint(locust, doctypes, doctypesAll):
 
     URL = f"/rest/projectdoc/1/document.json?doctype={DOCTYPE}&name={NAME}&short-description={SHORT_DESCRIPTION}&space-key={SPACEKEY}&location=_{LOCATION}_"
     headers = {'Content-Type': 'application/json'}
-    response = locust.post(URL, headers=headers, data=json.dumps(j_payload), name="locust_app_specific_action_blueprints:"+DOCTYPE)
+    response = locust.post(URL, headers=headers, data=json.dumps(j_payload), name="locust_app_specific_action_projectdoc_toolbox_bp:"+DOCTYPE)
     content = response.content.decode('utf-8')  # decode response content
     if response.status_code != 200:
         logger.info(f"Failed to create from blueprint with doctype: {DOCTYPE} with response: {content}")
