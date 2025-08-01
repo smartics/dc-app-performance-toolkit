@@ -14,7 +14,7 @@ logger = init_logger(app_type='confluence')
 # --------------------------------------------------------------------------------------------------------------------
 # smartics-dm
 # --------------------------------------------------------------------------------------------------------------------
-#TESTCASE_SPACE_KEY = "DOCM"
+#TESTCASE_SPACE_KEY = "PROJECTDOCTEST"
 #TESTCASE_SPACE_KEY = "DCPTCONTENT1" ??
 
 # --------------------------------------------------------------------------------------------------------------------
@@ -31,7 +31,8 @@ TC_US_EXPECTED_SCRIPT_NAME = "Inspect-1.0.js"
 # --------------------------------------------------------------------------------------------------------------------
 # smartics-dm DocumentationMacros (And Toolbox ?)
 # --------------------------------------------------------------------------------------------------------------------
-TC_DOCM = "DOCM1"
+
+TC_DOCM = "MoreProjectdocUC"
 TC_DOCM_SECTION_ASSERTION_TEXT = "Section1"
 TC_DOCM_HIDE_ASSERTION_TEXT = "HideFromAll"
 TC_DOCM_HIDEFROMANONYMOUS_ASSERTION_TEXT = "HideFromAnonymous"

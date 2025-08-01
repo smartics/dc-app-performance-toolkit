@@ -13,11 +13,11 @@ from extension.confluence.extension_locust import app_specific_action
 # --------------------------------------------------------------------------------------------
 
 #from extension.confluence.extension_locust import app_specific_action_docm
-#from extension.confluence.extension_locust import app_specific_action_docm_section
-#from extension.confluence.extension_locust import app_specific_action_docm_hide
-#from extension.confluence.extension_locust import app_specific_action_docm_hidefromreader
-#from extension.confluence.extension_locust import app_specific_action_docm_hidefromanonymous
-#from extension.confluence.extension_locust import app_specific_action_docm_definitionlist
+from extension.confluence.extension_locust import app_specific_action_docm_section
+from extension.confluence.extension_locust import app_specific_action_docm_hide
+from extension.confluence.extension_locust import app_specific_action_docm_hidefromreader
+from extension.confluence.extension_locust import app_specific_action_docm_hidefromanonymous
+from extension.confluence.extension_locust import app_specific_action_docm_definitionlist
 
 # --------------------------------------------------------------------------------------------
 # smartics-Projectdoc uncomment for projectdoc Toolbox
@@ -179,25 +179,21 @@ class ConfluenceBehavior(MyBaseTaskSet):
 # smartics-dm
 # --------------------------------------------------------------------------------------------------------------------
 
-##    @task(config.percentage('standalone_extension_section'))
-#    @task(config.percentage('standalone_extension'))
-#    def custom_action_section(self):
-#        app_specific_action_docm_section(self)
+    @task(config.percentage('standalone_extension_section'))
+    def custom_action_section(self):
+        app_specific_action_docm_section(self)
 
-##    @task(config.percentage('standalone_extension_hide'))
-#    @task(config.percentage('standalone_extension'))
-#    def custom_action_hide(self):
-#        app_specific_action_docm_hide(self)
+    @task(config.percentage('standalone_extension_hide'))
+    def custom_action_hide(self):
+        app_specific_action_docm_hide(self)
 
-##    @task(config.percentage('standalone_extension_hidefromreader'))
-#    @task(config.percentage('standalone_extension'))
-#    def custom_action_hidefromreader(self):
-#        app_specific_action_docm_hidefromreader(self)
+    @task(config.percentage('standalone_extension_hidefromreader'))
+    def custom_action_hidefromreader(self):
+        app_specific_action_docm_hidefromreader(self)
 
-##    @task(config.percentage('standalone_extension_hidefromanonymous'))
-#    @task(config.percentage('standalone_extension'))
-#    def custom_action_hidefromanonymous(self):
-#        app_specific_action_docm_hidefromanonymous(self)
+    @task(config.percentage('standalone_extension_hidefromanonymous'))
+    def custom_action_hidefromanonymous(self):
+        app_specific_action_docm_hidefromanonymous(self)
 
 class ConfluenceUser(HttpUser):
     host = CONFLUENCE_SETTINGS.server_url
