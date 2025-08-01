@@ -195,6 +195,10 @@ class ConfluenceBehavior(MyBaseTaskSet):
     def custom_action_hidefromanonymous(self):
         app_specific_action_docm_hidefromanonymous(self)
 
+    @task(config.percentage('standalone_extension_definitionlist'))
+    def custom_action_definitionlist(self):
+        app_specific_action_docm_definitionlist(self)
+
 class ConfluenceUser(HttpUser):
     host = CONFLUENCE_SETTINGS.server_url
     tasks = [ConfluenceBehavior]

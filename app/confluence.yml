@@ -40,10 +40,12 @@ settings:
     standalone_extension: 5 # By default disabled
     standalone_extension_us_rest_content: 5
     #smartics
-    #standalone_extension_section: 10 # By default disabled
-    #standalone_extension_hide: 10 # By default disabled
-    #standalone_extension_hidefromreader: 10 # By default disabled
-    #standalone_extension_hidefromanonymous: 10 # By default disabled
+    standalone_extension_section: 6 # By default disabled
+    standalone_extension_hide: 6 # By default disabled
+    standalone_extension_hidefromreader: 6 # By default disabled
+    standalone_extension_hidefromanonymous: 6 # By default disabled
+    standalone_extension_definitionlist: 6 # By default disabled
+
     standalone_extension_transclude_documents: 6
     standalone_extension_display_table: 6
     standalone_extension_web_api: 6 
