@@ -230,8 +230,8 @@ def __create_blueprint_pages(session, doctypes):
 
 
 def __setup_blueprint_pages_with_locust_login(rest_client):
-    """Blueprint-Setup mit Locust-ähnlichem Login-Mechanismus"""
-    print("=== BLUEPRINT SETUP START (Locust-Login) ===")
+    """Blueprint-Setup mit vereinfachtem Login-Mechanismus"""
+    print("=== BLUEPRINT SETUP START (Vereinfachter Login) ===")
     
     # Doctypes laden
     doctypes_file = 'doctypes.txt'
@@ -247,42 +247,49 @@ def __setup_blueprint_pages_with_locust_login(rest_client):
     
     try:
         import requests
-        from locustio.confluence.requests_params import Login
         
         # Session mit korrekter Konfiguration erstellen
         session = requests.Session()
         session.verify = CONFLUENCE_SETTINGS.secure
         
-        # Login nach Locust-Vorbild
-        login_params = Login()
-        login_params.update({
+        # Einfacher Form-basierter Login ohne komplexe Parameter-Klassen
+        login_data = {
             'os_username': CONFLUENCE_SETTINGS.admin_login,
-            'os_password': CONFLUENCE_SETTINGS.admin_password
-        })
+            'os_password': CONFLUENCE_SETTINGS.admin_password,
+            'login': 'Log in',
+            'index.action': ''
+        }
         
-        # Zuerst zur Login-Seite gehen um Cookies/Token zu erhalten
+        # Zuerst zur Login-Seite gehen um Session/Cookies zu initialisieren
+        print("Setup: Gehe zur Login-Seite...")
         login_page_response = session.get(f"{CONFLUENCE_SETTINGS.server_url}/login.action")
         if login_page_response.status_code != 200:
             print(f"ERROR: Kann Login-Seite nicht erreichen: {login_page_response.status_code}")
             return []
         
         # Login durchführen
+        print("Setup: Führe Login durch...")
         login_response = session.post(
             f"{CONFLUENCE_SETTINGS.server_url}/dologin.action",
-            data=login_params.data,
-            headers=login_params.headers,
+            data=login_data,
             allow_redirects=True
         )
         
         if login_response.status_code not in [200, 302]:
             print(f"ERROR: Login fehlgeschlagen. Status: {login_response.status_code}")
-            print(f"ERROR: Response content: {login_response.content.decode('utf-8')[:500]}")
+            print(f"ERROR: Response URL: {login_response.url}")
             return []
         
-        # Prüfe ob Login erfolgreich war
+        # Prüfe ob Login erfolgreich war durch Dashboard-Aufruf
+        print("Setup: Validiere Login...")
         dashboard_response = session.get(f"{CONFLUENCE_SETTINGS.server_url}/dashboard.action")
-        if dashboard_response.status_code != 200 or "login" in dashboard_response.url.lower():
-            print("ERROR: Login-Validierung fehlgeschlagen")
+        if dashboard_response.status_code != 200:
+            print(f"ERROR: Dashboard-Zugriff fehlgeschlagen: {dashboard_response.status_code}")
+            return []
+        
+        # Zusätzliche Login-Validierung
+        if "login" in dashboard_response.url.lower() or "j_username" in dashboard_response.text:
+            print("ERROR: Login-Validierung fehlgeschlagen - noch auf Login-Seite")
             return []
         
         print("Setup-Login erfolgreich")
@@ -294,7 +301,9 @@ def __setup_blueprint_pages_with_locust_login(rest_client):
         return blueprint_pages
         
     except Exception as e:
-        print(f"ERROR: Blueprint-Setup mit Locust-Login fehlgeschlagen: {e}")
+        print(f"ERROR: Blueprint-Setup fehlgeschlagen: {e}")
+        import traceback
+        print(f"ERROR: Traceback: {traceback.format_exc()}")
         return []
 
 
@@ -303,8 +312,8 @@ def __create_blueprint_pages_with_session(session, doctypes):
     import string
     import random
     
-    BLUEPRINT_SPACEKEY = "CONF"
-    BLUEPRINT_LOCATION = "Home"
+    BLUEPRINT_SPACEKEY = "CONF"  # Anpassen nach Bedarf
+    BLUEPRINT_LOCATION = "Home"  # Anpassen nach Bedarf
     created_pages = []
     
     for i, doctype in enumerate(doctypes, 1):
@@ -342,6 +351,8 @@ def __create_blueprint_pages_with_session(session, doctypes):
                 data=json.dumps(j_payload)
             )
             
+            print(f"Setup: Response Status für {doctype}: {response.status_code}")
+            
             if response.status_code == 200:
                 try:
                     response_data = response.json()
@@ -354,7 +365,9 @@ def __create_blueprint_pages_with_session(session, doctypes):
                         'url_name': NAME.replace(" ", "+")
                     })
                     print(f'Setup: ✓ Blueprint-Seite erfolgreich erstellt für doctype: {doctype} (ID: {page_id})')
-                except:
+                except Exception as json_error:
+                    print(f"Setup: JSON-Parsing fehlgeschlagen für {doctype}: {json_error}")
+                    # Fallback wenn JSON parsing fehlschlägt
                     created_pages.append({
                         'doctype': doctype,
                         'name': NAME,
@@ -364,11 +377,34 @@ def __create_blueprint_pages_with_session(session, doctypes):
                     })
                     print(f'Setup: ✓ Blueprint-Seite erstellt für doctype: {doctype} (Fallback-ID)')
             else:
-                print(f"Setup: ✗ Fehler für doctype: {doctype}, Status: {response.status_code}")
+                print(f"Setup: ✗ HTTP-Fehler für doctype: {doctype}, Status: {response.status_code}")
+                content = response.content.decode('utf-8') if response.content else 'No content'
+                print(f"Setup: Response Content (first 300 chars): {content[:300]}")
+                
                 if response.status_code == 403:
-                    print(f"Setup: DEBUG - 403 Details: {response.content.decode('utf-8')[:300]}")
+                    print(f"Setup: 403 Forbidden - möglicherweise fehlen Berechtigungen für projektdoc REST-API")
+                elif response.status_code == 404:
+                    print(f"Setup: 404 Not Found - projectdoc REST-API möglicherweise nicht verfügbar")
+                elif response.status_code == 401:
+                    print(f"Setup: 401 Unauthorized - Login-Session möglicherweise abgelaufen")
+                    
         except Exception as e:
             print(f"Setup: ✗ Exception für doctype {doctype}: {str(e)}")
+    
+    success_count = len(created_pages)
+    print(f'Blueprint-Erstellung abgeschlossen: {success_count}/{len(doctypes)} Seiten erfolgreich erstellt')
+    
+    # Detaillierte Auflistung der erstellten Seiten
+    if created_pages:
+        print("Erstellte Blueprint-Seiten:")
+        for page in created_pages:
+            print(f"  - {page['doctype']}: {page['name']} (ID: {page['page_id']})")
+    else:
+        print("Keine Blueprint-Seiten erfolgreich erstellt. Mögliche Ursachen:")
+        print("  1. projectdoc REST-API nicht verfügbar")
+        print("  2. Fehlende Berechtigungen für Admin-User")
+        print("  3. Falscher Space-Key oder Location")
+        print("  4. projectdoc Plugin nicht installiert")
     
     return created_pages
 
