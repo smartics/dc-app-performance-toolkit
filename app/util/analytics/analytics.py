@@ -74,7 +74,10 @@ class AnalyticsCollector:
             self.locust_log = LocustFileReader()
             self.post_run_collector = BambooPostRunCollector(self.locust_log)
         if self.app_type == CONFLUENCE:
-            self.java_version = application.java_version
+            try:
+                self.java_version = application.java_version
+            except Exception as e:
+                self.java_version = "N/A"
 
     def is_analytics_enabled(self):
         """
