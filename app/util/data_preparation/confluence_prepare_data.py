@@ -607,9 +607,9 @@ def main():
     dataset = __create_data_set(rest_client, rpc_client)
     
     # Blueprint-Seiten Setup - verwende die Locust-Login-Variante wenn REST-Client nicht funktioniert
-    dataset[BLUEPRINT_PAGES] = __setup_blueprint_pages_with_locust_login(rest_client)
+    # dataset[BLUEPRINT_PAGES] = __setup_blueprint_pages_with_locust_login(rest_client)
     # Falls die obige Funktion nicht funktioniert, versuchen Sie:
-    # dataset[BLUEPRINT_PAGES] = __setup_blueprint_pages(rest_client)
+    dataset[BLUEPRINT_PAGES] = __setup_blueprint_pages(rest_client)
     
     write_test_data_to_files(dataset)
 
