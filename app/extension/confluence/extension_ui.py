@@ -73,6 +73,9 @@ def app_specific_action(webdriver, datasets):
     #             login_page.first_user_setup()
     #         all_updates_page = AllUpdates(webdriver)
     #         all_updates_page.wait_for_page_loaded()
+    #         # uncomment below line to do web_sudo and authorise access to admin pages
+    #         # AdminPage(webdriver).go_to(password=password)
+    #
     #     app_specific_user_login(username='admin', password='admin')
     # measure()
 
