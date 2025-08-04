@@ -1,4 +1,6 @@
 from locust import HttpUser, task, between
+import json
+import os
 
 # --------------------------------------------------------------------------------------------
 #Hier muss alles mit from importiert werden, was unten genutzt werden soll
@@ -49,7 +51,7 @@ from extension.confluence.extension_locust import app_specific_action_informatio
 # smartics uncomment for projectdoc toolbox extensions
 # smartics-bp
 # --------------------------------------------------------------------------------------------
-from extension.confluence.extension_locust import app_specific_action_create_from_blueprint
+from extension.confluence.extension_locust import app_specific_action_check_blueprint_page
 
 from locustio.common_utils import LocustConfig, MyBaseTaskSet
 from locustio.confluence.http_actions import login_and_view_dashboard, view_dashboard, view_blog, \
@@ -60,23 +62,32 @@ from util.conf import CONFLUENCE_SETTINGS
 config = LocustConfig(config_yml=CONFLUENCE_SETTINGS)
 
 # --------------------------------------------------------------------------------------------
-# smartics-bp
+# smartics-bp - Blueprint-Seiten aus JSON-Datei laden
 # --------------------------------------------------------------------------------------------
+def load_blueprint_pages():
+    """Lädt Blueprint-Seiten aus der JSON-Datei"""
+    blueprint_file = 'datasets/confluence/blueprint_pages.json'
+    if os.path.exists(blueprint_file):
+        try:
+            with open(blueprint_file, 'r', encoding='utf-8') as f:
+                pages = json.load(f)
+                print(f"Blueprint-Seiten aus Datei geladen: {len(pages)} Seiten")
+                return pages
+        except Exception as e:
+            print(f"ERROR: Fehler beim Laden der Blueprint-Seiten: {e}")
+            return []
+    else:
+        print(f"INFO: {blueprint_file} nicht gefunden. Führen Sie zuerst 'python util/data_preparation/confluence_prepare_data.py' aus.")
+        return []
 
-
-with open('doctypes.txt', 'r') as file:
-    doctypes = [line.strip() for line in file if not line.strip().startswith("#")]
-doctypesALL = doctypes.copy()
-
-print(f"DEBUG: XXXX {doctypesALL}")
-
-
+blueprint_pages = load_blueprint_pages()
 
 class ConfluenceBehavior(MyBaseTaskSet):
 
     def on_start(self):
         self.client.verify = config.secure
         login_and_view_dashboard(self)
+        print(f"User gestartet - {len(blueprint_pages)} Blueprint-Seiten verfügbar")
 
     @task(config.percentage('view_page'))
     def view_page_action(self):
@@ -160,8 +171,11 @@ class ConfluenceBehavior(MyBaseTaskSet):
 
     @task(config.percentage('standalone_extension_blueprints'))
     def custom_action_blueprints(self):
-#        r = self.get(f'/display/BLUEPRINT/Blueprints', catch_response=True)
-        app_specific_action_create_from_blueprint(self, doctypes, doctypesALL)
+        global blueprint_pages
+        if blueprint_pages:
+            app_specific_action_check_blueprint_page(self, blueprint_pages)
+        else:
+            print("WARNING: Keine Blueprint-Seiten verfügbar. Führen Sie zuerst 'python util/data_preparation/confluence_prepare_data.py' aus.")
 
 # --------------------------------------------------------------------------------------------------------------------
 # smartics-us
