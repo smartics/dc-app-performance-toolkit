@@ -15,14 +15,14 @@ settings:
 
     #smartics or jmeter
     load_executor: locust              # jmeter and locust are supported. jmeter by default.
-    concurrency: 200                   # number of concurrent virtual users for jmeter or locust scenario
-    test_duration: 45m
-    ramp-up: 5m                        # time to spin all concurrent users
-    total_actions_per_hour: 20000
+    concurrency: 20                   # number of concurrent virtual users for jmeter or locust scenario
+    test_duration: 5m
+    ramp-up: 1m                        # time to spin all concurrent users
+    total_actions_per_hour: 2000
     WEBDRIVER_VISIBLE: False
     JMETER_VERSION: 5.6.3
     LANGUAGE: en_US.utf8
-    allow_analytics: No               # Allow sending basic run analytics to Atlassian. These analytics help us to understand how the tool is being used and help us to continue to invest in this tooling. For more details please see our README.
+    allow_analytics: Yes               # Allow sending basic run analytics to Atlassian. These analytics help us to understand how the tool is being used and help us to continue to invest in this tooling. For more details please see our README.
     environment_compliance_check: True # Pre-test environment compliance validation. Set to "False" to skip it.
     extended_metrics: False
     # Action percentage for JMeter and Locust load executors
@@ -74,7 +74,7 @@ services:
       - python util/post_run/jmeter_post_check.py
       - python util/jtl_convertor/jtls-to-csv.py kpi.jtl selenium.jtl
     post-process:
-#      - python util/analytics/analytics.py confluence
+      - python util/analytics/analytics.py confluence
       - python util/post_run/cleanup_results_dir.py
   - module: pip-install
     packages:
