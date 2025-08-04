@@ -112,31 +112,20 @@ def __setup_blueprint_pages(rest_client):
     
     print(f"Gefundene Doctypes: {doctypes}")
     
-    # Setup-Client für Blueprint-Erstellung
+    # Setup-Client für Blueprint-Erstellung mit korrektem Login-Mechanismus
     try:
-        # HTTP-Session für Setup erstellen
-        import requests
-        session = requests.Session()
-        session.verify = CONFLUENCE_SETTINGS.secure
+        # Verwende die bestehende ConfluenceRestClient für Login
+        setup_client = ConfluenceRestClient(
+            CONFLUENCE_SETTINGS.server_url, 
+            CONFLUENCE_SETTINGS.admin_login, 
+            CONFLUENCE_SETTINGS.admin_password,
+            verify=CONFLUENCE_SETTINGS.secure
+        )
         
-        # Login mit Admin-Credentials
-        login_url = f"{CONFLUENCE_SETTINGS.server_url}/dologin.action"
-        login_data = {
-            'os_username': CONFLUENCE_SETTINGS.admin_login,
-            'os_password': CONFLUENCE_SETTINGS.admin_password,
-            'login': 'Log in',
-            'index.action': '',
-        }
+        print("Setup-Client erfolgreich erstellt und authentifiziert")
         
-        login_response = session.post(login_url, data=login_data)
-        if login_response.status_code != 200:
-            print(f"ERROR: Login fehlgeschlagen. Status: {login_response.status_code}")
-            return []
-        
-        print("Login für Blueprint-Setup erfolgreich")
-        
-        # Blueprint-Seiten erstellen
-        blueprint_pages = __create_blueprint_pages(session, doctypes)
+        # Blueprint-Seiten erstellen mit authentifiziertem Client
+        blueprint_pages = __create_blueprint_pages_with_rest_client(setup_client, doctypes)
         
         print(f"=== BLUEPRINT SETUP COMPLETE: {len(blueprint_pages)} Seiten erstellt ===")
         return blueprint_pages
@@ -146,14 +135,14 @@ def __setup_blueprint_pages(rest_client):
         return []
 
 
-def __create_blueprint_pages(session, doctypes):
-    """Erstellt Blueprint-Seiten für die angegebenen Doctypes"""
+def __create_blueprint_pages_with_rest_client(rest_client, doctypes):
+    """Erstellt Blueprint-Seiten für die angegebenen Doctypes mit ConfluenceRestClient"""
     import string
     import random
     
     # Konstanten für Blueprint-Erstellung
-    BLUEPRINT_SPACEKEY = "BLUEPRINT"  # Anpassen nach Bedarf
-    BLUEPRINT_LOCATION = "Blueprints"  # Anpassen nach Bedarf
+    BLUEPRINT_SPACEKEY = "CONF"  # Anpassen nach Bedarf
+    BLUEPRINT_LOCATION = "Home"  # Anpassen nach Bedarf
     
     created_pages = []
     
@@ -181,12 +170,19 @@ def __create_blueprint_pages(session, doctypes):
             ]
         }
 
-        URL = f"{CONFLUENCE_SETTINGS.server_url}/rest/projectdoc/1/document.json?doctype={doctype}&name={NAME}&short-description={SHORT_DESCRIPTION}&space-key={BLUEPRINT_SPACEKEY}&location=_{BLUEPRINT_LOCATION}_"
-        headers = {'Content-Type': 'application/json'}
+        # Verwende die REST-API direkt über den authentifizierten Client
+        URL = f"/rest/projectdoc/1/document.json?doctype={doctype}&name={NAME}&short-description={SHORT_DESCRIPTION}&space-key={BLUEPRINT_SPACEKEY}&location=_{BLUEPRINT_LOCATION}_"
         
         try:
             print(f"Setup: Erstelle Blueprint-Seite {i}/{len(doctypes)} für doctype: {doctype}")
-            response = session.post(URL, headers=headers, data=json.dumps(j_payload))
+            
+            # Verwende die _session des ConfluenceRestClient für HTTP-Anfragen
+            response = rest_client._session.post(
+                f"{CONFLUENCE_SETTINGS.server_url}{URL}",
+                headers={'Content-Type': 'application/json'},
+                data=json.dumps(j_payload),
+                verify=CONFLUENCE_SETTINGS.secure
+            )
             
             if response.status_code == 200:
                 try:
@@ -214,6 +210,12 @@ def __create_blueprint_pages(session, doctypes):
                 content = response.content.decode('utf-8') if response.content else 'No content'
                 print(f"Setup: ✗ Fehler bei Blueprint-Erstellung für doctype: {doctype}, "
                       f"Status: {response.status_code}, Response: {content[:200]}")
+                
+                # Zusätzliche Debug-Information bei 403 Fehler
+                if response.status_code == 403:
+                    print(f"Setup: DEBUG - 403 Forbidden für doctype: {doctype}")
+                    print(f"Setup: DEBUG - URL: {CONFLUENCE_SETTINGS.server_url}{URL}")
+                    print(f"Setup: DEBUG - User: {CONFLUENCE_SETTINGS.admin_login}")
         except Exception as e:
             print(f"Setup: ✗ Exception bei Blueprint-Erstellung für doctype {doctype}: {str(e)}")
     
