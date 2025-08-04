@@ -8,11 +8,11 @@ runs:
     relativePath: "./app/results/confluence/RUN1"
   - runName: "with app"
     runType: "experiment"
-    relativePath: "./app/results/confluence/RUN2_US"
+    relativePath: "./app/results/confluence/RUN2_A"
 
 # Chart generation config
 index_col: "Action"
-title: "Userscripts Regression Performance Testing"
+title: "Regression Performance Testing"
 image_height_px: 1000
 image_width_px: 1600
 check_actions_count: false
