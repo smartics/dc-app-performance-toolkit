@@ -305,7 +305,7 @@ def app_specific_action_check_blueprint_page(locust, blueprint_pages):
     # Prüfe die Seite durch Aufruf der Display-URL
     url = f'/display/{space_key}/{url_name}'
     
-    with locust.client.get(url, catch_response=True, name=f"pd_bp_{doctype}") as response:
+    with locust.client.get(url, catch_response=True, name=f"locust_app_pd_bp_{doctype}") as response:
         if response.status_code == 200:
             content = response.content.decode('utf-8')
             # Mehrere Prüfungen für robustere Validierung

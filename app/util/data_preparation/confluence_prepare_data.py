@@ -417,13 +417,13 @@ def __create_projectdoc_blueprint_pages(perf_user_api, doctypes):
                     'url_name': NAME.replace(" ", "+"),
                     'existing': False
                 })
-                print(f'Setup: ✓ Blueprint-Seite erstellt für doctype: {doctype} (ID: {page_id})')
+                print(f'Setup: Blueprint-Seite erstellt für doctype: {doctype} (ID: {page_id})')
             else:
-                print(f"Setup: ✗ Fehler für doctype: {doctype}, Status: {response.status_code}")
-                print(f"Setup: ✗ Fehler-Details: {response.text}")
+                print(f"Setup: Fehler für doctype: {doctype}, Status: {response.status_code}")
+                print(f"Setup: Fehler-Details: {response.text}")
 
         except Exception as e:
-            print(f"Setup: ✗ Exception für doctype {doctype}: {str(e)}")
+            print(f"Setup: Exception für doctype {doctype}: {str(e)}")
 
     newly_created = len([p for p in created_pages if not p.get('existing', False)])
     total_existing = len([p for p in created_pages if p.get('existing', False)])
