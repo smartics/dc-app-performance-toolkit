@@ -87,7 +87,7 @@ class ConfluenceBehavior(MyBaseTaskSet):
     def on_start(self):
         self.client.verify = config.secure
         login_and_view_dashboard(self)
-        print(f"User gestartet - {len(blueprint_pages)} Blueprint-Seiten verfügbar (Thread: {threading.current_thread().name})")
+        print(f"User gestartet - {len(blueprint_pages)} Blueprint-Seiten verfügbar")
 
     @task(config.percentage('view_page'))
     def view_page_action(self):
