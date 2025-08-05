@@ -295,10 +295,10 @@ def __create_projectdoc_blueprint_pages(perf_user_api, doctypes):
     created_pages = []
 
     # Limitiere auf 20 Doctypes für Performance
-    limited_doctypes = doctypes[:100] if len(doctypes) > 100 else doctypes
+    limited_doctypes = doctypes[:20] if len(doctypes) > 20 else doctypes
 
     for i, doctype in enumerate(limited_doctypes, 1):
-        NAME = f"dcapt_blueprint_{doctype}_blueprint_" + "".join([random.choice(string.ascii_lowercase) for _ in range(6)])
+        NAME = f"{doctype}_blueprint_" + "".join([random.choice(string.ascii_lowercase) for _ in range(6)])
         SHORT_DESCRIPTION = f"Blueprint setup page for doctype {doctype}"
 
         j_payload = {
@@ -326,6 +326,10 @@ def __create_projectdoc_blueprint_pages(perf_user_api, doctypes):
         try:
             print(f"Setup: Erstelle Blueprint-Seite {i}/{len(limited_doctypes)} für doctype: {doctype}")
 
+            # DEBUG: URL und Payload loggen
+            print(f"DEBUG: URL = {url}")
+            print(f"DEBUG: Payload = {json.dumps(j_payload, indent=2)}")
+
             response = requests.post(
                 url,
                 auth=(perf_user_api.user, perf_user_api.password),
@@ -333,6 +337,11 @@ def __create_projectdoc_blueprint_pages(perf_user_api, doctypes):
                 data=json.dumps(j_payload),
                 verify=perf_user_api.verify
             )
+
+            # DEBUG: Response Details loggen
+            print(f"DEBUG: Response Status = {response.status_code}")
+            print(f"DEBUG: Response Headers = {dict(response.headers)}")
+            print(f"DEBUG: Response Content = {response.text[:500]}...")  # Erste 500 Zeichen
 
             if response.status_code == 200:
                 try:
@@ -351,12 +360,14 @@ def __create_projectdoc_blueprint_pages(perf_user_api, doctypes):
                 print(f'Setup: ✓ Blueprint-Seite erstellt für doctype: {doctype} (ID: {page_id})')
             else:
                 print(f"Setup: ✗ Fehler für doctype: {doctype}, Status: {response.status_code}")
+                print(f"Setup: ✗ Fehler-Details: {response.text}")  # Vollständige Fehler-Response
 
         except Exception as e:
             print(f"Setup: ✗ Exception für doctype {doctype}: {str(e)}")
 
     print(f'Blueprint-Erstellung abgeschlossen: {len(created_pages)}/{len(limited_doctypes)} Seiten erstellt')
     return created_pages
+
 
 
 def __write_blueprint_pages_to_file(blueprint_pages):
