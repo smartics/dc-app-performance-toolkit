@@ -4,7 +4,6 @@ application
 architecture-alternative
 architecture-decision
 artifact
-asset
 association
 blackbox
 blank
@@ -40,7 +39,6 @@ lifecycle-phase
 location
 mediatype
 metadata
-minutes
 docmodule
 month
 node
@@ -63,19 +61,14 @@ release
 release-note
 report
 resource
-retrospective
-review
-review-act
 risk
 risk-phase
 risk-severity
 risk-target
-section
 service-announcement
 service-level
 service-level-requirement
 docsection
-stakeholder
 strategy
 swot
 technical-debt
