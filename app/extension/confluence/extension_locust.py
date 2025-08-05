@@ -282,7 +282,7 @@ def setup_blueprint_pages(locust, doctypes):
     print(f'Setup: Created {len(created_pages)} blueprint pages out of {len(doctypes)} doctypes')
     return created_pages
 
-@confluence_measure("locust_app_specific_action_blueprints_check")
+@confluence_measure("locust_app_specific_action_pd_bp")
 def app_specific_action_check_blueprint_page(locust, blueprint_pages):
     """
     Test-Funktion: Prüft zufällig eine der erstellten Blueprint-Seiten
@@ -305,7 +305,7 @@ def app_specific_action_check_blueprint_page(locust, blueprint_pages):
     # Prüfe die Seite durch Aufruf der Display-URL
     url = f'/display/{space_key}/{url_name}'
     
-    with locust.client.get(url, catch_response=True, name=f"check_blueprint_page_{doctype}") as response:
+    with locust.client.get(url, catch_response=True, name=f"pd_bp_{doctype}") as response:
         if response.status_code == 200:
             content = response.content.decode('utf-8')
             # Mehrere Prüfungen für robustere Validierung
