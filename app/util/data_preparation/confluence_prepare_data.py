@@ -1,8 +1,6 @@
 import random
 from packaging import version
 import time
-import os
-import json
 from datetime import datetime
 
 from multiprocessing.pool import ThreadPool
@@ -19,7 +17,7 @@ USERS = "users"
 PAGES = "pages"
 CUSTOM_PAGES = "custom_pages"
 BLOGS = "blogs"
-BLUEPRINT_PAGES = "blueprint_pages"  # Neue Konstante für Blueprint-Seiten
+BLUEPRINT_PAGES = "blueprint_pages"  # NEU: Konstante für Blueprint-Seiten
 CQLS = "cqls"
 DEFAULT_USER_PREFIX = 'performance_'
 DEFAULT_USER_PASSWORD = 'password'
@@ -36,6 +34,7 @@ PAGE_CQL = ('type=page'
 BLOG_CQL = ('type=blogpost'
             ' and title !~ Performance'  # filter out blogs with Performance in title
             )
+
 
 DATASET_PAGES_TEMPLATES = {'big_attachments_1': ['PAGE_1', 'PAGE_2'],
                            'small_attachments_3': ['PAGE_3', 'PAGE_4', 'PAGE_5', 'PAGE_6'],
@@ -85,328 +84,6 @@ def __create_data_set(rest_client, rpc_client):
     print('------------------------')
     print(f'Custom pages count: {len(dataset[CUSTOM_PAGES])}')
     return dataset
-
-
-@print_timing('Setup Blueprint Pages')
-def __setup_blueprint_pages(rest_client):
-    """Setup Blueprint-Seiten für Performance-Tests"""
-    print("=== BLUEPRINT SETUP START ===")
-    
-    # Prüfen ob doctypes.txt existiert
-    doctypes_file = 'doctypes.txt'
-    if not os.path.exists(doctypes_file):
-        print(f"INFO: {doctypes_file} nicht gefunden. Blueprint-Setup übersprungen.")
-        return []
-    
-    # Doctypes aus Datei lesen
-    try:
-        with open(doctypes_file, 'r') as file:
-            doctypes = [line.strip() for line in file if line.strip() and not line.strip().startswith("#")]
-    except Exception as e:
-        print(f"ERROR: Fehler beim Lesen von {doctypes_file}: {e}")
-        return []
-    
-    if not doctypes:
-        print("INFO: Keine Doctypes gefunden. Blueprint-Setup übersprungen.")
-        return []
-    
-    print(f"Gefundene Doctypes: {doctypes}")
-    
-    # Setup-Client für Blueprint-Erstellung
-    try:
-        # HTTP-Session für Setup erstellen
-        import requests
-        session = requests.Session()
-        session.verify = CONFLUENCE_SETTINGS.secure
-        
-        # Login mit Admin-Credentials
-        login_url = f"{CONFLUENCE_SETTINGS.server_url}/dologin.action"
-        login_data = {
-            'os_username': CONFLUENCE_SETTINGS.admin_login,
-            'os_password': CONFLUENCE_SETTINGS.admin_password,
-            'login': 'Log in',
-            'index.action': '',
-        }
-        
-        login_response = session.post(login_url, data=login_data)
-        if login_response.status_code != 200:
-            print(f"ERROR: Login fehlgeschlagen. Status: {login_response.status_code}")
-            return []
-        
-        print("Login für Blueprint-Setup erfolgreich")
-        
-        # Blueprint-Seiten erstellen
-        blueprint_pages = __create_blueprint_pages(session, doctypes)
-        
-        print(f"=== BLUEPRINT SETUP COMPLETE: {len(blueprint_pages)} Seiten erstellt ===")
-        return blueprint_pages
-        
-    except Exception as e:
-        print(f"ERROR: Blueprint-Setup fehlgeschlagen: {e}")
-        return []
-
-
-def __create_blueprint_pages(session, doctypes):
-    """Erstellt Blueprint-Seiten für die angegebenen Doctypes"""
-    import string
-    import random
-    
-    # Konstanten für Blueprint-Erstellung
-    BLUEPRINT_SPACEKEY = "BLUEPRINT"  # Anpassen nach Bedarf
-    BLUEPRINT_LOCATION = "Blueprints"  # Anpassen nach Bedarf
-    
-    created_pages = []
-    
-    for i, doctype in enumerate(doctypes, 1):
-        NAME = f"{doctype}_blueprint_" + "".join([random.choice(string.ascii_lowercase) for _ in range(10)])
-        SHORT_DESCRIPTION = f"Blueprint setup page for doctype {doctype}"
-        
-        j_payload = {
-            "property": [
-                {
-                    "name": "Blueprint Setup Property",
-                    "value": f"Setup for {doctype}",
-                    "controls": "",
-                    "position": "after",
-                    "ref": "Name"
-                }
-            ],
-            "section": [
-                {
-                    "title": "Blueprint Setup Section",
-                    "content": f"<p>This page was created during blueprint setup for doctype: {doctype}</p>",
-                    "position": "before",
-                    "ref": "References"
-                }
-            ]
-        }
-
-        URL = f"{CONFLUENCE_SETTINGS.server_url}/rest/projectdoc/1/document.json?doctype={doctype}&name={NAME}&short-description={SHORT_DESCRIPTION}&space-key={BLUEPRINT_SPACEKEY}&location=_{BLUEPRINT_LOCATION}_"
-        headers = {'Content-Type': 'application/json'}
-        
-        try:
-            print(f"Setup: Erstelle Blueprint-Seite {i}/{len(doctypes)} für doctype: {doctype}")
-            response = session.post(URL, headers=headers, data=json.dumps(j_payload))
-            
-            if response.status_code == 200:
-                try:
-                    response_data = response.json()
-                    page_id = response_data.get('id', NAME)
-                    created_pages.append({
-                        'doctype': doctype,
-                        'name': NAME,
-                        'page_id': page_id,
-                        'space_key': BLUEPRINT_SPACEKEY,
-                        'url_name': NAME.replace(" ", "+")  # URL-enkodierter Name für Display-URLs
-                    })
-                    print(f'Setup: ✓ Blueprint-Seite erfolgreich erstellt für doctype: {doctype} (ID: {page_id})')
-                except:
-                    # Fallback wenn JSON parsing fehlschlägt
-                    created_pages.append({
-                        'doctype': doctype,
-                        'name': NAME,
-                        'page_id': NAME,
-                        'space_key': BLUEPRINT_SPACEKEY,
-                        'url_name': NAME.replace(" ", "+")
-                    })
-                    print(f'Setup: ✓ Blueprint-Seite erstellt für doctype: {doctype} (Fallback-ID)')
-            else:
-                content = response.content.decode('utf-8') if response.content else 'No content'
-                print(f"Setup: ✗ Fehler bei Blueprint-Erstellung für doctype: {doctype}, "
-                      f"Status: {response.status_code}, Response: {content[:200]}")
-        except Exception as e:
-            print(f"Setup: ✗ Exception bei Blueprint-Erstellung für doctype {doctype}: {str(e)}")
-    
-    success_count = len(created_pages)
-    print(f'Blueprint-Erstellung abgeschlossen: {success_count}/{len(doctypes)} Seiten erfolgreich erstellt')
-    
-    # Detaillierte Auflistung der erstellten Seiten
-    if created_pages:
-        print("Erstellte Blueprint-Seiten:")
-        for page in created_pages:
-            print(f"  - {page['doctype']}: {page['name']} (ID: {page['page_id']})")
-    
-    return created_pages
-
-
-def __setup_blueprint_pages_with_locust_login(rest_client):
-    """Blueprint-Setup mit vereinfachtem Login-Mechanismus"""
-    print("=== BLUEPRINT SETUP START (Vereinfachter Login) ===")
-    
-    # Doctypes laden
-    doctypes_file = 'doctypes.txt'
-    if not os.path.exists(doctypes_file):
-        print(f"INFO: {doctypes_file} nicht gefunden. Blueprint-Setup übersprungen.")
-        return []
-    
-    with open(doctypes_file, 'r') as file:
-        doctypes = [line.strip() for line in file if line.strip() and not line.strip().startswith("#")]
-    
-    if not doctypes:
-        return []
-    
-    try:
-        import requests
-        
-        # Session mit korrekter Konfiguration erstellen
-        session = requests.Session()
-        session.verify = CONFLUENCE_SETTINGS.secure
-        
-        # Einfacher Form-basierter Login ohne komplexe Parameter-Klassen
-        login_data = {
-            'os_username': CONFLUENCE_SETTINGS.admin_login,
-            'os_password': CONFLUENCE_SETTINGS.admin_password,
-            'login': 'Log in',
-            'index.action': ''
-        }
-        
-        # Zuerst zur Login-Seite gehen um Session/Cookies zu initialisieren
-        print("Setup: Gehe zur Login-Seite...")
-        login_page_response = session.get(f"{CONFLUENCE_SETTINGS.server_url}/login.action")
-        if login_page_response.status_code != 200:
-            print(f"ERROR: Kann Login-Seite nicht erreichen: {login_page_response.status_code}")
-            return []
-        
-        # Login durchführen
-        print("Setup: Führe Login durch...")
-        login_response = session.post(
-            f"{CONFLUENCE_SETTINGS.server_url}/dologin.action",
-            data=login_data,
-            allow_redirects=True
-        )
-        
-        if login_response.status_code not in [200, 302]:
-            print(f"ERROR: Login fehlgeschlagen. Status: {login_response.status_code}")
-            print(f"ERROR: Response URL: {login_response.url}")
-            return []
-        
-        # Prüfe ob Login erfolgreich war durch Dashboard-Aufruf
-        print("Setup: Validiere Login...")
-        dashboard_response = session.get(f"{CONFLUENCE_SETTINGS.server_url}/dashboard.action")
-        if dashboard_response.status_code != 200:
-            print(f"ERROR: Dashboard-Zugriff fehlgeschlagen: {dashboard_response.status_code}")
-            return []
-        
-        # Zusätzliche Login-Validierung
-        if "login" in dashboard_response.url.lower() or "j_username" in dashboard_response.text:
-            print("ERROR: Login-Validierung fehlgeschlagen - noch auf Login-Seite")
-            return []
-        
-        print("Setup-Login erfolgreich")
-        
-        # Blueprint-Seiten erstellen
-        blueprint_pages = __create_blueprint_pages_with_session(session, doctypes)
-        
-        print(f"=== BLUEPRINT SETUP COMPLETE: {len(blueprint_pages)} Seiten erstellt ===")
-        return blueprint_pages
-        
-    except Exception as e:
-        print(f"ERROR: Blueprint-Setup fehlgeschlagen: {e}")
-        import traceback
-        print(f"ERROR: Traceback: {traceback.format_exc()}")
-        return []
-
-
-def __create_blueprint_pages_with_session(session, doctypes):
-    """Erstellt Blueprint-Seiten mit authentifizierter Session"""
-    import string
-    import random
-    
-    BLUEPRINT_SPACEKEY = "CONF"  # Anpassen nach Bedarf
-    BLUEPRINT_LOCATION = "Home"  # Anpassen nach Bedarf
-    created_pages = []
-    
-    for i, doctype in enumerate(doctypes, 1):
-        NAME = f"{doctype}_blueprint_" + "".join([random.choice(string.ascii_lowercase) for _ in range(10)])
-        SHORT_DESCRIPTION = f"Blueprint setup page for doctype {doctype}"
-        
-        j_payload = {
-            "property": [
-                {
-                    "name": "Blueprint Setup Property",
-                    "value": f"Setup for {doctype}",
-                    "controls": "",
-                    "position": "after",
-                    "ref": "Name"
-                }
-            ],
-            "section": [
-                {
-                    "title": "Blueprint Setup Section",
-                    "content": f"<p>This page was created during blueprint setup for doctype: {doctype}</p>",
-                    "position": "before",
-                    "ref": "References"
-                }
-            ]
-        }
-
-        URL = f"{CONFLUENCE_SETTINGS.server_url}/rest/projectdoc/1/document.json?doctype={doctype}&name={NAME}&short-description={SHORT_DESCRIPTION}&space-key={BLUEPRINT_SPACEKEY}&location=_{BLUEPRINT_LOCATION}_"
-        
-        try:
-            print(f"Setup: Erstelle Blueprint-Seite {i}/{len(doctypes)} für doctype: {doctype}")
-            
-            response = session.post(
-                URL,
-                headers={'Content-Type': 'application/json'},
-                data=json.dumps(j_payload)
-            )
-            
-            print(f"Setup: Response Status für {doctype}: {response.status_code}")
-            
-            if response.status_code == 200:
-                try:
-                    response_data = response.json()
-                    page_id = response_data.get('id', NAME)
-                    created_pages.append({
-                        'doctype': doctype,
-                        'name': NAME,
-                        'page_id': page_id,
-                        'space_key': BLUEPRINT_SPACEKEY,
-                        'url_name': NAME.replace(" ", "+")
-                    })
-                    print(f'Setup: ✓ Blueprint-Seite erfolgreich erstellt für doctype: {doctype} (ID: {page_id})')
-                except Exception as json_error:
-                    print(f"Setup: JSON-Parsing fehlgeschlagen für {doctype}: {json_error}")
-                    # Fallback wenn JSON parsing fehlschlägt
-                    created_pages.append({
-                        'doctype': doctype,
-                        'name': NAME,
-                        'page_id': NAME,
-                        'space_key': BLUEPRINT_SPACEKEY,
-                        'url_name': NAME.replace(" ", "+")
-                    })
-                    print(f'Setup: ✓ Blueprint-Seite erstellt für doctype: {doctype} (Fallback-ID)')
-            else:
-                print(f"Setup: ✗ HTTP-Fehler für doctype: {doctype}, Status: {response.status_code}")
-                content = response.content.decode('utf-8') if response.content else 'No content'
-                print(f"Setup: Response Content (first 300 chars): {content[:300]}")
-                
-                if response.status_code == 403:
-                    print(f"Setup: 403 Forbidden - möglicherweise fehlen Berechtigungen für projektdoc REST-API")
-                elif response.status_code == 404:
-                    print(f"Setup: 404 Not Found - projectdoc REST-API möglicherweise nicht verfügbar")
-                elif response.status_code == 401:
-                    print(f"Setup: 401 Unauthorized - Login-Session möglicherweise abgelaufen")
-                    
-        except Exception as e:
-            print(f"Setup: ✗ Exception für doctype {doctype}: {str(e)}")
-    
-    success_count = len(created_pages)
-    print(f'Blueprint-Erstellung abgeschlossen: {success_count}/{len(doctypes)} Seiten erfolgreich erstellt')
-    
-    # Detaillierte Auflistung der erstellten Seiten
-    if created_pages:
-        print("Erstellte Blueprint-Seiten:")
-        for page in created_pages:
-            print(f"  - {page['doctype']}: {page['name']} (ID: {page['page_id']})")
-    else:
-        print("Keine Blueprint-Seiten erfolgreich erstellt. Mögliche Ursachen:")
-        print("  1. projectdoc REST-API nicht verfügbar")
-        print("  2. Fehlende Berechtigungen für Admin-User")
-        print("  3. Falscher Space-Key oder Location")
-        print("  4. projectdoc Plugin nicht installiert")
-    
-    return created_pages
 
 
 @print_timing('Getting users')
@@ -536,21 +213,8 @@ def write_test_data_to_files(dataset):
     custom_pages = [f"{page['id']},{page['space']['key']}" for page in dataset[CUSTOM_PAGES]]
     __write_to_file(CONFLUENCE_CUSTOM_PAGES, custom_pages)
 
-    # Blueprint-Seiten in JSON-Datei speichern
-    if BLUEPRINT_PAGES in dataset and dataset[BLUEPRINT_PAGES]:
-        blueprint_file = 'datasets/confluence/blueprint_pages.json'
-        try:
-            os.makedirs(os.path.dirname(blueprint_file), exist_ok=True)
-            with open(blueprint_file, 'w', encoding='utf-8') as f:
-                json.dump(dataset[BLUEPRINT_PAGES], f, indent=2, ensure_ascii=False)
-            print(f'Blueprint pages wurden in {blueprint_file} gespeichert')
-        except Exception as e:
-            print(f'ERROR: Konnte Blueprint-Seiten nicht speichern: {e}')
-    
-    # Ausgabe der Dataset-Statistiken
-    print('------------------------')
-    if BLUEPRINT_PAGES in dataset:
-        print(f'Blueprint pages count: {len(dataset[BLUEPRINT_PAGES])}')
+    # NEU: Blueprint-Seiten in JSON-Datei schreiben
+    __write_blueprint_pages_to_file(dataset[BLUEPRINT_PAGES])
 
 
 def __is_collaborative_editing_enabled(confluence_api):
@@ -587,6 +251,163 @@ def __check_license(rest_client):
     print(f"The license expiry date: {expiry_date_human}.\n"
           f"License available seats: {license_remaining_seats['count']}")
 
+@print_timing('Setup Blueprint Pages')
+def __setup_blueprint_pages(perf_user_api):
+    """Setup ProjectDoc Blueprint-Seiten für Performance-Tests"""
+    print("=== BLUEPRINT SETUP START ===")
+
+    # Doctypes aus Datei lesen
+    doctypes_file = 'doctypes.txt'
+    if not os.path.exists(doctypes_file):
+        print(f"INFO: {doctypes_file} nicht gefunden. Blueprint-Setup übersprungen.")
+        return []
+
+    try:
+        with open(doctypes_file, 'r') as file:
+            doctypes = [line.strip() for line in file if line.strip() and not line.strip().startswith("#")]
+    except Exception as e:
+        print(f"ERROR: Fehler beim Lesen von {doctypes_file}: {e}")
+        return []
+
+    if not doctypes:
+        print("INFO: Keine Doctypes gefunden.")
+        return []
+
+    print(f"Gefundene Doctypes: {len(doctypes)}")
+
+    # Blueprint-Seiten erstellen
+    blueprint_pages = __create_projectdoc_blueprint_pages(perf_user_api, doctypes)
+
+    print(f"=== BLUEPRINT SETUP COMPLETE: {len(blueprint_pages)} Seiten erstellt ===")
+    return blueprint_pages
+
+
+def __create_projectdoc_blueprint_pages(perf_user_api, doctypes):
+    """Erstellt ProjectDoc Blueprint-Seiten"""
+    import string
+    import random
+    import requests
+
+    BLUEPRINT_SPACEKEY = "BLUEPRINT"  # Anpassen nach Bedarf
+    BLUEPRINT_LOCATION = "Blueprints"
+    created_pages = []
+
+    # Limitiere auf 20 Doctypes für Performance
+    limited_doctypes = doctypes[:100] if len(doctypes) > 100 else doctypes
+
+    for i, doctype in enumerate(limited_doctypes, 1):
+        NAME = f"dcapt_blueprint_{doctype}_blueprint_" + "".join([random.choice(string.ascii_lowercase) for _ in range(6)])
+        SHORT_DESCRIPTION = f"Blueprint setup page for doctype {doctype}"
+
+        j_payload = {
+            "property": [
+                {
+                    "name": "Blueprint Setup Property",
+                    "value": f"Setup for {doctype}",
+                    "controls": "",
+                    "position": "after",
+                    "ref": "Name"
+                }
+            ],
+            "section": [
+                {
+                    "title": "Blueprint Setup Section",
+                    "content": f"<p>This page was created during blueprint setup for doctype: {doctype}</p>",
+                    "position": "before",
+                    "ref": "References"
+                }
+            ]
+        }
+
+        url = f"{CONFLUENCE_SETTINGS.server_url}/rest/projectdoc/1/document.json?doctype={doctype}&name={NAME}&short-description={SHORT_DESCRIPTION}&space-key={BLUEPRINT_SPACEKEY}&location=_{BLUEPRINT_LOCATION}_"
+
+        try:
+            print(f"Setup: Erstelle Blueprint-Seite {i}/{len(limited_doctypes)} für doctype: {doctype}")
+
+            response = requests.post(
+                url,
+                auth=(perf_user_api.user, perf_user_api.password),
+                headers={'Content-Type': 'application/json'},
+                data=json.dumps(j_payload),
+                verify=perf_user_api.verify
+            )
+
+            if response.status_code == 200:
+                try:
+                    response_data = response.json()
+                    page_id = response_data.get('id', NAME)
+                except json.JSONDecodeError:
+                    page_id = NAME
+
+                created_pages.append({
+                    'doctype': doctype,
+                    'name': NAME,
+                    'page_id': page_id,
+                    'space_key': BLUEPRINT_SPACEKEY,
+                    'url_name': NAME.replace(" ", "+")
+                })
+                print(f'Setup: ✓ Blueprint-Seite erstellt für doctype: {doctype} (ID: {page_id})')
+            else:
+                print(f"Setup: ✗ Fehler für doctype: {doctype}, Status: {response.status_code}")
+
+        except Exception as e:
+            print(f"Setup: ✗ Exception für doctype {doctype}: {str(e)}")
+
+    print(f'Blueprint-Erstellung abgeschlossen: {len(created_pages)}/{len(limited_doctypes)} Seiten erstellt')
+    return created_pages
+
+
+def __write_blueprint_pages_to_file(blueprint_pages):
+    """Schreibt Blueprint-Seiten in JSON-Datei"""
+    if not blueprint_pages:
+        print("Blueprint pages count: 0")
+        return
+
+    blueprint_file = 'datasets/confluence/blueprint_pages.json'
+    os.makedirs(os.path.dirname(blueprint_file), exist_ok=True)
+
+    try:
+        with open(blueprint_file, 'w', encoding='utf-8') as f:
+            json.dump(blueprint_pages, f, indent=2, ensure_ascii=False)
+        print(f"Blueprint pages count: {len(blueprint_pages)}")
+        print(f"Blueprint-Seiten gespeichert in: {blueprint_file}")
+    except Exception as e:
+        print(f"ERROR: Fehler beim Schreiben der Blueprint-Datei: {e}")
+
+@print_timing('Creating dataset started')
+def __create_data_set(rest_client, rpc_client):
+    dataset = dict()
+    dataset[USERS] = __get_users(rest_client, rpc_client, CONFLUENCE_SETTINGS.concurrency)
+    perf_user = random.choice(dataset[USERS])['user']
+    perf_user_api = ConfluenceRestClient(CONFLUENCE_SETTINGS.server_url, perf_user['username'], DEFAULT_USER_PASSWORD)
+
+    pool = ThreadPool(processes=2)
+
+    dcapt_dataset = (len(perf_user_api.search(limit=5, cql='type=page and text ~ PAGE_7')) +
+                     len(perf_user_api.search(limit=5, cql='type=blogpost and text ~ BLOG_7')) == 10)
+    print(f"DCAPT dataset: {dcapt_dataset}")
+    async_pages = pool.apply_async(__get_pages, (perf_user_api, 5000, dcapt_dataset))
+    async_blogs = pool.apply_async(__get_blogs, (perf_user_api, 5000, dcapt_dataset))
+
+    async_pages.wait()
+    async_blogs.wait()
+
+    dataset[PAGES] = async_pages.get()
+    dataset[BLOGS] = async_blogs.get()
+
+    dataset[CUSTOM_PAGES] = __get_custom_pages(perf_user_api, 5000, CONFLUENCE_SETTINGS.custom_dataset_query)
+
+    # NEU: Blueprint-Seiten Setup
+    dataset[BLUEPRINT_PAGES] = __setup_blueprint_pages(perf_user_api)
+
+    print(f'Users count: {len(dataset[USERS])}')
+    print(f'Pages count: {len(dataset[PAGES])}')
+    print(f'Blogs count: {len(dataset[BLOGS])}')
+    print('------------------------')
+    print(f'Custom pages count: {len(dataset[CUSTOM_PAGES])}')
+    print(f'Blueprint pages count: {len(dataset[BLUEPRINT_PAGES])}')
+    return dataset
+
 
 @print_timing('Confluence data preparation')
 def main():
@@ -605,12 +426,6 @@ def main():
     __check_current_language(rest_client)
 
     dataset = __create_data_set(rest_client, rpc_client)
-    
-    # Blueprint-Seiten Setup - verwende die Locust-Login-Variante wenn REST-Client nicht funktioniert
-    # dataset[BLUEPRINT_PAGES] = __setup_blueprint_pages_with_locust_login(rest_client)
-    # Falls die obige Funktion nicht funktioniert, versuchen Sie:
-    dataset[BLUEPRINT_PAGES] = __setup_blueprint_pages(rest_client)
-    
     write_test_data_to_files(dataset)
 
     print("Finished preparing data")
