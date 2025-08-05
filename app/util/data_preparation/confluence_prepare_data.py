@@ -2,6 +2,8 @@ import random
 from packaging import version
 import time
 from datetime import datetime
+import os
+import json
 
 from multiprocessing.pool import ThreadPool
 from prepare_data_common import __generate_random_string, __write_to_file, __warnings_filter, __read_file
@@ -364,6 +366,18 @@ def __write_blueprint_pages_to_file(blueprint_pages):
         return
 
     blueprint_file = 'datasets/confluence/blueprint_pages.json'
+
+    # Prüfung ob Datei bereits existiert
+    if os.path.exists(blueprint_file):
+        file_stat = os.stat(blueprint_file)
+        file_size = file_stat.st_size
+        mod_time = datetime.fromtimestamp(file_stat.st_mtime)
+
+        print(f"INFO: Datei {blueprint_file} existiert bereits!")
+        print(f"  - Größe: {file_size} Bytes")
+        print(f"  - Letzte Änderung: {mod_time.strftime('%Y-%m-%d %H:%M:%S')}")
+        print("  - Datei wird überschrieben.")
+
     os.makedirs(os.path.dirname(blueprint_file), exist_ok=True)
 
     try:
