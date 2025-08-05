@@ -346,7 +346,7 @@ def __create_projectdoc_blueprint_pages(perf_user_api, doctypes):
     BLUEPRINT_LOCATION = "54134188"
 
     # Limitiere auf 20 Doctypes für Performance
-    limited_doctypes = doctypes[:20] if len(doctypes) > 20 else doctypes
+    limited_doctypes = doctypes[:100] if len(doctypes) > 100 else doctypes
 
     # Prüfe erst, welche Seiten bereits existieren
     existing_pages = __check_existing_blueprint_pages(perf_user_api, limited_doctypes, BLUEPRINT_SPACEKEY)
@@ -366,7 +366,7 @@ def __create_projectdoc_blueprint_pages(perf_user_api, doctypes):
         return created_pages
 
     for i, doctype in enumerate(doctypes_to_create, 1):
-        NAME = f"{doctype}_blueprint_" + "".join([random.choice(string.ascii_lowercase) for _ in range(6)])
+        NAME = f"blueprint_{doctype}_blueprint"
         SHORT_DESCRIPTION = f"Blueprint setup page for doctype {doctype}"
 
         j_payload = {
