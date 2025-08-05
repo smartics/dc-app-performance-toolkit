@@ -5,6 +5,7 @@ import json
 from locustio.common_utils import init_logger, confluence_measure, run_as_specific_user  # noqa F401
 
 logger = init_logger(app_type='confluence')
+_thread_local = threading.local()
 
 # --------------------------------------------------------------------------------------------------------------------
 # smartics
@@ -59,6 +60,39 @@ TC_INFORMATIONSYSTEM_ASSERTION_TEXT = "informationsystem-test-case-id"
 # --------------------------------------------------------------------------------------------------------------------
 BLUEPRINT_LOCATION = "47596907"
 BLUEPRINT_SPACEKEY= "BLUEPRINT"
+
+
+
+def get_thread_blueprint_index():
+    """Holt oder initialisiert den Blueprint-Index für den aktuellen Thread"""
+    if not hasattr(_thread_local, 'blueprint_index'):
+        _thread_local.blueprint_index = 0
+    return _thread_local.blueprint_index
+
+def set_thread_blueprint_index(index):
+    """Setzt den Blueprint-Index für den aktuellen Thread"""
+    _thread_local.blueprint_index = index
+
+def get_next_blueprint_page(blueprint_pages):
+    """Gibt die nächste Blueprint-Seite in der Reihenfolge zurück (thread-lokal)"""
+    if not blueprint_pages:
+        return None
+
+    current_index = get_thread_blueprint_index()
+
+    # Wenn am Ende angekommen, von vorne beginnen
+    if current_index >= len(blueprint_pages):
+        current_index = 0
+
+    page = blueprint_pages[current_index]
+
+    # Index für nächsten Aufruf erhöhen
+    set_thread_blueprint_index(current_index + 1)
+
+    return page
+
+
+
 # --------------------------------------------------------------------------------------------------------------------
 # smartics-us
 # --------------------------------------------------------------------------------------------------------------------
@@ -285,26 +319,31 @@ def setup_blueprint_pages(locust, doctypes):
 @confluence_measure("locust_app_specific_action_pd_bp")
 def app_specific_action_check_blueprint_page(locust, blueprint_pages):
     """
-    Test-Funktion: Prüft zufällig eine der erstellten Blueprint-Seiten
-    Diese Funktion wird gemessen und prüft nur die Existenz der Seite
+    Test-Funktion: Prüft sequenziell Blueprint-Seiten (pro Thread)
+    Diese Funktion wird gemessen und prüft die Existenz der Seite
     """
     if not blueprint_pages:
         logger.error("Keine Blueprint-Seiten für Überprüfung verfügbar")
         return
-    
-    # Wähle zufällig eine der erstellten Seiten
-    import random
-    page_info = random.choice(blueprint_pages)
+
+    # Hole die nächste Seite in der Reihenfolge (thread-spezifisch)
+    page_info = get_next_blueprint_page(blueprint_pages)
+
+    if not page_info:
+        logger.error("Keine Blueprint-Seite verfügbar")
+        return
+
     page_name = page_info['name']
     space_key = page_info['space_key']
     doctype = page_info['doctype']
     url_name = page_info.get('url_name', page_name.replace(" ", "+"))
-    
-    logger.info(f"Teste Blueprint-Seite: {page_name} (doctype: {doctype})")
-    
+    current_index = get_thread_blueprint_index() - 1  # -1 weil wir schon erhöht haben
+
+    logger.info(f"Teste Blueprint-Seite #{current_index + 1}/{len(blueprint_pages)}: {page_name} (doctype: {doctype})")
+
     # Prüfe die Seite durch Aufruf der Display-URL
     url = f'/display/{space_key}/{url_name}'
-    
+
     with locust.client.get(url, catch_response=True, name=f"locust_app_pd_bp_{doctype}") as response:
         if response.status_code == 200:
             content = response.content.decode('utf-8')
@@ -315,16 +354,17 @@ def app_specific_action_check_blueprint_page(locust, blueprint_pages):
                 "Blueprint setup" in content,
                 space_key in content
             ]
-            
+
             if any(content_checks):
                 response.success()
-                logger.info(f"✓ Blueprint-Seite erfolgreich validiert: {page_name} (doctype: {doctype})")
+                logger.info(f"✓ Blueprint-Seite #{current_index + 1} erfolgreich validiert: {page_name} (doctype: {doctype})")
             else:
                 response.failure(f"Blueprint-Seite {page_name} enthält nicht den erwarteten Content für doctype {doctype}")
                 logger.warning(f"✗ Content-Validierung fehlgeschlagen für: {page_name}")
         else:
             response.failure(f"Fehler beim Laden der Blueprint-Seite {page_name}, Status: {response.status_code}")
             logger.error(f"✗ HTTP-Fehler {response.status_code} beim Laden von: {page_name}")
+
 
 
 @confluence_measure("locust_app_specific_action_blueprints")
