@@ -283,21 +283,89 @@ def __setup_blueprint_pages(perf_user_api):
     print(f"=== BLUEPRINT SETUP COMPLETE: {len(blueprint_pages)} Seiten erstellt ===")
     return blueprint_pages
 
+def __check_existing_blueprint_pages(perf_user_api, doctypes, space_key):
+    """Prüft welche Blueprint-Seiten bereits existieren"""
+    import requests
+
+    existing_pages = []
+
+    print("=== PRÜFUNG EXISTIERENDER BLUEPRINT-SEITEN ===")
+
+    for doctype in doctypes:
+        # Suche nach existierenden Seiten mit diesem Doctype im Titel
+        search_cql = f'space = "{space_key}" AND title ~ "blueprint_{doctype}_blueprint"'
+
+        try:
+            # Verwende die Confluence Search API
+            search_url = f"{CONFLUENCE_SETTINGS.server_url}/rest/api/content/search"
+            params = {
+                'cql': search_cql,
+                'limit': 10,
+                'expand': 'space,version'
+            }
+
+            response = requests.get(
+                search_url,
+                auth=(perf_user_api.user, perf_user_api.password),
+                params=params,
+                verify=perf_user_api.verify
+            )
+
+            if response.status_code == 200:
+                search_results = response.json()
+
+                if search_results.get('results'):
+                    for page in search_results['results']:
+                        existing_pages.append({
+                            'doctype': doctype,
+                            'name': page['title'],
+                            'page_id': page['id'],
+                            'space_key': page['space']['key'],
+                            'url_name': page['title'].replace(" ", "+"),
+                            'existing': True
+                        })
+                    print(f"Setup: ✓ Gefunden: {len(search_results['results'])} existierende Seite(n) für doctype: {doctype}")
+                else:
+                    print(f"Setup: ○ Keine existierende Seite für doctype: {doctype}")
+            else:
+                print(f"Setup: ⚠ Fehler beim Suchen für doctype: {doctype}, Status: {response.status_code}")
+
+        except Exception as e:
+            print(f"Setup: ✗ Exception beim Suchen für doctype {doctype}: {str(e)}")
+
+    print(f"=== GEFUNDEN: {len(existing_pages)} existierende Blueprint-Seiten ===")
+    return existing_pages
 
 def __create_projectdoc_blueprint_pages(perf_user_api, doctypes):
-    """Erstellt ProjectDoc Blueprint-Seiten"""
+    """Erstellt ProjectDoc Blueprint-Seiten (nur wenn sie nicht bereits existieren)"""
     import string
     import random
     import requests
 
-    BLUEPRINT_SPACEKEY = "BLUEPRINT"  # Anpassen nach Bedarf
+    BLUEPRINT_SPACEKEY = "BLUEPRINT"
     BLUEPRINT_LOCATION = "54134188"
-    created_pages = []
 
     # Limitiere auf 20 Doctypes für Performance
     limited_doctypes = doctypes[:20] if len(doctypes) > 20 else doctypes
 
-    for i, doctype in enumerate(limited_doctypes, 1):
+    # Prüfe erst, welche Seiten bereits existieren
+    existing_pages = __check_existing_blueprint_pages(perf_user_api, limited_doctypes, BLUEPRINT_SPACEKEY)
+    existing_doctypes = {page['doctype'] for page in existing_pages}
+
+    # Nur Doctypes verarbeiten, die noch keine Seiten haben
+    doctypes_to_create = [dt for dt in limited_doctypes if dt not in existing_doctypes]
+
+    print(f"=== BLUEPRINT-ERSTELLUNG ===")
+    print(f"Bereits vorhanden: {len(existing_doctypes)} Doctypes")
+    print(f"Zu erstellen: {len(doctypes_to_create)} Doctypes")
+
+    created_pages = list(existing_pages)  # Beginne mit existierenden Seiten
+
+    if not doctypes_to_create:
+        print("Setup: ✓ Alle Blueprint-Seiten bereits vorhanden. Keine Erstellung nötig.")
+        return created_pages
+
+    for i, doctype in enumerate(doctypes_to_create, 1):
         NAME = f"{doctype}_blueprint_" + "".join([random.choice(string.ascii_lowercase) for _ in range(6)])
         SHORT_DESCRIPTION = f"Blueprint setup page for doctype {doctype}"
 
@@ -324,11 +392,7 @@ def __create_projectdoc_blueprint_pages(perf_user_api, doctypes):
         url = f"{CONFLUENCE_SETTINGS.server_url}/rest/projectdoc/1/document.json?doctype={doctype}&name={NAME}&short-description={SHORT_DESCRIPTION}&space-key={BLUEPRINT_SPACEKEY}&location=_{BLUEPRINT_LOCATION}_"
 
         try:
-            print(f"Setup: Erstelle Blueprint-Seite {i}/{len(limited_doctypes)} für doctype: {doctype}")
-
-            # DEBUG: URL und Payload loggen
-            print(f"DEBUG: URL = {url}")
-            print(f"DEBUG: Payload = {json.dumps(j_payload, indent=2)}")
+            print(f"Setup: Erstelle Blueprint-Seite {i}/{len(doctypes_to_create)} für doctype: {doctype}")
 
             response = requests.post(
                 url,
@@ -337,11 +401,6 @@ def __create_projectdoc_blueprint_pages(perf_user_api, doctypes):
                 data=json.dumps(j_payload),
                 verify=perf_user_api.verify
             )
-
-            # DEBUG: Response Details loggen
-            print(f"DEBUG: Response Status = {response.status_code}")
-            print(f"DEBUG: Response Headers = {dict(response.headers)}")
-            print(f"DEBUG: Response Content = {response.text[:500]}...")  # Erste 500 Zeichen
 
             if response.status_code == 200:
                 try:
@@ -355,17 +414,25 @@ def __create_projectdoc_blueprint_pages(perf_user_api, doctypes):
                     'name': NAME,
                     'page_id': page_id,
                     'space_key': BLUEPRINT_SPACEKEY,
-                    'url_name': NAME.replace(" ", "+")
+                    'url_name': NAME.replace(" ", "+"),
+                    'existing': False
                 })
                 print(f'Setup: ✓ Blueprint-Seite erstellt für doctype: {doctype} (ID: {page_id})')
             else:
                 print(f"Setup: ✗ Fehler für doctype: {doctype}, Status: {response.status_code}")
-                print(f"Setup: ✗ Fehler-Details: {response.text}")  # Vollständige Fehler-Response
+                print(f"Setup: ✗ Fehler-Details: {response.text}")
 
         except Exception as e:
             print(f"Setup: ✗ Exception für doctype {doctype}: {str(e)}")
 
-    print(f'Blueprint-Erstellung abgeschlossen: {len(created_pages)}/{len(limited_doctypes)} Seiten erstellt')
+    newly_created = len([p for p in created_pages if not p.get('existing', False)])
+    total_existing = len([p for p in created_pages if p.get('existing', False)])
+
+    print(f'=== BLUEPRINT-ERSTELLUNG ABGESCHLOSSEN ===')
+    print(f'Bereits vorhanden: {total_existing} Seiten')
+    print(f'Neu erstellt: {newly_created} Seiten')
+    print(f'Gesamt verfügbar: {len(created_pages)} Seiten')
+
     return created_pages
 
 

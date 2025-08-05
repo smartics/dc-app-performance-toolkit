@@ -8,7 +8,6 @@ asset
 association
 blackbox
 blank
-category
 change
 change-severity
 change-status
@@ -25,7 +24,6 @@ decision
 deployment-record
 diary
 environment
-event
 excerpt
 experience-level
 faq
@@ -80,7 +78,6 @@ docsection
 stakeholder
 strategy
 swot
-tag
 technical-debt
 test-case
 test-charter
