@@ -2,6 +2,8 @@ import re
 import random
 import string
 import json
+import threading
+
 from locustio.common_utils import init_logger, confluence_measure, run_as_specific_user  # noqa F401
 
 logger = init_logger(app_type='confluence')
