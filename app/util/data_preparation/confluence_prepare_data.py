@@ -291,7 +291,7 @@ def __create_projectdoc_blueprint_pages(perf_user_api, doctypes):
     import requests
 
     BLUEPRINT_SPACEKEY = "BLUEPRINT"  # Anpassen nach Bedarf
-    BLUEPRINT_LOCATION = "Blueprints"
+    BLUEPRINT_LOCATION = "54134188"
     created_pages = []
 
     # Limitiere auf 20 Doctypes für Performance
