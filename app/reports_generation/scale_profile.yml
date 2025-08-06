@@ -11,7 +11,7 @@ runs:
     relativePath: "./app/results/confluence/RUN4_A"
   - runName: "4 Nodes"
     runType: "experiment"
-    relativePath: "./app/results/confluence/RUN5-A"
+    relativePath: "./app/results/confluence/RUN5_A"
 
 # Chart generation configs
 index_col: "Action"
