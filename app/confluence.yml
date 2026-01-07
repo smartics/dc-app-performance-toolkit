@@ -35,19 +35,19 @@ settings:
     upload_attachment: 7
     like_page: 3
     upload_emoticon: 4      # For Confluence 8.4.x+
-    standalone_extension: 5 # By default disabled. Smartics: enabled with 5%
+    standalone_extension: 0 # US - deaktiviert für DM-Tests
     # Smartics custom test actions
-    standalone_extension_us_rest_content: 5
-    standalone_extension_section: 6
-    standalone_extension_hide: 6
-    standalone_extension_hidefromreader: 6
-    standalone_extension_hidefromanonymous: 6
-    standalone_extension_definitionlist: 6
-    standalone_extension_transclude_documents: 6
-    standalone_extension_display_table: 6
-    standalone_extension_web_api: 6
-    standalone_extension_information_system: 6
-    standalone_extension_blueprints: 6
+    standalone_extension_us_rest_content: 0      # US - deaktiviert
+    standalone_extension_section: 6              # DM ✓
+    standalone_extension_hide: 6                 # DM ✓
+    standalone_extension_hidefromreader: 6       # DM ✓
+    standalone_extension_hidefromanonymous: 6    # DM ✓
+    standalone_extension_definitionlist: 6       # DM ✓
+    standalone_extension_transclude_documents: 0 # Toolbox - deaktiviert
+    standalone_extension_display_table: 0        # Toolbox - deaktiviert
+    standalone_extension_web_api: 0              # Toolbox - deaktiviert
+    standalone_extension_information_system: 0   # IS - deaktiviert
+    standalone_extension_blueprints: 0           # BP - deaktiviert
     # Custom dataset section.
     custom_dataset_query: title ~ 'Test Case'  # Write CQL query to add CQL output to the app/datasets/confluence/custom_pages.csv, e.g. "title ~ 'AppPage*'"
     local_chrome_binary_path:       # e.g. /usr/bin/google-chrome-stable. Leave it blank to use default Chrome binary path.
