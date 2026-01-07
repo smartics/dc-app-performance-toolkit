@@ -1,3 +1,20 @@
-*.sh                    text eol=lf
-dcapt-snapshots.json    text eol=lf
-*.tfvars                text eol=lf
+# Smartics-only files - always keep ours during merge
+app/extension/confluence/extension_locust.py merge=ours
+app/extension/confluence/extension_ui.py merge=ours
+app/locustio/confluence/locustfile.py merge=ours
+app/convert-to-projectdoc-json.py merge=ours
+app/docker-compose.yml merge=ours
+app/flatten.py merge=ours
+app/create-report.sh merge=ours
+SMARTICS_MERGE_NOTES.md merge=ours
+smartics.md merge=ours
+doctypes.txt merge=ours
+doctypes-all.txt merge=ours
+informationsystem-test-case.txt merge=ours
+generate-performance-sample.sh merge=ours
+
+# Files requiring manual review during merge
+app/confluence.yml merge=manual
+app/util/data_preparation/confluence_prepare_data.py merge=manual
+app/util/k8s/dcapt.tfvars merge=manual
+app/util/k8s/dcapt-small.tfvars merge=manual
