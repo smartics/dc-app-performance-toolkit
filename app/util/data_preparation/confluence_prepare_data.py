@@ -272,6 +272,12 @@ def __setup_blueprint_pages(perf_user_api):
     """Setup ProjectDoc Blueprint-Seiten für Performance-Tests"""
     print("=== BLUEPRINT SETUP START ===")
 
+    # Prüfe ob Blueprint-Tests überhaupt aktiviert sind (standalone_extension_blueprints > 0)
+    blueprint_percentage = int(CONFLUENCE_SETTINGS.env_settings.get('standalone_extension_blueprints', 0))
+    if blueprint_percentage == 0:
+        print("INFO: standalone_extension_blueprints=0, Blueprint-Setup übersprungen.")
+        return []
+
     # Doctypes aus Datei lesen
     doctypes_file = 'doctypes.txt'
     if not os.path.exists(doctypes_file):
