@@ -35,6 +35,51 @@ Die projectdoc Toolbox enthält alle Funktionen der Documentation Macros plus zu
 - Konfiguration wird je nach zu testender App angepasst
 - Aktueller Branch: `smartics-dcapt-2025-all`
 
+### Confluence Spaces
+
+| Space Key | Zweck |
+|-----------|-------|
+| `DCAPT` | Standard-Testseiten für Atlassian Performance Tests (100 Seiten) |
+| `DCAPTUC` | Use-Case-Seiten für Smartics App-Tests (DM, Toolbox, IS, BP, US) |
+
+**Test-Instanz:** `https://c10dcapt.smartics.eu`
+
+**Setup-Script:** `smartics/setup_confluence_spaces.py`
+
+### Credentials
+
+Credentials werden in `smartics/.env` gespeichert (nicht committed):
+
+```bash
+# Template kopieren
+cp smartics/.env.template smartics/.env
+# Dann .env editieren
+```
+
+Inhalt von `smartics/.env`:
+```
+CONFLUENCE_URL=https://c10dcapt.smartics.eu
+CONFLUENCE_USER=admin
+CONFLUENCE_TOKEN=<personal_access_token>
+```
+
+### Setup ausführen
+
+```bash
+# Mit python-dotenv (liest .env automatisch)
+pip install python-dotenv
+python smartics/setup_confluence_spaces.py
+
+# Oder mit expliziten Parametern
+python smartics/setup_confluence_spaces.py --token <TOKEN>
+
+# Optionen
+--skip-dcapt      # Nur Use-Case Space erstellen
+--skip-usecase    # Nur DCAPT Space erstellen
+--pages 50        # Anzahl Testseiten (default: 100)
+--pages-folder ./pages  # Seiten aus Storage-Format-Dateien laden
+```
+
 ### Blueprint-Steuerung (gelöst)
 
 Ein Schalter in `confluence.yml` steuert **beides** - Setup und Locust-Task:

@@ -23,7 +23,7 @@ _thread_local = threading.local()
 # --------------------------------------------------------------------------------------------------------------------
 # smartics-pd
 # --------------------------------------------------------------------------------------------------------------------
-TESTCASE_SPACE_KEY = "PROJECTDOCTEST"
+TESTCASE_SPACE_KEY = "DCAPTUC"
 
 # --------------------------------------------------------------------------------------------------------------------
 # smartcs-us USERSCRIPT-PARAMETERS
@@ -262,7 +262,7 @@ def app_specific_action_information_system(locust):
 # @run_as_specific_user(username='admin', password='admin')  # run as specific user
 def app_specific_action_web_api(locust):
     logger.info(f"WEB-API")
-    r = locust.get('/rest/projectdoc/1/document?select=Title%2CName%2CIteration&from=PROJECTDOCTEST&where=%24%3CTitle%3E%3D%5Bprojectdoc%20Space%20for%20Test%20Cases%5D&expand=property',
+    r = locust.get(f'/rest/projectdoc/1/document?select=Title%2CName%2CIteration&from={TESTCASE_SPACE_KEY}&where=%24%3CTitle%3E%3D%5Bprojectdoc%20Space%20for%20Test%20Cases%5D&expand=property',
                    catch_response=True)  # call app-specific GET endpoint
     content = r.content.decode('utf-8')  # decode response content
 
