@@ -12,13 +12,19 @@ from typing import Dict
 
 import requests
 from requests.auth import HTTPBasicAuth
-import smarticssecrets
+from dotenv import load_dotenv
 
-# set username and password and url in smarticssecrets
-#e.g.:
-#username="anton.kronseder"
-#password="XXXXX"
-#url="https://www.smartics.eu/confluence"
+# Load environment variables from .env file
+load_dotenv()
+
+# Credentials are now loaded from environment variables
+# See .env.template for required variables:
+# - SMARTICS_DOC_SYSTEM_URL
+# - SMARTICS_DOC_SYSTEM_USERNAME
+# - SMARTICS_DOC_SYSTEM_PASSWORD
+# - SMARTICS_TEST_SYSTEM_URL
+# - SMARTICS_TEST_SYSTEM_USERNAME
+# - SMARTICS_TEST_SYSTEM_PASSWORD
 
 
 class SmarticsException(Exception):
@@ -305,15 +311,20 @@ class SmarticsConfluencePerformance:
         results_csv = path_to_last_run+"/results.csv"
 
         #prepare data
-        documentation_system_url= smarticssecrets.documentation_system_url
+        documentation_system_url= os.getenv('SMARTICS_DOC_SYSTEM_URL')
         documentation_system_create_projectdoc_document_url=documentation_system_url+"/rest/projectdoc/1/document.json"
         documentation_system_check_login_url=documentation_system_url + "/rest/api/user/current"
-        documentation_system_username= smarticssecrets.documentation_system_username
-        documentation_system_password= smarticssecrets.documentation_system_password
+        documentation_system_username= os.getenv('SMARTICS_DOC_SYSTEM_USERNAME')
+        documentation_system_password= os.getenv('SMARTICS_DOC_SYSTEM_PASSWORD')
 
-        system_under_test_url= smarticssecrets.system_under_test_url
-        system_under_test_username= smarticssecrets.system_under_test_username
-        system_under_test_password= smarticssecrets.system_under_test_password
+        system_under_test_url= os.getenv('SMARTICS_TEST_SYSTEM_URL')
+        system_under_test_username= os.getenv('SMARTICS_TEST_SYSTEM_USERNAME')
+        system_under_test_password= os.getenv('SMARTICS_TEST_SYSTEM_PASSWORD')
+
+        # Validate that all required environment variables are set
+        if not all([documentation_system_url, documentation_system_username, documentation_system_password,
+                   system_under_test_url, system_under_test_username, system_under_test_password]):
+            raise ValueError("Missing required environment variables. Please check .env file. See .env.template for required variables.")
         system_under_test_check_login_url=system_under_test_url + "/rest/api/user/current"
 
         #login to documentation_system

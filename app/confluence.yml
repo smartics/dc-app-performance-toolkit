@@ -3,7 +3,7 @@ settings:
   artifacts-dir: results/confluence/%Y-%m-%d_%H-%M-%S
   aggregator: consolidator
   verbose: false
-  check-updates: false    # disable bzt check for updates
+  check-updates: false                 # disable bzt check for updates
   env:
     application_hostname: a4b78a3cab3364dbdb8afbea3a5f4685-2038387234.us-east-2.elb.amazonaws.com  # Confluence DC hostname without protocol, port and postfix e.g. test-confluence.atlassian.com or localhost
     application_protocol: http         # http or https
@@ -12,9 +12,7 @@ settings:
     application_postfix: /confluence   # e.g. /confluence for TerraForm deployment url like `http://a1234-54321.us-east-2.elb.amazonaws.com/confluence`. Leave this value blank for url without postfix.
     admin_login: admin
     admin_password: admin
-
-    #smartics or jmeter
-    load_executor: locust              # jmeter and locust are supported. jmeter by default.
+    load_executor: locust              # jmeter and locust are supported. jmeter by default. Smartics uses locust.
     concurrency: 200                   # number of concurrent virtual users for jmeter or locust scenario
     test_duration: 45m
     ramp-up: 5m                        # time to spin all concurrent users
@@ -37,33 +35,23 @@ settings:
     upload_attachment: 7
     like_page: 3
     upload_emoticon: 4      # For Confluence 8.4.x+
-    standalone_extension: 5 # By default disabled
+    standalone_extension: 5 # By default disabled. Smartics: enabled with 5%
+    # Smartics custom test actions
     standalone_extension_us_rest_content: 5
-    #smartics
-    standalone_extension_section: 6 # By default disabled
-    standalone_extension_hide: 6 # By default disabled
-    standalone_extension_hidefromreader: 6 # By default disabled
-    standalone_extension_hidefromanonymous: 6 # By default disabled
-    standalone_extension_definitionlist: 6 # By default disabled
-
+    standalone_extension_section: 6
+    standalone_extension_hide: 6
+    standalone_extension_hidefromreader: 6
+    standalone_extension_hidefromanonymous: 6
+    standalone_extension_definitionlist: 6
     standalone_extension_transclude_documents: 6
     standalone_extension_display_table: 6
-    standalone_extension_web_api: 6 
+    standalone_extension_web_api: 6
     standalone_extension_information_system: 6
     standalone_extension_blueprints: 6
+    # Custom dataset section.
+    custom_dataset_query: title ~ 'Test Case'  # Write CQL query to add CQL output to the app/datasets/confluence/custom_pages.csv, e.g. "title ~ 'AppPage*'"
+    local_chrome_binary_path:       # e.g. /usr/bin/google-chrome-stable. Leave it blank to use default Chrome binary path.
 
-    # Custom dataset section
-    custom_dataset_query: title ~ 'Test Case'
-#    custom_dataset_query: space='MAN1' AND title ~ 'Versuch*' 
-    # Write CQL query to add CQL output to the app/datasets/confluence/custom_pages.csv, e.g. "title ~ 'AppPage*'"
-    # custom_dataset_query:  # Write CQL query to add CQL output to the app/datasets/confluence/custom_pages.csv, e.g. "title ~ 'AppPage*'"
-    # Write CQL query to add CQL output to the app/datasets/confluence/custom_pages.csv, e.g. "title ~ 'AppPage*'"
-    #smartics compared
-    # custom_dataset_query:
-    #    custom_dataset_query:  "space='PROJECTDOCTEST' AND (title = 'Test Case Display Table' OR title =  'Test Case Transclude from Documents')"
-    # custom_dataset_query:   # Write CQL query to add CQL output to the app/datasets/confluence/custom_pages.csv, e.g. "title ~ 'AppPage*'"
-#    custom_dataset_query:  "title ~ 'DCPTCONTENT1 Home' OR title ~ 'Versuch A'"  # Write CQL query to add CQL output to the app/datasets/confluence/custom_pages.csv, e.g. "title ~ 'AppPage*'"
-    # custom_dataset_query: title ~ 'smarticsUserScriptPage'          # Write CQL query to add CQL output to the app/datasets/confluence/custom_pages.csv, e.g. "title ~ 'AppPage*'"
 services:
   - module: shellexec
     prepare:
@@ -78,7 +66,7 @@ services:
       - python util/post_run/cleanup_results_dir.py
   - module: pip-install
     packages:
-      - selenium==4.31.0
+      - selenium==4.38.0
 execution:
   - scenario: ${load_executor}
     executor: ${load_executor}
@@ -140,32 +128,7 @@ modules:
       httpsampler.ignore_failed_embedded_resources: "true"
   selenium:
     chromedriver:
-#      version: "126.0.6478.126"
-#      version: "101.0.4951.41" # Supports Chrome version 101. You can refer to http://chromedriver.chromium.org/downloads
-#      version: "90.0.4430.24" # Supports Chrome version 97. You can refer to http://chromedriver.chromium.org/downloads
-#      version: "102.0.5005.61" # Supports Chrome version 102. You can refer to http://chromedriver.chromium.org/downloads
-#      version: "103.0.5060.134" # Supports Chrome version 103. You can refer to http://chromedriver.chromium.org/downloads
-#      version: "114.0.5735.90" # Supports Chrome version 103. You can refer to http://chromedriver.chromium.org/downloads
-#      version: "118.0.5993.70" # Supports Chrome version 118. You can refer to https://googlechromelabs.github.io/chrome-for-testing
-#      version: "130.0.6723.91" # Supports Chrome version 130. You can refer to https://googlechromelabs.github.io/chrome-for-testing
-#      version: "137.0.7151.70" # Supports Chrome version 137. You can refer to https://googlechromelabs.github.io/chrome-for-testing
-      version: "137.0.7151.103"
-        #      version: "138.0.7204.92" 
-        #  blazemeter:
-    # token: e41bf0cde4ff5c5d75ba5e5ee9aa200e85bfe870a51262efdf4a4e6dcb084f3a677dcb25
-    # address: https://a.blazemeter.com  # reporting service address
-    # data-address: https://data.blazemeter.com  # data service address
-#    browser-open: none  # auto-open the report in browser,
-    # can be "start", "end", "both", "none"
-    # send-interval: 30s   # send data each n-th second
-    # timeout: 5s  # connect and request timeout for BlazeMeter API
-    # artifact-upload-size-limit: 5  # limit max size of file (in megabytes)
-    # that goes into zip for artifact upload, 10 by default
-    # following instructions will have effect when no per-reporter settings
-#    report-name:  ask # if you will use value 'ask', it will ask it from command line
-    #  modules.blazemeter.report-name="example-1"
-#    test: regression-example
-#    project: projectdoc
+      version: "142.0.7444.61" # Supports Chrome version 142. You can refer to https://googlechromelabs.github.io/chrome-for-testing
 reporting:
 - data-source: sample-labels
   module: junit-xml

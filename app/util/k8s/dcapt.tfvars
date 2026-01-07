@@ -111,11 +111,11 @@ jira_image_repository = "atlassian/jira-software"
 
 # Supported versions by DCAPT: https://github.com/atlassian/dc-app-performance-toolkit#supported-versions
 # Jira version
-jira_version_tag = "10.3.4"
+jira_version_tag = "10.3.12"
 
 # JSM version
 # ! REQUIRED for JSM !
-# jira_version_tag = "10.3.4"
+# jira_version_tag = "10.3.12"
 
 # Dataset size. Used only when snapshots_json_file_path is defined. Defaults to large.
 jira_dataset_size = "large"
@@ -173,7 +173,7 @@ jira_additional_jvm_args = ["-Dupm.plugin.upload.enabled=true"]
 ################################################################################
 
 # Supported versions by DCAPT: https://github.com/atlassian/dc-app-performance-toolkit#supported-versions
-confluence_version_tag = "9.2.2"
+confluence_version_tag = "9.2.9"
 
 # Dataset size. Used only when snapshots_json_file_path is defined. Defaults to large
 confluence_dataset_size = "large"
@@ -248,7 +248,7 @@ confluence_additional_jvm_args = ["-Dupm.plugin.upload.enabled=true"]
 ################################################################################
 
 # Supported versions by DCAPT: https://github.com/atlassian/dc-app-performance-toolkit#supported-versions
-bitbucket_version_tag = "9.4.4"
+bitbucket_version_tag = "9.4.12"
 
 # Dataset size. Used only when snapshots_json_file_path is defined. Defaults to large
 bitbucket_dataset_size = "large"
@@ -336,7 +336,7 @@ bitbucket_additional_jvm_args = ["-Dupm.plugin.upload.enabled=true"]
 ################################################################################
 
 # Supported versions by DCAPT: https://github.com/atlassian/dc-app-performance-toolkit#supported-versions
-crowd_version_tag = "6.3.0"
+crowd_version_tag = "7.1.0"
 
 # Helm chart version of Crowd and Crowd agent instances. By default the latest version is installed.
 # crowd_helm_chart_version       = "<helm_chart_version>"
@@ -367,7 +367,7 @@ crowd_nfs_limits_memory   = "2Gi"
 # Documentation can be found via:
 # https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html
 # https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_Storage.html#USER_PIOPS
-crowd_db_major_engine_version = "14"
+crowd_db_major_engine_version = "17"
 crowd_db_instance_class       = "db.m5.large"
 crowd_db_allocated_storage    = 200
 crowd_db_iops                 = 1000
@@ -391,7 +391,7 @@ crowd_db_master_password     = "Password1!"
 
 # A list of JVM arguments to be passed to the server. Defaults to an empty list.
 # Example: ["-Dproperty=value", "-Dproperty1=value1"]
-crowd_additional_jvm_args = ["-Dupm.plugin.upload.enabled=true"]
+crowd_additional_jvm_args = ["-Dupm.plugin.upload.enabled=true", "-Datlassian.upm.config.loosecheck.allowed=true"]
 
 ################################################################################
 # Bamboo Settings
@@ -400,8 +400,8 @@ crowd_additional_jvm_args = ["-Dupm.plugin.upload.enabled=true"]
 # By default, latest supported by DCAPT version is set.
 # https://hub.docker.com/r/atlassian/bamboo/tags
 # https://hub.docker.com/r/atlassian/bamboo-agent-base/tags
-bamboo_version_tag       = "10.2.2"
-bamboo_agent_version_tag = "10.2.2"
+bamboo_version_tag       = "10.2.9"
+bamboo_agent_version_tag = "10.2.9"
 
 # Helm chart version of Bamboo and Bamboo agent instances
 # bamboo_helm_chart_version       = "<helm_chart_version>"
@@ -462,7 +462,7 @@ bamboo_nfs_limits_memory   = "2Gi"
 # Documentation can be found via:
 # https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html
 # https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_Storage.html#USER_PIOPS
-bamboo_db_major_engine_version = "14"
+bamboo_db_major_engine_version = "16"
 bamboo_db_instance_class       = "db.t3.medium"
 bamboo_db_allocated_storage    = 100
 bamboo_db_iops                 = 1000

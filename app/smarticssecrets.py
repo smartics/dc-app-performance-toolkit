@@ -1,6 +1,0 @@
-documentation_system_url="https://www.smartics.eu/confluence"
-documentation_system_username="anton.kronseder"
-documentation_system_password="XX"
-system_under_test_url = "https://c7perf.smartics.mobi"
-system_under_test_username="anton.kronseder"
-system_under_test_password="XX"
