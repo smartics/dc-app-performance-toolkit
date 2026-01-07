@@ -605,7 +605,10 @@ def open_editor_and_create_blog(locust):
         logger.locust_info(f'Blog {created_blog_title} created')
 
         # 680 {created_blog_title}
-        r = locust.get(f'/{created_blog_title}', catch_response=True)
+        # Fix: webui path from API already starts with "/" (e.g. "/spaces/DCAPT/blog/...")
+        # Avoid double slash when constructing URL
+        blog_url = created_blog_title if created_blog_title.startswith('/') else f'/{created_blog_title}'
+        r = locust.get(blog_url, catch_response=True)
 
         content = r.content.decode('utf-8')
         if 'Created by' not in content:
