@@ -20,3 +20,19 @@ confluence.yml-smartics
 app/util/k8s/aws_envs
 app/util/k8s/logs
 app/util/k8s/aws_envs_SECRETS
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.template
+app/smarticssecrets.py
+*.secret
+*.secrets
+
+# Terraform sensitive files
+app/util/k8s/dcapt.tfvars.local
+app/util/k8s/dcapt-small.tfvars.local
+app/util/k8s/terraform.tfstate
+app/util/k8s/terraform.tfstate.backup
+app/util/k8s/.terraform/
+app/util/k8s/.terraform.lock.hcl
