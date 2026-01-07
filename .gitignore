@@ -36,3 +36,6 @@ app/util/k8s/terraform.tfstate
 app/util/k8s/terraform.tfstate.backup
 app/util/k8s/.terraform/
 app/util/k8s/.terraform.lock.hcl
+/app/chromedriver.zip
+/app/chromedriver-win64/
+/app/chromedriver.exe

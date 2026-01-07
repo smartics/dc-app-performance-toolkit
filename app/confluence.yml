@@ -5,23 +5,23 @@ settings:
   verbose: false
   check-updates: false                 # disable bzt check for updates
   env:
-    application_hostname: a4b78a3cab3364dbdb8afbea3a5f4685-2038387234.us-east-2.elb.amazonaws.com  # Confluence DC hostname without protocol, port and postfix e.g. test-confluence.atlassian.com or localhost
-    application_protocol: http         # http or https
-    application_port: 80               # 80, 443, 8080, 1990, etc
+    application_hostname: c10dcapt.smartics.eu  # Smartics Test-Instanz
+    application_protocol: https        # http or https
+    application_port: 443              # 80, 443, 8080, 1990, etc
     secure: True                       # Set False to allow insecure connections, e.g. when using self-signed SSL certificate
-    application_postfix: /confluence   # e.g. /confluence for TerraForm deployment url like `http://a1234-54321.us-east-2.elb.amazonaws.com/confluence`. Leave this value blank for url without postfix.
+    application_postfix:               # leer - kein Postfix
     admin_login: admin
-    admin_password: admin
+    admin_password: welsmacome
     load_executor: locust              # jmeter and locust are supported. jmeter by default. Smartics uses locust.
-    concurrency: 200                   # number of concurrent virtual users for jmeter or locust scenario
-    test_duration: 45m
-    ramp-up: 5m                        # time to spin all concurrent users
+    concurrency: 2                     # Dev-Test: 2, Enterprise: 200
+    test_duration: 5m                  # Dev-Test: 5m, Enterprise: 45m
+    ramp-up: 1m                        # Dev-Test: 1m, Enterprise: 5m
     total_actions_per_hour: 20000
     WEBDRIVER_VISIBLE: False
     JMETER_VERSION: 5.6.3
     LANGUAGE: en_US.utf8
     allow_analytics: Yes               # Allow sending basic run analytics to Atlassian. These analytics help us to understand how the tool is being used and help us to continue to invest in this tooling. For more details please see our README.
-    environment_compliance_check: True # Pre-test environment compliance validation. Set to "False" to skip it.
+    environment_compliance_check: False # Deaktiviert - Chrome/Selenium nicht konfiguriert
     extended_metrics: False
     # Action percentage for JMeter and Locust load executors
     view_page: 33
@@ -49,7 +49,7 @@ settings:
     standalone_extension_information_system: 0   # IS - deaktiviert
     standalone_extension_blueprints: 0           # BP - deaktiviert
     # Custom dataset section.
-    custom_dataset_query: title ~ 'Test Case'  # Write CQL query to add CQL output to the app/datasets/confluence/custom_pages.csv, e.g. "title ~ 'AppPage*'"
+    custom_dataset_query: title ~ 'MoreProjectdocUC'  # DM-Testseite im Space DCAPTUC
     local_chrome_binary_path:       # e.g. /usr/bin/google-chrome-stable. Leave it blank to use default Chrome binary path.
 
 services:
@@ -66,7 +66,7 @@ services:
       - python util/post_run/cleanup_results_dir.py
   - module: pip-install
     packages:
-      - selenium==4.38.0
+      - selenium==4.27.1
 execution:
   - scenario: ${load_executor}
     executor: ${load_executor}
@@ -128,7 +128,7 @@ modules:
       httpsampler.ignore_failed_embedded_resources: "true"
   selenium:
     chromedriver:
-      version: "142.0.7444.61" # Supports Chrome version 142. You can refer to https://googlechromelabs.github.io/chrome-for-testing
+      version: "143.0.7499.192" # Supports Chrome version 143. You can refer to https://googlechromelabs.github.io/chrome-for-testing
 reporting:
 - data-source: sample-labels
   module: junit-xml

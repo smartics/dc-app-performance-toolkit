@@ -3,6 +3,9 @@
 > **WICHTIG: Alle Fragen und Arbeiten beziehen sich ausschließlich auf Confluence Data Center!**
 > **NICHT auf Jira, Bamboo, Bitbucket oder andere Atlassian-Produkte!**
 
+> **COMMIT-REGEL: Keine Claude Code Branding/Werbung in Commit-Messages!**
+> Kein "🤖 Generated with Claude Code", kein "Co-Authored-By: Claude"
+
 ---
 
 ## Smartics Marketplace Apps & Teststrategie

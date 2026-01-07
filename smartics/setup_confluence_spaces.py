@@ -200,6 +200,78 @@ class ConfluenceSetup:
         print(f"  {created} von {count} Seiten erstellt.")
         return created
 
+    def blogpost_exists(self, space_key, title):
+        """Prüft ob ein Blogpost existiert"""
+        response = self.session.get(
+            self._api_url('content'),
+            params={
+                'spaceKey': space_key,
+                'title': title,
+                'type': 'blogpost'
+            }
+        )
+        if response.status_code == 200:
+            data = response.json()
+            return len(data.get('results', [])) > 0
+        return False
+
+    def create_blogpost(self, space_key, title, content=""):
+        """Erstellt einen neuen Blogpost"""
+        if self.blogpost_exists(space_key, title):
+            print(f"    Blogpost '{title}' existiert bereits.")
+            return None
+
+        payload = {
+            "type": "blogpost",
+            "title": title,
+            "space": {"key": space_key},
+            "body": {
+                "storage": {
+                    "value": content,
+                    "representation": "storage"
+                }
+            }
+        }
+
+        response = self.session.post(self._api_url('content'), json=payload)
+
+        if response.status_code in [200, 201]:
+            data = response.json()
+            print(f"    Blogpost '{title}' erstellt (ID: {data.get('id')})")
+            return data.get('id')
+        else:
+            print(f"    FEHLER bei Blogpost '{title}': {response.status_code}")
+            if response.status_code != 400:
+                print(f"    Response: {response.text[:200]}")
+            return None
+
+    def create_test_blogposts(self, space_key, count=50):
+        """Erstellt Test-Blogposts für Performance-Tests"""
+        print(f"\nErstelle {count} Blogposts in Space '{space_key}'...")
+
+        created = 0
+        for i in range(1, count + 1):
+            title = f"DCAPT Test Blog {i:04d}"
+            content = f"""
+            <h1>Test Blog {i}</h1>
+            <p>Dieser Blogpost wurde automatisch für DCAPT Performance-Tests erstellt.</p>
+            <p>Blog-Nummer: {i}</p>
+            <h2>Neuigkeiten</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
+            <h2>Details</h2>
+            <p>Duis aute irure dolor in reprehenderit in voluptate velit esse
+            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+            cupidatat non proident, sunt in culpa qui officia deserunt mollit.</p>
+            """
+
+            if self.create_blogpost(space_key, title, content):
+                created += 1
+
+        print(f"  {created} von {count} Blogposts erstellt.")
+        return created
+
     def create_usecase_structure(self, space_key, parent_id=None):
         """Erstellt die Struktur für Smartics App Use-Cases"""
         print(f"\nErstelle Use-Case-Struktur in Space '{space_key}'...")
@@ -295,12 +367,16 @@ def main():
                         help='Personal Access Token (für Token Auth, hat Vorrang vor Password)')
     parser.add_argument('--pages', type=int, default=100,
                         help='Anzahl der Testseiten für DCAPT Space (default: 100)')
+    parser.add_argument('--blogs', type=int, default=50,
+                        help='Anzahl der Blogposts für DCAPT Space (default: 50)')
     parser.add_argument('--pages-folder',
                         help='Ordner mit Storage-Format-Dateien für zusätzliche Seiten')
     parser.add_argument('--skip-dcapt', action='store_true',
                         help='DCAPT Space überspringen')
     parser.add_argument('--skip-usecase', action='store_true',
                         help='DCAPT-UC Space überspringen')
+    parser.add_argument('--only-blogs', action='store_true',
+                        help='Nur Blogposts erstellen (keine Seiten, keine Spaces)')
 
     args = parser.parse_args()
 
@@ -324,6 +400,14 @@ def main():
     if not setup.test_connection():
         sys.exit(1)
 
+    # Nur Blogposts erstellen (Shortcut)
+    if args.only_blogs:
+        setup.create_test_blogposts('DCAPT', args.blogs)
+        print("\n" + "=" * 60)
+        print("Blogposts erstellt!")
+        print("=" * 60)
+        sys.exit(0)
+
     # Space DCAPT für Standard-Tests
     if not args.skip_dcapt:
         print("\n" + "-" * 40)
@@ -337,6 +421,7 @@ def main():
         )
 
         setup.create_test_pages('DCAPT', args.pages, homepage_id)
+        setup.create_test_blogposts('DCAPT', args.blogs)
 
     # Space DCAPT-UC für Smartics App Use-Cases
     if not args.skip_usecase:
