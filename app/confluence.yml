@@ -5,23 +5,23 @@ settings:
   verbose: false
   check-updates: false                 # disable bzt check for updates
   env:
-    application_hostname: c10dcapt.smartics.eu  # Smartics Test-Instanz
-    application_protocol: https        # http or https
-    application_port: 443              # 80, 443, 8080, 1990, etc
+    application_hostname: CHANGEME.us-east-2.elb.amazonaws.com  # AWS ELB - nach Cluster-Erstellung anpassen!
+    application_protocol: http         # http or https
+    application_port: 80               # 80, 443, 8080, 1990, etc
     secure: True                       # Set False to allow insecure connections, e.g. when using self-signed SSL certificate
-    application_postfix:               # leer - kein Postfix
+    application_postfix: /confluence   # Standard für AWS Terraform Deployment
     admin_login: admin
-    admin_password: welsmacome
+    admin_password: admin              # Standard AWS Dataset Passwort
     load_executor: locust              # jmeter and locust are supported. jmeter by default. Smartics uses locust.
-    concurrency: 2                     # Dev-Test: 2, Enterprise: 200
-    test_duration: 5m                  # Dev-Test: 5m, Enterprise: 45m
-    ramp-up: 1m                        # Dev-Test: 1m, Enterprise: 5m
+    concurrency: 200                   # Enterprise: 200
+    test_duration: 45m                 # Enterprise: 45m
+    ramp-up: 5m                        # Enterprise: 5m
     total_actions_per_hour: 20000
     WEBDRIVER_VISIBLE: False
     JMETER_VERSION: 5.6.3
     LANGUAGE: en_US.utf8
     allow_analytics: Yes               # Allow sending basic run analytics to Atlassian. These analytics help us to understand how the tool is being used and help us to continue to invest in this tooling. For more details please see our README.
-    environment_compliance_check: False # Deaktiviert - Chrome/Selenium nicht konfiguriert
+    environment_compliance_check: True  # Enterprise: aktiviert
     extended_metrics: False
     # Action percentage for JMeter and Locust load executors
     view_page: 33
