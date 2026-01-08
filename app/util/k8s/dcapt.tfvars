@@ -26,7 +26,7 @@ products = ["confluence"]
 # ! IMPORTANT ! Please make sure valid license is used without spaces and new line symbols.
 # ! REQUIRED !
 jira_license = "jira-license"
-confluence_license = "AAABow0ODAoPeNp9Ul1v2jAUfc+vsDRp2h6CnLCED8lSOycD2nywAi2teHHCpYkaDPIHDH79TN2o26T1zb7n+Nxzz/WneaXRjW6QhxHuDv1g6PcRjebIx37gUAFM1TseMQXkUnFxz/WwE4EsRb2/QITu+KbRwEtAXwyPIQpcgfi6GqL4wBr9KuCkrDZVzgwt/rWvxekPyb6LB05Sl8Dlf8DGgvcg5KWl78x08e5ACQ1OaWx0Mr0tQOSbhTRM4nrOuwPLysUz47W0FbllQtWlRLdiZ9TXINBndAc1N4fRthhbTVaq+gD2uZlVmXtspmkI42rHOy/t26tWrrOG1vCYyYqk9Eh/xMv5Tbhk03T6LbvPbp/OD+GooGq/Hpyvq58Fp0kh0yqv2PF01otF+uCdl73neHxckRWxRt4Smp/2kLEtEJqnaXxHJ9eJxWfK9AdBNqyR0OY5iUgyiWZx5ia+h4OgG5rwQBxAGOT7Evvu4DH33EnWD90kD0ZW6rJHu0Y79wuc2uy9EOMe7ne7njPVoqyYhH9/x1tKryY/Csm4In87+w0TZtnqMCwCFH1F3n3Jyc0BkYSqKbAKvOk6+OA1AhQ8yGeV/E+FB6s8FjMHYDyZ7x3y7A==X02k8"
+confluence_license = "AAABog0ODAoPeNp9UtFumzAUfecrLE2qNk1EhiwMIllaamiTFsIK6ZRNeXGcy8JCDLKBlb+fUxd1m7S92fccn3vuuX6zOXbojgmEfYSD+Qd/PvURzTfIxa5nUQmsLWsRshbIpWJjx8aBFYLismwuEKG1KKoOBAf0VvMYoiBakO92cxT1rOqeBayElboqmKZFT00ph98kXRv7VlxyEOofYGXALyDVpaVr5d3+1UErO7C4tjFZd+c9yLR4VJpJbMd6dWBYqfzORKlMRZ2ZbEuu0L2stfoBJLpCGZRCH27P+6XRZLwtezDP9aytvkd6moow0dZichrffhrlJgcYDS+ZOpKE/qQ316e7xbYZ/NPsB4tEv6kfl3JRpLzw88Uxe5+EWeD1Rca3Sf8kvw39oaFJ4N4kDzuyI8bIS0KboYE1OwOhaZJEGV0tYoPnre4PkhSsUjDmuQpJvArzaG3HrjN1vBmeWTnIHqRGrrc63uBr6tirte/ZcTq7NVKXPZo1mrlPMIzZOx7GH7E/nTrW507yI1Pw9+94SenZ5P9C0q7In85+AQ0z2cEwLAIUBGcTckl0DfUXS56cxlcaRS0PE6kCFCNd0SlEw2Uw5bd74svtddtz92h+X02k4"
 bitbucket_license = "bitbucket-license"
 crowd_license = "crowd-license"
 bamboo_license = "bamboo-license"
@@ -173,7 +173,7 @@ jira_additional_jvm_args = ["-Dupm.plugin.upload.enabled=true"]
 ################################################################################
 
 # Supported versions by DCAPT: https://github.com/atlassian/dc-app-performance-toolkit#supported-versions
-confluence_version_tag = "9.2.9"
+confluence_version_tag = "10.0.3"
 
 # Dataset size. Used only when snapshots_json_file_path is defined. Defaults to large
 confluence_dataset_size = "large"
