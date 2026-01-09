@@ -35,14 +35,15 @@ settings:
     upload_attachment: 7
     like_page: 3
     upload_emoticon: 4      # For Confluence 8.4.x+
-    standalone_extension: 0 # US - deaktiviert für DM-Tests
-    # Smartics custom test actions
-    standalone_extension_us_rest_content: 0      # US - deaktiviert
-    standalone_extension_section: 6              # DM ✓
-    standalone_extension_hide: 6                 # DM ✓
-    standalone_extension_hidefromreader: 6       # DM ✓
-    standalone_extension_hidefromanonymous: 6    # DM ✓
-    standalone_extension_definitionlist: 6       # DM ✓
+    standalone_extension: 0
+    # Smartics custom test actions - ALL DISABLED for Run 1 & 2 (Performance Regression)
+    # Enable for Run 3-5 (Scalability): set DM values to 6
+    standalone_extension_us_rest_content: 0      # US
+    standalone_extension_section: 0              # DM - Run 3-5: 6
+    standalone_extension_hide: 0                 # DM - Run 3-5: 6
+    standalone_extension_hidefromreader: 0       # DM - Run 3-5: 6
+    standalone_extension_hidefromanonymous: 0    # DM - Run 3-5: 6
+    standalone_extension_definitionlist: 0       # DM - Run 3-5: 6
     standalone_extension_transclude_documents: 0 # Toolbox - deaktiviert
     standalone_extension_display_table: 0        # Toolbox - deaktiviert
     standalone_extension_web_api: 0              # Toolbox - deaktiviert
