@@ -5,7 +5,7 @@ settings:
   verbose: false
   check-updates: false                 # disable bzt check for updates
   env:
-    application_hostname: CHANGEME.us-east-2.elb.amazonaws.com  # AWS ELB - nach Cluster-Erstellung anpassen!
+    application_hostname: a98e3638710f1468ab64b50cd0b93d33-1489266278.us-east-2.elb.amazonaws.com
     application_protocol: http         # http or https
     application_port: 80               # 80, 443, 8080, 1990, etc
     secure: True                       # Set False to allow insecure connections, e.g. when using self-signed SSL certificate
