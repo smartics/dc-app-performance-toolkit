@@ -4,5 +4,10 @@
       "WebFetch(domain:developer.atlassian.com)",
       "WebFetch(domain:github.com)"
     ]
-  }
+  },
+  "enabledMcpjsonServers": [
+    "forge-knowledge",
+    "atlassian"
+  ],
+  "enableAllProjectMcpServers": true
 }
