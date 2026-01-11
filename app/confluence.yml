@@ -36,21 +36,23 @@ settings:
     like_page: 3
     upload_emoticon: 4      # For Confluence 8.4.x+
     standalone_extension: 0
-    # Smartics custom test actions - ALL DISABLED for Run 1 & 2 (Performance Regression)
+    # Smartics custom test actions - ENABLED for Run 3-5 (Scalability - Documentation Macros)
     # Enable for Run 3-5 (Scalability): set DM values to 6
     standalone_extension_us_rest_content: 0      # US
-    standalone_extension_section: 0              # DM - Run 3-5: 6
-    standalone_extension_hide: 0                 # DM - Run 3-5: 6
-    standalone_extension_hidefromreader: 0       # DM - Run 3-5: 6
-    standalone_extension_hidefromanonymous: 0    # DM - Run 3-5: 6
-    standalone_extension_definitionlist: 0       # DM - Run 3-5: 6
+    standalone_extension_section: 6              # DM - Run 3-5: 6
+    standalone_extension_hide: 6                 # DM - Run 3-5: 6
+    standalone_extension_hidefromreader: 6       # DM - Run 3-5: 6
+    standalone_extension_hidefromanonymous: 6    # DM - Run 3-5: 6
+    standalone_extension_definitionlist: 6       # DM - Run 3-5: 6
     standalone_extension_transclude_documents: 0 # Toolbox - deaktiviert
     standalone_extension_display_table: 0        # Toolbox - deaktiviert
     standalone_extension_web_api: 0              # Toolbox - deaktiviert
     standalone_extension_information_system: 0   # IS - deaktiviert
     standalone_extension_blueprints: 0           # BP - deaktiviert
     # Custom dataset section.
-    custom_dataset_query: title ~ 'MoreProjectdocUC'  # DM-Testseite im Space DCAPTUC
+    # RUN 3-5: Custom dataset aktiviert für Documentation Macros
+    # RUN 3-5: Aktivieren mit: custom_dataset_query: title ~ 'MoreProjectdocUC'
+    custom_dataset_query: "title ~ 'MoreProjectdocUC'"  # DM-Testseite im Space DCAPTUC
     local_chrome_binary_path:       # e.g. /usr/bin/google-chrome-stable. Leave it blank to use default Chrome binary path.
 
 services:
