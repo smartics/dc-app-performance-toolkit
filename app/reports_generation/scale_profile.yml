@@ -5,16 +5,16 @@ runs:
   # E.g. relativePath: "./app/results/jira/2024-01-01_10-10-10"
   - runName: "1 Node"
     runType: "baseline"
-    relativePath: "./app/results/confluence/RUN3_A"
+    relativePath: "./app/results/confluence/RUN3_DM"
   - runName: "2 Nodes"
     runType: "experiment"
-    relativePath: "./app/results/confluence/RUN4_A"
+    relativePath: "./app/results/confluence/RUN4_DM"
   - runName: "4 Nodes"
     runType: "experiment"
-    relativePath: "./app/results/confluence/RUN5_A"
+    relativePath: "./app/results/confluence/RUN5_DM"
 
 # Chart generation configs
 index_col: "Action"
-title: "DCAPT Scale Testing"
+title: "Documentation Macros - Scalability Testing (1 Node vs 2 Nodes vs 4 Nodes)"
 image_height_px: 1000
 image_width_px: 1600
