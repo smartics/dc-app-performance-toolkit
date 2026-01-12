@@ -406,6 +406,226 @@ SMARTICS_TEST_SYSTEM_PASSWORD=admin
 - ~6.000.000 Kommentare
 - ~5.000 Spaces und Benutzer
 
+### Aktuelle Konfiguration (Januar 2026)
+- **Environment Name**: `dcapt-confluence-e1`
+- **Region**: `us-east-2`
+- **Produkt**: Confluence 10.0.3
+- **Nodes**: 4 Replica (m5.2xlarge, 200GB Disk)
+- **RDS**: db.m5.xlarge, PostgreSQL 14, 200GB
+- **Terraform Version**: `atlassianlabs/terraform:2.9.10`
+- **Config File**: `app/util/k8s/dcapt.tfvars`
+
+---
+
+## AWS Cluster Management
+
+### Environment starten (Enterprise-Scale)
+
+```bash
+cd app/util/k8s
+
+# Enterprise-Scale Cluster erstellen
+docker run --pull=always --env-file aws_envs \
+-v "/$PWD/dcapt.tfvars:/data-center-terraform/conf.tfvars" \
+-v "/$PWD/dcapt-snapshots.json:/data-center-terraform/dcapt-snapshots.json" \
+-v "/$PWD/logs:/data-center-terraform/logs" \
+-it atlassianlabs/terraform:2.9.10 ./install.sh -c conf.tfvars
+```
+
+**Wichtig:**
+- AWS Credentials in `app/util/k8s/aws_envs` konfigurieren
+- Lizenz in `dcapt.tfvars` eintragen (Zeile 29)
+- Ersten Start mit `replica_count = 1`, dann hochskalieren
+- Installation dauert ca. 30-45 Minuten
+
+### Environment terminieren (EMPFOHLEN)
+
+**Methode 1: Offizieller Terraform Uninstall**
+
+```bash
+cd app/util/k8s
+
+# Saubere Terraform-Terminierung
+docker run --pull=always --env-file aws_envs \
+-v "/$PWD/dcapt.tfvars:/data-center-terraform/conf.tfvars" \
+-v "/$PWD/dcapt-snapshots.json:/data-center-terraform/dcapt-snapshots.json" \
+-v "/$PWD/logs:/data-center-terraform/logs" \
+-it atlassianlabs/terraform:2.9.10 ./uninstall.sh -c conf.tfvars
+```
+
+**Löscht automatisch:**
+- ✅ EKS Kubernetes Cluster + Node Groups
+- ✅ RDS Datenbank (ohne Final Snapshot)
+- ✅ VPC, Subnets, Route Tables, Security Groups
+- ✅ Load Balancers (ALB/NLB)
+- ✅ NAT Gateways + Internet Gateways
+- ✅ EBS Volumes (Local & Shared Home)
+- ✅ Elastic IPs
+
+**Methode 2: Force Terminate (falls Terraform fehlschlägt)**
+
+```bash
+cd app/util/k8s
+
+# Python-Script für vollständige Bereinigung
+docker run --pull=always --env-file aws_envs \
+--workdir="//data-center-terraform" \
+--entrypoint="python" \
+-v "/$PWD/terminate_cluster.py:/data-center-terraform/terminate_cluster.py" \
+atlassian/dcapt terminate_cluster.py \
+--cluster_name atlas-dcapt-confluence-e1-cluster \
+--aws_region us-east-2
+```
+
+**Löscht zusätzlich:**
+- ✅ S3 Buckets (Terraform State: `atl-dc-dcapt-confluence-e1-*`)
+- ✅ DynamoDB Tables (Terraform Lock: `atl_dc_dcapt_confluence_e1`)
+- ✅ IAM Rollen (clusterspezifisch: `atlas-dcapt-confluence-e1-*`)
+- ✅ IAM Policies (clusterspezifisch)
+- ✅ OpenID Connect Provider
+- ✅ Orphaned EBS Volumes
+
+### Nach-Terminierung Prüfung
+
+**AWS CLI Credentials Setup:**
+
+```bash
+# Credentials aus aws_envs exportieren
+cd app/util/k8s
+export AWS_ACCESS_KEY_ID=$(grep AWS_ACCESS_KEY_ID aws_envs | cut -d= -f2)
+export AWS_SECRET_ACCESS_KEY=$(grep AWS_SECRET_ACCESS_KEY aws_envs | cut -d= -f2)
+
+# Oder manuell:
+export AWS_ACCESS_KEY_ID=AKIAXJULYBHH3I4QRTUI
+export AWS_SECRET_ACCESS_KEY=<secret_from_aws_envs>
+```
+
+**Ressourcen prüfen:**
+
+```bash
+# EKS Cluster
+aws eks list-clusters --region us-east-2
+
+# RDS Datenbanken
+aws rds describe-db-instances --region us-east-2 \
+  --query "DBInstances[?contains(DBInstanceIdentifier, 'confluence')].DBInstanceIdentifier"
+
+# EBS Volumes (nicht gemountet)
+aws ec2 describe-volumes --region us-east-2 \
+  --filters "Name=status,Values=available" \
+  --query "Volumes[].{ID:VolumeId,Size:Size,Tags:Tags[?Key=='Name'].Value|[0]}"
+
+# NAT Gateways (aktiv)
+aws ec2 describe-nat-gateways --region us-east-2 \
+  --filter "Name=state,Values=available"
+
+# S3 Buckets
+aws s3 ls | grep -E "(dcapt|confluence)"
+
+# Unattached Elastic IPs
+aws ec2 describe-addresses --region us-east-2 \
+  --query "Addresses[?AssociationId==null].{IP:PublicIp,ID:AllocationId}"
+
+# VPCs (non-default)
+aws ec2 describe-vpcs --region us-east-2 \
+  --filters "Name=isDefault,Values=false" \
+  --query "Vpcs[].{ID:VpcId,Tags:Tags[?Key=='Name'].Value|[0]}"
+```
+
+### Kosten-Übersicht
+
+**Laufende Kosten (während Tests):**
+
+| Ressource | Stündlich | Täglich (24h) | Monatlich |
+|-----------|-----------|---------------|-----------|
+| EKS Control Plane | $0.10 | $2.40 | ~$73 |
+| EC2 m5.2xlarge × 4 | $1.54 | $36.96 | ~$1,109 |
+| RDS db.m5.xlarge | $0.348 | $8.35 | ~$251 |
+| NAT Gateway | $0.045 | $1.08 | ~$32 |
+| Load Balancer | $0.025 | $0.60 | ~$18 |
+| EBS 200GB × 5 | - | - | ~$50 |
+| **GESAMT** | **~$2.06/h** | **~$49/Tag** | **~$1,533** |
+
+**Kosten nach Terminierung:**
+
+| Ressource | Status | Kosten |
+|-----------|--------|--------|
+| EKS + EC2 + RDS | ✅ Gelöscht | $0.00 |
+| NAT Gateway | ✅ Gelöscht | $0.00 |
+| Load Balancer | ✅ Gelöscht | $0.00 |
+| EBS Volumes | ✅ Gelöscht | $0.00 |
+| IAM Rollen | ⚠️ Verbleiben (optional) | $0.00 |
+| S3 State Buckets | ⚠️ Falls vorhanden | ~$0.01-0.10/Monat |
+
+**Wichtig:**
+- IAM Rollen verursachen KEINE Kosten und können für nächsten Lauf bleiben
+- S3 Terraform State Buckets nur mit Force Terminate gelöscht
+- EBS Snapshots (falls manuell erstellt) kosten ~$0.05/GB/Monat
+
+### Troubleshooting
+
+**Problem: Terraform Uninstall hängt/fehlschlägt**
+
+```bash
+# Lösung: Force Terminate verwenden
+cd app/util/k8s
+docker run --pull=always --env-file aws_envs \
+--workdir="//data-center-terraform" \
+--entrypoint="python" \
+-v "/$PWD/terminate_cluster.py:/data-center-terraform/terminate_cluster.py" \
+atlassian/dcapt terminate_cluster.py \
+--cluster_name atlas-dcapt-confluence-e1-cluster \
+--aws_region us-east-2
+```
+
+**Problem: "Unable to locate credentials"**
+
+```bash
+# Lösung: Credentials aus aws_envs exportieren
+cd app/util/k8s
+source <(grep -v '^#' aws_envs | sed 's/^/export /')
+```
+
+**Problem: VPC kann nicht gelöscht werden**
+
+```bash
+# Ursache: Dependencies (Load Balancer, NAT Gateway, ENIs)
+# Lösung: Force Terminate Script räumt automatisch auf
+# Oder manuell: AWS Console → VPC → Delete Dependencies
+```
+
+**Detaillierte K8s Logs sammeln:**
+
+```bash
+export ENVIRONMENT_NAME=dcapt-confluence-e1
+export REGION=us-east-2
+
+docker run --pull=always --env-file aws_envs \
+-v "/$PWD/k8s_logs:/data-center-terraform/k8s_logs" \
+-v "/$PWD/logs:/data-center-terraform/logs" \
+-it atlassianlabs/terraform:2.9.10 \
+./scripts/collect_k8s_logs.sh atlas-$ENVIRONMENT_NAME-cluster $REGION k8s_logs
+```
+
+### Best Practices
+
+1. **Immer denselben Terraform Tag verwenden** (`2.9.10` für install/uninstall)
+2. **Nach Tests sofort terminieren** - Kosten laufen weiter!
+3. **IAM Rollen können bleiben** - keine Kosten, Wiederverwendung möglich
+4. **Monitoring aktivieren** falls Performance-Debugging nötig:
+   ```yaml
+   # In dcapt.tfvars:
+   monitoring_enabled = true
+   monitoring_grafana_expose_lb = true
+   ```
+5. **Credentials sicher verwenden**:
+   - `aws_envs` NICHT in Git committen
+   - Template: `aws_envs_SECRETS` als Vorlage verwenden
+6. **Regelmäßig aufräumen** (alle 6 Monate):
+   - Alte IAM Rollen prüfen
+   - Ungenutzte EBS Snapshots löschen
+   - S3 Buckets prüfen
+
 ---
 
 ## Referenzen
