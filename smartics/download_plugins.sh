@@ -21,17 +21,17 @@ APPS=(
   "de.smartics.atlassian.smartics-projectdoc-webapi-extension"                  # WA  Web API Extension
   "de.smartics.atlassian.smartics-projectdoc-infosys-extension"                 # IS  Information Systems Extension
   "de.smartics.userscripts-for-confluence"                                      # US  Userscripts for Confluence
-  "de.smartics.atlassian.confluence.smartics-projectdoc-confluence-space-core"  # BP  projectdoc Core Blueprints
-  # --- weitere Blueprints (bei Bedarf einkommentieren) ---
-  # "de.smartics.atlassian.confluence.smartics-projectdoc-confluence-space-prjmgmt"       # Project Management
-  # "de.smartics.atlassian.confluence.smartics-projectdoc-confluence-space-agileplanning" # Agile Planning
-  # "de.smartics.atlassian.confluence.smartics-projectdoc-confluence-space-teamwork"      # Teamwork
-  # "de.smartics.atlassian.confluence.smartics-projectdoc-confluence-space-swdev"         # Software Development
-  # "de.smartics.atlassian.confluence.smartics-projectdoc-confluence-arc42"               # arc42
-  # "de.smartics.atlassian.confluence.smartics-doctype-addon-services"                    # Service Management
-  # "de.smartics.atlassian.confluence.smartics-doctype-addon-strategy"                    # Business Strategy
-  # "de.smartics.atlassian.confluence.smartics-doctype-addon-vmodellxt"                   # V-Modell XT
-  # "de.smartics.atlassian.confluence.smartics-projectdoc-confluence-space-devdiary"      # Developer Diaries
+  # --- ALLE Blueprints (BP) ---
+  "de.smartics.atlassian.confluence.smartics-projectdoc-confluence-space-core"          # Core Blueprints
+  "de.smartics.atlassian.confluence.smartics-projectdoc-confluence-space-prjmgmt"       # Project Management
+  "de.smartics.atlassian.confluence.smartics-projectdoc-confluence-space-agileplanning" # Agile Planning
+  "de.smartics.atlassian.confluence.smartics-projectdoc-confluence-space-teamwork"      # Teamwork
+  "de.smartics.atlassian.confluence.smartics-projectdoc-confluence-space-swdev"         # Software Development
+  "de.smartics.atlassian.confluence.smartics-projectdoc-confluence-arc42"               # arc42
+  "de.smartics.atlassian.confluence.smartics-doctype-addon-services"                    # Service Management
+  "de.smartics.atlassian.confluence.smartics-doctype-addon-strategy"                    # Business Strategy
+  "de.smartics.atlassian.confluence.smartics-doctype-addon-vmodellxt"                   # V-Modell XT
+  "de.smartics.atlassian.confluence.smartics-projectdoc-confluence-space-devdiary"      # Developer Diaries
   # --- DM wird fuer "alle ausser DM" NICHT gebraucht ---
   # "de.smartics.atlassian.confluence.smartics-atlassian-confluence-macros"               # DM  Documentation Macros
 )
