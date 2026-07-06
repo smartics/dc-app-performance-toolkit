@@ -39,3 +39,9 @@ app/util/k8s/.terraform.lock.hcl
 /app/chromedriver.zip
 /app/chromedriver-win64/
 /app/chromedriver.exe
+DATA/
+smartics/plugins/
+smartics/*.env
+app/util/k8s/install_run.log
+app/util/k8s/run1*.log
+run1*.log
