@@ -41,22 +41,24 @@ COOKIEJAR="$(mktemp)"
 trap 'rm -f "$COOKIEJAR"' EXIT
 AUTH=(-H "Authorization: Bearer $TOKEN" -b "$COOKIEJAR" -c "$COOKIEJAR")
 
-# --- Installations-Reihenfolge (nur Dateien, die existieren, werden genommen) ---
+# --- Installations-Reihenfolge: EXAKT wie vorgegeben (Dateinamen, nicht aendern!) ---
+# Zwischen den Plugins wird ZWINGEND WAIT Sekunden gewartet (Default 120), auch bei "OK".
+WAIT="${WAIT:-120}"
 ORDER=(
-  "smartics-projectdoc-confluence-*.obr"                 # PD Toolbox (zuerst!)
-  "smartics-projectdoc-webapi-extension-*.obr"           # WA
-  "smartics-projectdoc-infosys-extension-*.obr"          # IS
-  "smartics-projectdoc-confluence-space-core-*.obr"      # BP Core (vor anderen Blueprints)
-  "smartics-projectdoc-confluence-space-prjmgmt-*.obr"
-  "smartics-projectdoc-confluence-space-agileplanning-*.obr"
-  "smartics-projectdoc-confluence-space-teamwork-*.obr"
-  "smartics-projectdoc-confluence-space-swdev-*.obr"
-  "smartics-projectdoc-confluence-arc42-*.obr"
-  "smartics-doctype-addon-services-*.obr"
-  "smartics-doctype-addon-strategy-*.obr"
-  "smartics-doctype-addon-vmodellxt-*.obr"
-  "smartics-projectdoc-confluence-space-devdiary-*.obr"
-  "userscripts-for-confluence-*.obr"                     # US (unabhaengig)
+  "userscripts-for-confluence-4.0.0.obr"
+  "smartics-projectdoc-confluence-8.0.2.obr"
+  "smartics-projectdoc-infosys-extension-9.0.1.obr"
+  "smartics-projectdoc-webapi-extension-14.0.0.obr"
+  "smartics-projectdoc-confluence-space-core-21.0.0.obr"
+  "smartics-projectdoc-confluence-space-swdev-17.0.0.obr"
+  "smartics-projectdoc-confluence-arc42-15.0.0.obr"
+  "smartics-projectdoc-confluence-space-agileplanning-18.0.0.obr"
+  "smartics-projectdoc-confluence-space-devdiary-18.0.0.obr"
+  "smartics-projectdoc-confluence-space-prjmgmt-10.0.0.obr"
+  "smartics-projectdoc-confluence-space-teamwork-6.0.0.obr"
+  "smartics-doctype-addon-services-7.0.0.obr"
+  "smartics-doctype-addon-strategy-7.0.0.obr"
+  "smartics-doctype-addon-vmodellxt-8.0.0.obr"
 )
 
 # --- Auth-Vorabpruefung (read-only) ---
@@ -91,11 +93,19 @@ install_one() {
   echo "  (Timeout beim Pollen – bitte im UPM pruefen)"; return 1
 }
 
-echo "== Installation =="
-for pat in "${ORDER[@]}"; do
-  for f in $PLUGDIR/$pat; do
-    [ -e "$f" ] || continue
-    install_one "$f" || echo "  -> Problem bei $(basename "$f")"
-  done
+echo "== Installation (${#ORDER[@]} Plugins, ${WAIT}s Pause dazwischen) =="
+# Vorab pruefen, dass alle Dateien existieren
+for name in "${ORDER[@]}"; do
+  [ -e "$PLUGDIR/$name" ] || { echo "FEHLER: Datei fehlt: $name"; exit 1; }
 done
-echo "== Fertig =="
+total=${#ORDER[@]}; idx=0
+for name in "${ORDER[@]}"; do
+  idx=$((idx+1))
+  echo "############ [$idx/$total] $(date '+%F %T') : $name ############"
+  install_one "$PLUGDIR/$name" || echo "  -> PROBLEM bei $name"
+  if [ "$idx" -lt "$total" ]; then
+    echo "  ... Pflichtpause ${WAIT}s vor dem naechsten Plugin (auch bei OK) ..."
+    sleep "$WAIT"
+  fi
+done
+echo "== Fertig: $(date '+%F %T') =="
