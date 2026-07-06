@@ -81,13 +81,30 @@ install_one() {
   resp=$(curl -sS -m 300 "${AUTH[@]}" -X POST \
         -F "plugin=@${file};type=application/octet-stream" \
         "$BASE_URL/rest/plugins/1.0/?token=${upm}")
-  # 3) Pending-Task pollen
-  local self; self=$(printf '%s' "$resp" | python3 -c "import sys,json;d=json.load(sys.stdin);print(d.get('links',{}).get('self',''))" 2>/dev/null || true)
-  if [ -z "$self" ]; then echo "  Antwort: $(printf '%s' "$resp" | head -c 200)"; return 1; fi
+  # UPM verpackt die Upload-Antwort in <textarea>...</textarea> -> vor JSON-Parse entfernen.
+  local self
+  self=$(printf '%s' "$resp" | python3 -c "
+import sys,json,re
+raw=sys.stdin.read()
+m=re.search(r'<textarea[^>]*>(.*)</textarea>', raw, re.S)
+raw=m.group(1) if m else raw
+try: print(json.loads(raw).get('links',{}).get('self',''))
+except Exception: print('')
+" 2>/dev/null || true)
+  if [ -z "$self" ]; then echo "  ! Upload-Antwort unerwartet: $(printf '%s' "$resp" | head -c 160)"; return 1; fi
+  # 3) Pending-Task pollen (auch die Poll-Antwort kann <textarea>-verpackt sein)
   for i in $(seq 1 60); do
     local p; p=$(curl -sS -m 30 "${AUTH[@]}" "$BASE_URL$self" 2>/dev/null || true)
-    echo "$p" | grep -q '"done":true\|"enabled":true\|"status":{"done":true' && { echo "  OK installiert"; return 0; }
-    echo "$p" | grep -qi 'err\|"code":' && { echo "  Status: $(printf '%s' "$p" | head -c 200)"; }
+    printf '%s' "$p" | python3 -c "
+import sys,json,re
+raw=sys.stdin.read()
+m=re.search(r'<textarea[^>]*>(.*)</textarea>', raw, re.S)
+raw=m.group(1) if m else raw
+try: d=json.loads(raw)
+except Exception: sys.exit(2)
+st=d.get('status',{})
+sys.exit(0 if (st.get('done') or d.get('enabled')) else 2)
+" && { echo "  OK installiert"; return 0; }
     sleep 3
   done
   echo "  (Timeout beim Pollen – bitte im UPM pruefen)"; return 1
