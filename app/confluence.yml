@@ -36,19 +36,18 @@ settings:
     like_page: 3
     upload_emoticon: 4      # For Confluence 8.4.x+
     standalone_extension: 0
-    # Smartics custom test actions - ENABLED for Run 3-5 (Scalability - Documentation Macros)
-    # Enable for Run 3-5 (Scalability): set DM values to 6
-    standalone_extension_us_rest_content: 0      # US
-    standalone_extension_section: 6              # DM - Run 3-5: 6
-    standalone_extension_hide: 6                 # DM - Run 3-5: 6
-    standalone_extension_hidefromreader: 6       # DM - Run 3-5: 6
-    standalone_extension_hidefromanonymous: 6    # DM - Run 3-5: 6
-    standalone_extension_definitionlist: 6       # DM - Run 3-5: 6
-    standalone_extension_transclude_documents: 0 # Toolbox - deaktiviert
-    standalone_extension_display_table: 0        # Toolbox - deaktiviert
-    standalone_extension_web_api: 0              # Toolbox - deaktiviert
-    standalone_extension_information_system: 0   # IS - deaktiviert
-    standalone_extension_blueprints: 0           # BP - deaktiviert
+    # Smartics custom test actions - AKTIV: ALLE Addons AUSSER DM (US, PD, IS, WA, BP)
+    standalone_extension_us_rest_content: 6      # US - aktiv
+    standalone_extension_section: 0              # DM - deaktiviert
+    standalone_extension_hide: 0                 # DM - deaktiviert
+    standalone_extension_hidefromreader: 0       # DM - deaktiviert
+    standalone_extension_hidefromanonymous: 0    # DM - deaktiviert
+    standalone_extension_definitionlist: 0       # DM - deaktiviert
+    standalone_extension_transclude_documents: 6 # PD Toolbox - aktiv
+    standalone_extension_display_table: 6        # PD Toolbox - aktiv
+    standalone_extension_web_api: 6              # WA Web API - aktiv
+    standalone_extension_information_system: 6   # IS Information System - aktiv
+    standalone_extension_blueprints: 6           # BP Blueprints - aktiv
     # Custom dataset section.
     # RUN 3-5: Custom dataset aktiviert für Documentation Macros
     # RUN 3-5: Aktivieren mit: custom_dataset_query: title ~ 'MoreProjectdocUC'

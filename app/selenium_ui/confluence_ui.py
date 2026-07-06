@@ -55,12 +55,12 @@ Refer to `app/selenium_ui/confluence/modules.py` for examples.
 #OLD def test_1_selenium_custom_action(confluence_webdriver, confluence_datasets, confluence_screen_shots):
 #OLD     extension_ui.app_specific_action(confluence_webdriver, confluence_datasets)
 
-# smartics selenium
-#def test_1_selenium_us_inspect_button(confluence_webdriver, confluence_datasets, confluence_screen_shots):
-#    extension_ui.us_inspect_button(confluence_webdriver, confluence_datasets)
+# smartics selenium - US Userscripts aktiv
+def test_1_selenium_us_inspect_button(confluence_webdriver, confluence_datasets, confluence_screen_shots):
+    extension_ui.us_inspect_button(confluence_webdriver, confluence_datasets)
 
-#def test_1_selenium_custom_action(confluence_webdriver, confluence_datasets, confluence_screen_shots):
-#    extension_ui.app_specific_action(confluence_webdriver, confluence_datasets)
+def test_1_selenium_custom_action(confluence_webdriver, confluence_datasets, confluence_screen_shots):
+    extension_ui.app_specific_action(confluence_webdriver, confluence_datasets)
 
 
 # this action should be the last one
