@@ -82,16 +82,22 @@ max_cluster_capacity = 6
 # This can be used in case you hit the limit which can happen if 30+ whitelist_cidrs are provided.
 #enable_https_ingress = false
 
+# Use Gateway API (Envoy Gateway) instead of NGINX Ingress controller.
+# When set to true, Envoy Gateway is deployed as a drop-in replacement for NGINX. Only one can be active per deployment.
+# If `domain` is set, HTTPS is used with TLS termination via ACM cert; otherwise the raw NLB hostname is used over HTTP.
+# For Bitbucket, SSH on port 7999 is handled natively via TCPRoute (no manual ELB listener modification needed).
+# use_gateway_api = "true"
+
 ################################################################################
 # Execution Environment Settings
 ################################################################################
 # Create a docker-in-docker privileged container as execution environment pod
 
 start_test_deployment = "true"
-test_deployment_cpu_request = "3"
-test_deployment_cpu_limit = "4"
-test_deployment_mem_request = "8Gi"
-test_deployment_mem_limit = "8Gi"
+test_deployment_cpu_request = "7"
+test_deployment_cpu_limit = "8"
+test_deployment_mem_request = "15Gi"
+test_deployment_mem_limit = "16Gi"
 
 ################################################################################
 # Jira/JSM Settings
@@ -111,11 +117,11 @@ jira_image_repository = "atlassian/jira-software"
 
 # Supported versions by DCAPT: https://github.com/atlassian/dc-app-performance-toolkit#supported-versions
 # Jira version
-jira_version_tag = "10.3.12"
+jira_version_tag = "11.3.1"
 
 # JSM version
 # ! REQUIRED for JSM !
-# jira_version_tag = "10.3.12"
+# jira_version_tag = "11.3.1"
 
 # Dataset size. Used only when snapshots_json_file_path is defined. Defaults to large.
 jira_dataset_size = "large"
@@ -173,7 +179,7 @@ jira_additional_jvm_args = ["-Dupm.plugin.upload.enabled=true"]
 ################################################################################
 
 # Supported versions by DCAPT: https://github.com/atlassian/dc-app-performance-toolkit#supported-versions
-confluence_version_tag = "10.0.3"
+confluence_version_tag = "10.2.2"
 
 # Dataset size. Used only when snapshots_json_file_path is defined. Defaults to large
 confluence_dataset_size = "large"
@@ -336,7 +342,7 @@ bitbucket_additional_jvm_args = ["-Dupm.plugin.upload.enabled=true"]
 ################################################################################
 
 # Supported versions by DCAPT: https://github.com/atlassian/dc-app-performance-toolkit#supported-versions
-crowd_version_tag = "7.1.0"
+crowd_version_tag = "7.1.3"
 
 # Helm chart version of Crowd and Crowd agent instances. By default the latest version is installed.
 # crowd_helm_chart_version       = "<helm_chart_version>"
@@ -400,8 +406,8 @@ crowd_additional_jvm_args = ["-Dupm.plugin.upload.enabled=true", "-Datlassian.up
 # By default, latest supported by DCAPT version is set.
 # https://hub.docker.com/r/atlassian/bamboo/tags
 # https://hub.docker.com/r/atlassian/bamboo-agent-base/tags
-bamboo_version_tag       = "10.2.9"
-bamboo_agent_version_tag = "10.2.9"
+bamboo_version_tag       = "10.2.14"
+bamboo_agent_version_tag = "10.2.14"
 
 # Helm chart version of Bamboo and Bamboo agent instances
 # bamboo_helm_chart_version       = "<helm_chart_version>"
