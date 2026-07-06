@@ -45,9 +45,16 @@
   ```bash
   bash smartics/fetch_aws_credentials.sh   # holt Vault "service"/Item "AWS-DCPT-TOKEN", testet mit sts
   ```
+- **Confluence-Lizenz:** per 1Password holen → schreibt `dcapt.tfvars` (einzeilig normalisiert):
+  ```bash
+  bash smartics/fetch_confluence_license.sh   # Vault "service"/Item "Confluence DC Lizenz"/Feld reg_code
+  ```
+  Timebomb-Lizenzen laufen ab! Neue erzeugen unter
+  https://developer.atlassian.com/platform/marketplace/timebomb-licenses-for-testing-data-center-apps/
+  und in 1Password aktualisieren. `dcapt.tfvars` ist git-getrackt → Lizenz-Änderung **nicht committen**.
 - **`app/util/k8s/dcapt.tfvars`** prüfen: `environment_name` (aktuell `dcapt-confluence-e1`),
-  `products = ["confluence"]`, `confluence_license` (einzeilig!), `region = "us-east-2"`,
-  `confluence_version_tag = "10.2.2"`, **`confluence_replica_count = 1`** (für Run 1!).
+  `products = ["confluence"]`, `region = "us-east-2"`, `confluence_version_tag = "10.2.2"`,
+  **`confluence_replica_count = 1`** (für Run 1!).
 
 ## 3. Cluster provisionieren (vor Run 1)
 
