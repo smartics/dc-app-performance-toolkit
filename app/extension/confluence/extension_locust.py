@@ -3,6 +3,7 @@ import random
 import string
 import json
 import threading
+from urllib.parse import quote
 
 from locustio.common_utils import init_logger, confluence_measure, run_as_specific_user  # noqa F401
 
@@ -47,6 +48,9 @@ TC_DOCM_DEFINITIONLIST_ASSERTION_TEXT = "Value2"
 # --------------------------------------------------------------------------------------------------------------------
 TC_DISPLAY_TABLE = "Test Case Display Table"
 TC_DISPLAY_TABLE_ASSERTION_TEXT = "List of Documents"
+# WA-Testdokument: per projectdoc-Query auffindbares regulaeres Dokument in PROJECTDOCTEST.
+# (Die Space-Home "projectdoc Space for Test Cases" wird vom projectdoc-Query-Index nicht erfasst.)
+TC_WA_DOCUMENT = "DCAPT Document 1"
 TC_TRANSCLUDE_DOCUMENTS = "Test Case Transclude from Documents"
 TC_TRANSCLUDE_DOCUMENTS_ASSERTION_TEXT = "Transclusion from Documents"
 
@@ -262,16 +266,16 @@ def app_specific_action_information_system(locust):
 # @run_as_specific_user(username='admin', password='admin')  # run as specific user
 def app_specific_action_web_api(locust):
     logger.info(f"WEB-API")
-    r = locust.get(f'/rest/projectdoc/1/document?select=Title%2CName%2CIteration&from={TESTCASE_SPACE_KEY}&where=%24%3CTitle%3E%3D%5Bprojectdoc%20Space%20for%20Test%20Cases%5D&expand=property',
+    where = quote(f'$<Title>=[{TC_WA_DOCUMENT}]')  # -> %24%3CTitle%3E%3D%5B...%5D
+    r = locust.get(f'/rest/projectdoc/1/document?select=Title%2CName%2CIteration&from={TESTCASE_SPACE_KEY}&where={where}&expand=property',
                    catch_response=True)  # call app-specific GET endpoint
     content = r.content.decode('utf-8')  # decode response content
 
-    token_pattern_example = '"id-list":"(.+?)"'
-    token = re.findall(token_pattern_example, content)
+    token = re.findall(r'"id-list":"(.+?)"', content)  # nicht-leere Liste => Treffer gefunden
     logger.locust_info(f'token: {token}')  # log info for debug when verbose is true in confluence.yml file
-    if token == "":
-        logger.error(f"'assertion string' was not found in {content}")
-    assert token != ""  # assert that TOKEN is not empty
+    if not token:
+        logger.error(f"WA: 'id-list' nicht gefunden/leer in {content}")
+    assert token, f"WA: 'id-list' leer/nicht gefunden in {content}"  # id-list muss vorhanden & nicht leer sein
 
 # --------------------------------------------------------------------------------------------------------------------
 # smartics-bp (BluePrints)
