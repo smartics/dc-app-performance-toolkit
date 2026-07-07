@@ -23,13 +23,13 @@ _thread_local = threading.local()
 # --------------------------------------------------------------------------------------------------------------------
 # smartics-pd
 # --------------------------------------------------------------------------------------------------------------------
-TESTCASE_SPACE_KEY = "DCAPTUC"
+TESTCASE_SPACE_KEY = "PROJECTDOCTEST"
 
 # --------------------------------------------------------------------------------------------------------------------
 # smartcs-us USERSCRIPT-PARAMETERS
 # --------------------------------------------------------------------------------------------------------------------
-TC_US_PAGEID = "44957866"
-TC_US_EXPECTED_SCRIPT_NAME = "Inspect-1.0.js"
+TC_US_PAGEID = "46944746"                         # USTEST Space-Home (Userscript space-weit aktiv)
+TC_US_EXPECTED_SCRIPT_NAME = "de.smartics.test/hello"  # versionsunabhaengig (App serviert hello-1.0.x.js)
 
 # --------------------------------------------------------------------------------------------------------------------
 # smartics-dm DocumentationMacros (And Toolbox ?)
@@ -60,7 +60,7 @@ TC_INFORMATIONSYSTEM_ASSERTION_TEXT = "informationsystem-test-case-id"
 # --------------------------------------------------------------------------------------------------------------------
 # smartics-bp BluePrints
 # --------------------------------------------------------------------------------------------------------------------
-BLUEPRINT_LOCATION = "47596907"
+BLUEPRINT_LOCATION = "46944143"
 BLUEPRINT_SPACEKEY= "BLUEPRINT"
 
 

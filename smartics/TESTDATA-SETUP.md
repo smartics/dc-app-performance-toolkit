@@ -79,24 +79,35 @@ Import: Confluence → *Space verwalten → Space importieren* (oder REST). Expo
 → Ziel Confluence 10.2.x (höherer Build) akzeptiert sie.
 
 ### ⚠️ Nach dem Import unbedingt beachten
-1. **Page-IDs werden beim Import NEU vergeben!** Hartcodierte IDs im Code stimmen dann nicht mehr:
-   - `TC_US_PAGEID = "44957866"` (extension_locust.py) → neue ID der US-Testseite eintragen
-   - `BLUEPRINT_LOCATION = "47596907"` → neue Parent-ID eintragen
-2. **`TESTCASE_SPACE_KEY`** im Code steht auf `DCAPTUC`, die Exporte nutzen **`PROJECTDOCTEST`**
-   → Konstante auf `PROJECTDOCTEST` zurücksetzen (Z.20 ist bereits als Kommentar vorhanden).
-3. **`TC_US_EXPECTED_SCRIPT_NAME = "Inspect-1.0.js"`** vs. USTEST enthält `projectdoc-inspect-menu.js`
-   → gegen die Live-Instanz prüfen (REST `/rest/userscripts-for-confluence/1/context`).
+0. **INDIZIERUNG erzwingen (WICHTIG, sonst rendern PD-Makros nicht / WA findet nichts):** Nach dem
+   Space-Import werden die importierten Seiten NICHT automatisch vom projectdoc-Index erfasst. Man muss
+   **alle Seiten im Space `PROJECTDOCTEST` einmal neu speichern** (inkl. der **Space-Home-Seite**
+   „projectdoc Space for Test Cases"), damit Display-Table/Transclude rendern und die WA-REST-Query
+   Treffer liefert. (Erfahrung 2026-07-07.)
+0b. **IS-Allowlist:** In Confluence-Admin → **Allowlist** die Domain `https://raw.githubusercontent.com`
+   eintragen — sonst rendert das Information-System-Makro den externen Test-Text nicht. (Pflicht!)
+1. **Page-IDs werden beim Import NEU vergeben!** Bei diesem Lauf (2026-07-07) ermittelt:
+   - `TC_US_PAGEID` → **`46944746`** (USTEST Space-Home; Userscript space-weit aktiv)
+   - `BLUEPRINT_LOCATION` → **`46944143`** (BLUEPRINT Home)
+2. **`TESTCASE_SPACE_KEY`** → **`PROJECTDOCTEST`** (nicht DCAPTUC). Erledigt.
+3. **`TC_US_EXPECTED_SCRIPT_NAME`**: Live liefert die App `de.smartics.test/hello-1.0.x.js` (Version
+   inkrementiert!) → Konstante auf **`de.smartics.test/hello`** (versionsunabhängig) gesetzt.
 
 ### Manuelle Schritte, die ein Space-Import NICHT abdeckt (aus den Screenshots von Seite 1101841)
 - **IS – globale Allowlist:** `https://raw.githubusercontent.com` als *Domain name* eintragen,
   *Allow Incoming* + *Allow anonymous* aktivieren (Confluence-Admin → Allowlist). Die IS-Seite hat das
   Property `url-github = https://raw.githubusercontent.com` (im Export enthalten) und rendert
   `<div id="informationsystem-test-case-id">…</div>`.
-- **US – Userscript-App-Konfiguration** (nicht Space-Content!): Userscript anlegen mit
-  Namespace `de.smartics.userscripts`, Name `dcpttest`, Version `1.0.0`, Script-URL = Attachment
-  `userscript-dc-test.js`, **Space Keys = PROJECTDOCTEST**, Page Label `blank`. (2023-Banner-Variante;
-  die 2025-USTEST-Variante nutzt die Inspect-Menu-Scripts.)
-- **Plugins** installiert (US/PD/IS), **Permissions** der Testseiten (Permission Manager).
+- **US – Client-Logging aktivieren (PFLICHT vor dem US-Test!):** In der **Userscripts-Admin-Oberfläche**
+  → *Konfiguration → Client-Logging* die zu loggenden **Modulnamen** eintragen (komma-separiert).
+  Ohne diese Aktivierung liefert `/rest/userscripts-for-confluence/1/context` keine/keine korrekten
+  Scripts. (Erfahrung 2026-07-07.)
+- **US – Userscript-Registrierung** (nicht reiner Space-Content!): Der aktive Test-Userscript wird von
+  der App aus dem USTEST-Space bedient; nach dem Space-Import + Seiten-Neuspeichern liefert die App
+  `de.smartics.test/hello-1.0.x.js` (space-weit auf USTEST). Frühere 2023-Variante: Userscript im Admin
+  anlegen (Namespace `de.smartics.userscripts`, Script-URL = Attachment `userscript-dc-test.js`,
+  Space Keys, Page Label `blank`).
+- **Plugins** installiert (US/PD/IS + Blueprints), **Permissions** der Testseiten (Permission Manager).
 
 ## Zugriff auf die Quelle
 Confluence DC `dev.smartics.mobi` per REST (Bearer-PAT aus 1Password Vault `service`,
