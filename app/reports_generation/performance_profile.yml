@@ -5,14 +5,14 @@ runs:
   # E.g. relativePath: "./app/results/jira/2024-01-01_10-10-10"
   - runName: "without app"
     runType: "baseline"
-    relativePath: "./app/results/confluence/RUN1_DM"
-  - runName: "with app (Documentation Macros)"
+    relativePath: "./app/results/confluence/RUN1"
+  - runName: "with app (all except DM)"
     runType: "experiment"
-    relativePath: "./app/results/confluence/RUN2_DM"
+    relativePath: "./app/results/confluence/RUN2"
 
 # Chart generation config
 index_col: "Action"
-title: "Documentation Macros - Performance Regression Testing (RUN1 vs RUN2)"
+title: "Smartics Apps (all except DM) - Performance Regression (RUN1 no app vs RUN2 with app)"
 image_height_px: 1000
 image_width_px: 1600
 check_actions_count: false

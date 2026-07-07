@@ -35,6 +35,28 @@
 - **Regression-Report** vergleicht Run 1 vs Run 2 (`performance_profile.yml`).
 - **Scale-Report** vergleicht Run 3/4/5 (`scale_profile.yml`).
 
+## 1b. Config-Profile pro Run (WICHTIG — keine Fehler machen!)
+
+Eine einzige `app/confluence.yml` wird pro Run umgeschaltet. **Nur 3 Stellen ändern sich:**
+
+| Einstellung | RUN 1 | RUN 2 | RUN 3 | RUN 4 | RUN 5 |
+|-------------|:-----:|:-----:|:-----:|:-----:|:-----:|
+| App(s) in Confluence installiert | **nein** | **ja** | ja | ja | ja |
+| `confluence_replica_count` (dcapt.tfvars) | 1 | 1 | 1 | **2** | **4** |
+| `standalone_extension_*` (App-Actions) | **0** | **0** | **6** (US/PD/WA/IS/BP) | 6 | 6 |
+| US-Selenium-Tests in `confluence_ui.py` | aus | aus | **an** | an | an |
+| `custom_dataset_query` | **leer** | leer | **US-Testseite** | dito | dito |
+| App-Testdaten/Plugins nötig | nein | Plugins ja, Actions-Testdaten erst RUN3 | ja | ja | ja |
+
+- DM bleibt in ALLEN Runs 0 (wird nicht getestet). RUN 3-5 = „alle Apps außer DM".
+- **PFLICHT-TIMING Reports (nicht optional!):** direkt **nach Run 2** den Regression-Report
+  (`performance_profile.yml`, RUN1 vs RUN2) erstellen; direkt **nach Run 5** den Scale-Report
+  (`scale_profile.yml`, RUN3/4/5). Nicht bis zum Schluss aufschieben. Siehe §7.
+- **App-Installation passiert zwischen RUN 1 und RUN 2.**
+- **App-spezifische Testdaten (PD/WA/US/IS/BP) erst ab RUN 3** nötig — siehe `smartics/TESTDATA-SETUP.md`.
+- Reports: Regression = RUN 1 vs 2 (`performance_profile.yml`); Scale = RUN 3/4/5 (`scale_profile.yml`).
+- Umschalt-Merkhilfe steht als Kommentar direkt in `confluence.yml` (Block `standalone_extension_*`).
+
 ## 2. Voraussetzungen (einmalig)
 
 - **AWS vCPU-Limit:** min. 40, empfohlen 50 vCPU (On-Demand Standard, us-east-2). Ggf. Quota-Increase.
@@ -189,7 +211,12 @@ keine RDS/ELB/EC2 mehr.
 2. Versionen prüfen (README „Supported versions"): `TOOLKIT_VERSION`, `confluence_version_tag`,
    `chromedriver`, `selenium`, **Terraform-Image-Tag** (`grep -r atlassianlabs/terraform: app/util/k8s`).
 3. `bash smartics/fetch_aws_credentials.sh` → aws_envs; License in `dcapt.tfvars` aktuell?
-4. Testdaten/Plugins auf frischer Instanz neu anlegen (§6) — IDs sind instanzspezifisch!
+4. Plugins laden+installieren (`smartics/download_plugins.sh`, `smartics/install_plugins.sh`) —
+   feste Reihenfolge + 120s Pause; Testdaten auf frischer Instanz importieren/anlegen (§6),
+   IDs sind instanzspezifisch!
+   **⚠️ APP-LIZENZEN eintragen** (nur **Userscripts** + **projectdoc Toolbox** brauchen eine Lizenz,
+   die Extensions/Blueprints laufen unter der Toolbox-Lizenz): UPM → Manage apps → jeweils Lizenzschlüssel
+   einsetzen. Testkey liegt in `smartics/plugins/lizenz.txt` (git-ignored, Timebomb → jährlich erneuern!).
 5. Runs 1–5 (§3–5) mit **einer** Toolkit-Version. Ergebnisse pro Run sichern.
 6. Reports (§7), Kriterien prüfen (§8), an ECOHELP/Marketplace hängen.
 7. **Cluster terminieren** (§9).
