@@ -10,7 +10,7 @@ runs:
     runType: "scale"
     relativePath: "./app/results/confluence/RUN5"
 index_col: "Action"
-title: "smartics app - Scalability (1 vs 2 vs 4 Nodes, all except DM)"
+title: "Extensions (IS + WA) - Scalability (1 vs 2 vs 4 Nodes)"
 image_height_px: 1000
 image_width_px: 1600
 check_actions_count: false
