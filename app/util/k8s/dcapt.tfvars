@@ -26,7 +26,7 @@ products = ["confluence"]
 # ! IMPORTANT ! Please make sure valid license is used without spaces and new line symbols.
 # ! REQUIRED !
 jira_license = "jira-license"
-confluence_license = "AAABog0ODAoPeNp9UtFumzAUfecrLE2qNk1EhiwMIllaamiTFsIK6ZRNeXGcy8JCDLKBlb+fUxd1m7S92fccn3vuuX6zOXbojgmEfYSD+Qd/PvURzTfIxa5nUQmsLWsRshbIpWJjx8aBFYLismwuEKG1KKoOBAf0VvMYoiBakO92cxT1rOqeBayElboqmKZFT00ph98kXRv7VlxyEOofYGXALyDVpaVr5d3+1UErO7C4tjFZd+c9yLR4VJpJbMd6dWBYqfzORKlMRZ2ZbEuu0L2stfoBJLpCGZRCH27P+6XRZLwtezDP9aytvkd6moow0dZichrffhrlJgcYDS+ZOpKE/qQ316e7xbYZ/NPsB4tEv6kfl3JRpLzw88Uxe5+EWeD1Rca3Sf8kvw39oaFJ4N4kDzuyI8bIS0KboYE1OwOhaZJEGV0tYoPnre4PkhSsUjDmuQpJvArzaG3HrjN1vBmeWTnIHqRGrrc63uBr6tirte/ZcTq7NVKXPZo1mrlPMIzZOx7GH7E/nTrW507yI1Pw9+94SenZ5P9C0q7In85+AQ0z2cEwLAIUBGcTckl0DfUXS56cxlcaRS0PE6kCFCNd0SlEw2Uw5bd74svtddtz92h+X02k4"
+confluence_license = "confluence-license"
 bitbucket_license = "bitbucket-license"
 crowd_license = "crowd-license"
 bamboo_license = "bamboo-license"
@@ -36,7 +36,7 @@ bamboo_license = "bamboo-license"
 # Note: For initial installation this value needs to be set to 1 and it can be changed only after product is fully
 # installed and configured.
 jira_replica_count = 1
-confluence_replica_count = 4
+confluence_replica_count = 1
 bitbucket_replica_count = 1
 crowd_replica_count = 1
 
@@ -190,7 +190,7 @@ confluence_dataset_size = "large"
 # Installation timeout
 # Different variables can influence how long it takes the application from installation to ready state. These
 # can be dataset restoration, resource requirements, number of replicas and others.
-confluence_installation_timeout = 30
+confluence_installation_timeout = 60
 
 # Confluence instance resource configuration
 confluence_cpu      = "6"
