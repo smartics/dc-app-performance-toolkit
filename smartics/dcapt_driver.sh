@@ -50,9 +50,17 @@ provision(){ # N replicas
       -v "$PWD/dcapt.tfvars:/data-center-terraform/conf.tfvars" \
       -v "$PWD/dcapt-snapshots.json:/data-center-terraform/dcapt-snapshots.json" \
       -v "$PWD/logs:/data-center-terraform/logs" \
-      $TF_IMG ./install.sh -c conf.tfvars ) || log "install.sh non-zero (evtl. Node-Warmup-Timeout, s.u.)"
+      $TF_IMG ./install.sh -c conf.tfvars ) 2>&1 | tee "$REPO/install_driver.log" || log "install.sh non-zero (evtl. Node-Warmup-Timeout)"
+  # #6 ELB-Hostname automatisch in confluence.yml eintragen (aus install-Output)
+  local elb; elb=$(grep -oE 'load_balancer_hostname" = "[^"]+' "$REPO/install_driver.log" | head -1 | sed 's/.*"= *"//;s/.*"//')
+  [ -z "$elb" ] && elb=$(grep -oE '[a-z0-9]+-[0-9]+\.'"$REGION"'\.elb\.amazonaws\.com' "$REPO/install_driver.log" | head -1)
+  if [ -n "$elb" ]; then
+    sed -i "s|^\( *application_hostname:\) .*|\1 $elb|" "$REPO/app/confluence.yml"
+    log "confluence.yml application_hostname -> $elb ✓"
+  else
+    log "MANUAL: ELB-Hostname nicht aus Output extrahierbar -> selbst in app/confluence.yml eintragen."
+  fi
   wait_nodes_ready "$n"   # Terraform-Timeout ignorieren, auf echte Readiness warten
-  log "MANUAL GATE (nur beim ERSTEN provision): ELB-Hostname aus Output in app/confluence.yml eintragen."
 }
 
 set_config(){ # baseline | apps
@@ -124,6 +132,7 @@ case "$cmd" in
   provision) provision "${1:?N}" ;;
   plugins) bash "$REPO/smartics/download_plugins.sh"; bash "$REPO/smartics/install_plugins.sh" ;;
   config) set_config "${1:?baseline|apps}" ;;
+  reindex) bash "$REPO/smartics/reindex_projectdoc.sh" "$@" ;;
   run) run_test "${1:?LABEL}" ;;
   scale) provision "${1:?N}" ;;
   reports) reports ;;
@@ -134,6 +143,7 @@ dcapt_driver.sh <phase>
   creds                 AWS + Lizenz aus 1Password
   provision <N>         install.sh mit N Nodes + auf Readiness warten (erstes Mal: N=1)
   plugins               download_plugins + install_plugins
+  reindex [SPACES...]   Reindex per REST erzwingen (default PROJECTDOCTEST) - Post-Import
   config <baseline|apps> confluence.yml Profil setzen
   run <LABEL>           einen Test fahren + selbst ueberwachen (Auto-Abort) + Results holen
   scale <N>             = provision <N> (fuer Run 4=2, Run 5=4)
